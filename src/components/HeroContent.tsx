@@ -1,3 +1,5 @@
+import HeroBoxes from './HeroBoxes'
+
 export default function HeroContent() {
   return (
     <>
@@ -89,10 +91,8 @@ export default function HeroContent() {
           </div>
         </div>
 
-        {/* Bottom Row: Invisible Spacer exactly matching the boxes height */}
-        <div className="mt-10 flex w-full flex-col justify-between gap-8 md:flex-row md:items-end lg:px-4">
-          <div className="h-[120px] md:h-[140px] lg:h-[160px]" />
-        </div>
+        {/* Bottom Row: Hero Boxes */}
+        <HeroBoxes />
       </div>
     </>
   )
