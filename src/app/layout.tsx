@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Syncopate } from 'next/font/google'
 
 import CustomCursor from '@/components/CustomCursor'
+import SmoothScroller from '@/components/SmoothScroller'
 
 import './globals.css'
 
@@ -37,8 +38,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${syncopate.variable}`}
     >
       <body suppressHydrationWarning>
-        <CustomCursor />
-        {children}
+        <SmoothScroller>
+          <CustomCursor />
+          {children}
+        </SmoothScroller>
       </body>
     </html>
   )
