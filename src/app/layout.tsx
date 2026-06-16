@@ -24,6 +24,8 @@ export const metadata: Metadata = {
   description: 'Mozzin Portfolio Website',
 }
 
+import CustomCursor from '@/components/CustomCursor'
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -34,7 +36,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${syncopate.variable}`}
     >
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <CustomCursor />
+        {children}
+      </body>
     </html>
   )
 }
