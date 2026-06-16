@@ -1,6 +1,5 @@
 import AboutSection from '@/components/AboutSection'
 import HeroBackground from '@/components/HeroBackground'
-import HeroBoxes from '@/components/HeroBoxes'
 import HeroContent from '@/components/HeroContent'
 import HeroMarquee from '@/components/HeroMarquee'
 import InteractiveHero from '@/components/InteractiveHero'
@@ -30,13 +29,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* 5. FIXED BOXES z-40 (In Front of everything in hero, Fixed) */}
-        <div className="pointer-events-none fixed inset-0 z-40 flex flex-col p-6">
-          <div className="relative mx-auto flex w-full max-w-[1500px] flex-1 flex-col">
-            <div className="flex-1" />
-            <HeroBoxes />
-          </div>
-        </div>
       </div>
 
       {/* 6. ABOUT SECTION z-50 (Scrolls up and covers all fixed layers) */}
