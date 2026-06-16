@@ -8,6 +8,10 @@ export default function AboutSection() {
 
   const topMarqueeRef = useRef<HTMLDivElement>(null)
   const bottomMarqueeRef = useRef<HTMLDivElement>(null)
+  const extraOffsetTop = useRef(0)
+  const extraOffsetBottom = useRef(0)
+  const smoothVelocity = useRef(0)
+  const lastScrollY = useRef(0)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -28,33 +32,32 @@ export default function AboutSection() {
   }, [])
 
   useEffect(() => {
-    let currentScroll = window.scrollY
-    let targetScroll = window.scrollY
+    lastScrollY.current = window.scrollY
     let animationFrameId: number
 
     const updateScroll = () => {
-      currentScroll += (targetScroll - currentScroll) * 0.05
+      const currentScroll = window.scrollY
+      const delta = currentScroll - lastScrollY.current
+      lastScrollY.current = currentScroll
+
+      smoothVelocity.current += (delta - smoothVelocity.current) * 0.1
+      
+      extraOffsetTop.current -= smoothVelocity.current * 0.4
+      extraOffsetBottom.current += smoothVelocity.current * 0.4
       
       if (topMarqueeRef.current) {
-        topMarqueeRef.current.style.transform = `translateX(-${currentScroll * 0.15}px)`
+        topMarqueeRef.current.style.transform = `translateX(${extraOffsetTop.current}px)`
       }
       if (bottomMarqueeRef.current) {
-        // Move in opposite direction, but slower to avoid revealing edge
-        bottomMarqueeRef.current.style.transform = `translateX(${currentScroll * 0.1}px)`
+        bottomMarqueeRef.current.style.transform = `translateX(${extraOffsetBottom.current}px)`
       }
       
       animationFrameId = requestAnimationFrame(updateScroll)
     }
 
-    const handleScroll = () => {
-      targetScroll = window.scrollY
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
     animationFrameId = requestAnimationFrame(updateScroll)
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
       cancelAnimationFrame(animationFrameId)
     }
   }, [])
@@ -63,7 +66,8 @@ export default function AboutSection() {
     <section className="pointer-events-auto relative z-50 w-full overflow-hidden border-t border-white/10 bg-[#01030a]">
       {/* Top Marquee */}
       <div className="flex w-full overflow-hidden border-b border-white/5 bg-white/[0.02] py-6 backdrop-blur-md">
-        <div ref={topMarqueeRef} className="animate-marquee flex w-max whitespace-nowrap transition-transform duration-75 ease-out">
+        <div ref={topMarqueeRef} className="flex w-max">
+          <div className="animate-marquee flex w-max whitespace-nowrap" style={{ animationDuration: '60s' }}>
           {[...Array(4)].map((_, i) => (
             <div key={i} className="flex items-center">
               <span className="font-syncopate mx-8 text-xl font-bold tracking-wider text-white md:text-2xl">
@@ -80,6 +84,7 @@ export default function AboutSection() {
               <span className="text-blue-500">✦</span>
             </div>
           ))}
+          </div>
         </div>
       </div>
 
@@ -156,7 +161,8 @@ export default function AboutSection() {
 
       {/* Client Logos Marquee */}
       <div className="flex w-full overflow-hidden border-t border-white/5 bg-white/[0.01] py-16 opacity-60">
-        <div ref={bottomMarqueeRef} className="animate-marquee flex w-max whitespace-nowrap transition-transform duration-75 ease-out" style={{ marginLeft: '-10%' }}>
+        <div ref={bottomMarqueeRef} className="flex w-max" style={{ marginLeft: '-10%' }}>
+          <div className="animate-marquee flex w-max whitespace-nowrap" style={{ animationDuration: '50s' }}>
           {[...Array(3)].map((_, i) => (
             <div
               key={i}
@@ -182,6 +188,7 @@ export default function AboutSection() {
               </span>
             </div>
           ))}
+          </div>
         </div>
       </div>
     </section>
