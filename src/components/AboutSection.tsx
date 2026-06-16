@@ -66,16 +66,15 @@ export default function AboutSection() {
           </div>
 
           {/* Right Content */}
-          <div
-            className={`transform transition-all delay-200 duration-1000 lg:w-2/3 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
-          >
-            <p className="mb-12 font-sans text-2xl leading-relaxed font-light text-gray-300 md:text-4xl lg:text-[40px] lg:leading-[1.4]">
-              Hey there, I&apos;m{' '}
-              <span className="font-semibold text-white">Mozzin</span> — a web
-              developer and UI/UX designer. I bridge the gap between aesthetic
-              brilliance and technical precision. I don&apos;t just build sites
-              that look expensive; I build systems designed to scale your
-              business and dominate your niche.
+          <div className={`flex flex-col gap-8 lg:w-2/3 transition-all duration-1000 delay-200 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+            <p className="font-sans text-2xl font-light leading-relaxed text-gray-300 md:text-3xl lg:text-[32px] lg:leading-[1.4]">
+              I&apos;m <span className="font-semibold text-white">Vijil Raj</span>, a Digital Marketing Professional, Social Media Expert, and Branding Consultant with a strong passion for helping businesses build impactful brands and meaningful digital presence.
+            </p>
+            <p className="font-sans text-xl font-light leading-relaxed text-gray-400 md:text-2xl lg:text-[24px] lg:leading-[1.5]">
+              Over the years, I have worked with entrepreneurs, business leaders, creators, and growing brands across different industries, helping them improve visibility, strengthen their brand identity, and connect with the right audience.
+            </p>
+            <p className="mb-4 font-sans text-xl font-light leading-relaxed text-gray-400 md:text-2xl lg:text-[24px] lg:leading-[1.5]">
+              As the founder of Mozz.in, I focus on combining branding, content strategy, social media marketing, and business growth to help brands stand out in competitive markets.
             </p>
 
             {/* Buttons */}
