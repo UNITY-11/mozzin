@@ -2,6 +2,73 @@
 
 import { useEffect, useRef, useState } from 'react'
 
+const ScrollRevealParagraph = ({
+  text,
+  className,
+}: {
+  text: string
+  className?: string
+}) => {
+  const pRef = useRef<HTMLParagraphElement>(null)
+
+  useEffect(() => {
+    let animationFrameId: number
+
+    const handleScroll = () => {
+      if (!pRef.current) return
+      const rect = pRef.current.getBoundingClientRect()
+      const windowHeight = window.innerHeight
+
+      // Start revealing when top hits 85% of viewport
+      // Fully revealed when top hits 40% of viewport
+      const start = windowHeight * 0.85
+      const end = windowHeight * 0.4
+
+      const progress = Math.max(0, Math.min(1, (start - rect.top) / (start - end)))
+
+      const spans = pRef.current.querySelectorAll('.reveal-word')
+      const totalWords = spans.length
+
+      spans.forEach((span, index) => {
+        const wordStart = index / totalWords
+        const wordEnd = wordStart + 0.2
+        const wordProgress = Math.max(
+          0,
+          Math.min(1, (progress - wordStart) / (wordEnd - wordStart))
+        )
+        ;(span as HTMLElement).style.opacity = (0.15 + wordProgress * 0.85).toString()
+      })
+
+      animationFrameId = requestAnimationFrame(handleScroll)
+    }
+
+    animationFrameId = requestAnimationFrame(handleScroll)
+
+    return () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId)
+    }
+  }, [])
+
+  const words = text.split(' ')
+
+  return (
+    <p ref={pRef} className={`flex flex-wrap gap-x-[0.25em] gap-y-1 ${className || ''}`}>
+      {words.map((word, i) => {
+        const isBold = word === 'Vijil' || word === "Raj,"
+        return (
+          <span
+            key={i}
+            className={`reveal-word ${isBold ? 'font-semibold text-white' : ''}`}
+            style={{ opacity: 0.15 }}
+          >
+            {word}
+          </span>
+        )
+      })}
+    </p>
+  )
+}
+
 export default function AboutSection() {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -107,15 +174,18 @@ export default function AboutSection() {
 
           {/* Right Content */}
           <div className={`flex flex-col gap-8 lg:w-2/3 transition-all duration-1000 delay-200 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
-            <p className="font-sans text-2xl font-light leading-relaxed text-gray-300 md:text-3xl lg:text-[32px] lg:leading-[1.4]">
-              I&apos;m <span className="font-semibold text-white">Vijil Raj</span>, a Digital Marketing Professional, Social Media Expert, and Branding Consultant with a strong passion for helping businesses build impactful brands and meaningful digital presence.
-            </p>
-            <p className="font-sans text-xl font-light leading-relaxed text-gray-400 md:text-2xl lg:text-[24px] lg:leading-[1.5]">
-              Over the years, I have worked with entrepreneurs, business leaders, creators, and growing brands across different industries, helping them improve visibility, strengthen their brand identity, and connect with the right audience.
-            </p>
-            <p className="mb-4 font-sans text-xl font-light leading-relaxed text-gray-400 md:text-2xl lg:text-[24px] lg:leading-[1.5]">
-              As the founder of Mozz.in, I focus on combining branding, content strategy, social media marketing, and business growth to help brands stand out in competitive markets.
-            </p>
+            <ScrollRevealParagraph 
+              text="I'm Vijil Raj, a Digital Marketing Professional, Social Media Expert, and Branding Consultant with a strong passion for helping businesses build impactful brands and meaningful digital presence."
+              className="font-sans text-2xl font-light leading-relaxed text-gray-300 md:text-3xl lg:text-[32px] lg:leading-[1.4]"
+            />
+            <ScrollRevealParagraph 
+              text="Over the years, I have worked with entrepreneurs, business leaders, creators, and growing brands across different industries, helping them improve visibility, strengthen their brand identity, and connect with the right audience."
+              className="font-sans text-xl font-light leading-relaxed text-gray-400 md:text-2xl lg:text-[24px] lg:leading-[1.5]"
+            />
+            <ScrollRevealParagraph 
+              text="As the founder of Mozz.in, I focus on combining branding, content strategy, social media marketing, and business growth to help brands stand out in competitive markets."
+              className="mb-4 font-sans text-xl font-light leading-relaxed text-gray-400 md:text-2xl lg:text-[24px] lg:leading-[1.5]"
+            />
 
             {/* Buttons */}
             <div className="flex flex-wrap items-center gap-8">
