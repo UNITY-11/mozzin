@@ -3,6 +3,7 @@ import HeroBackground from '@/components/HeroBackground'
 import HeroContent from '@/components/HeroContent'
 import HeroMarquee from '@/components/HeroMarquee'
 import InteractiveHero from '@/components/InteractiveHero'
+import ExpertiseSection from '@/components/ExpertiseSection'
 
 export default function Home() {
   return (
@@ -33,6 +34,9 @@ export default function Home() {
 
       {/* 6. ABOUT SECTION z-50 (Scrolls up and covers all fixed layers) */}
       <AboutSection />
+
+      {/* 7. EXPERTISE SECTION */}
+      <ExpertiseSection />
     </main>
   )
 }
