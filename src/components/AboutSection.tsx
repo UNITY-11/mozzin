@@ -6,6 +6,9 @@ export default function AboutSection() {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
 
+  const topMarqueeRef = useRef<HTMLDivElement>(null)
+  const bottomMarqueeRef = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -24,11 +27,43 @@ export default function AboutSection() {
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    let currentScroll = window.scrollY
+    let targetScroll = window.scrollY
+    let animationFrameId: number
+
+    const updateScroll = () => {
+      currentScroll += (targetScroll - currentScroll) * 0.05
+      
+      if (topMarqueeRef.current) {
+        topMarqueeRef.current.style.transform = `translateX(-${currentScroll * 0.15}px)`
+      }
+      if (bottomMarqueeRef.current) {
+        // Move in opposite direction, but slower to avoid revealing edge
+        bottomMarqueeRef.current.style.transform = `translateX(${currentScroll * 0.1}px)`
+      }
+      
+      animationFrameId = requestAnimationFrame(updateScroll)
+    }
+
+    const handleScroll = () => {
+      targetScroll = window.scrollY
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    animationFrameId = requestAnimationFrame(updateScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      cancelAnimationFrame(animationFrameId)
+    }
+  }, [])
+
   return (
     <section className="pointer-events-auto relative z-50 w-full overflow-hidden border-t border-white/10 bg-[#01030a]">
       {/* Top Marquee */}
       <div className="flex w-full overflow-hidden border-b border-white/5 bg-white/[0.02] py-6 backdrop-blur-md">
-        <div className="animate-marquee flex w-max whitespace-nowrap">
+        <div ref={topMarqueeRef} className="animate-marquee flex w-max whitespace-nowrap transition-transform duration-75 ease-out">
           {[...Array(4)].map((_, i) => (
             <div key={i} className="flex items-center">
               <span className="font-syncopate mx-8 text-xl font-bold tracking-wider text-white md:text-2xl">
@@ -121,7 +156,7 @@ export default function AboutSection() {
 
       {/* Client Logos Marquee */}
       <div className="flex w-full overflow-hidden border-t border-white/5 bg-white/[0.01] py-16 opacity-60">
-        <div className="animate-marquee flex w-max whitespace-nowrap">
+        <div ref={bottomMarqueeRef} className="animate-marquee flex w-max whitespace-nowrap transition-transform duration-75 ease-out" style={{ marginLeft: '-10%' }}>
           {[...Array(3)].map((_, i) => (
             <div
               key={i}

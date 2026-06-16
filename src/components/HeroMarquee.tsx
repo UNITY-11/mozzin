@@ -6,14 +6,31 @@ export default function HeroMarquee() {
   const marqueeRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const handleScroll = () => {
+    let currentScroll = window.scrollY
+    let targetScroll = window.scrollY
+    let animationFrameId: number
+
+    const updateScroll = () => {
+      currentScroll += (targetScroll - currentScroll) * 0.05
+      
       if (marqueeRef.current) {
-        marqueeRef.current.style.transform = `translateX(-${window.scrollY * 0.8}px)`
+        marqueeRef.current.style.transform = `translateX(-${currentScroll * 0.25}px)`
       }
+      
+      animationFrameId = requestAnimationFrame(updateScroll)
+    }
+
+    const handleScroll = () => {
+      targetScroll = window.scrollY
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    animationFrameId = requestAnimationFrame(updateScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      cancelAnimationFrame(animationFrameId)
+    }
   }, [])
 
   return (
