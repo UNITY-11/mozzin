@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Syncopate } from 'next/font/google'
 
+import CustomCursor from '@/components/CustomCursor'
+
 import './globals.css'
 
 const geistSans = Geist({
@@ -23,8 +25,6 @@ export const metadata: Metadata = {
   title: 'Mozzin',
   description: 'Mozzin Portfolio Website',
 }
-
-import CustomCursor from '@/components/CustomCursor'
 
 export default function RootLayout({
   children,
