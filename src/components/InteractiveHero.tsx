@@ -14,49 +14,44 @@ export default function InteractiveHero() {
     setMousePosition({ x, y })
   }
 
-  // To hide mask when mouse leaves
   const [isHovering, setIsHovering] = useState(false)
 
   return (
-    <div
-      ref={containerRef}
-      className="relative mx-auto flex h-[850px] w-full items-end justify-center"
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
-    >
-      {/* Base Hero Image */}
+    <div ref={containerRef} className="relative h-full w-full">
+      {/* Background Hero Image (Hero 2 - Hidden when not hovering to avoid bleeding through transparent areas) */}
       <img
-        src="/images/hero-1.webp"
-        alt="Mozzin CEO"
-        className="pointer-events-none absolute bottom-0 w-[900px] object-contain transition-opacity duration-300"
+        src="/images/hero-2.webp"
+        alt="Mozzin CEO Alternate"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-300"
+        style={{ opacity: isHovering ? 1 : 0 }}
       />
 
-      {/* Hover Mask Hero Image */}
+      {/* Foreground Hero Image (Hero 1 - Erased at the cursor) */}
       <div
         className="pointer-events-none absolute inset-0 transition-opacity duration-300"
         style={{
-          opacity: isHovering ? 1 : 0,
-          maskImage: `radial-gradient(circle 300px at ${mousePosition.x}px ${mousePosition.y}px, black 20%, transparent 100%)`,
-          WebkitMaskImage: `radial-gradient(circle 300px at ${mousePosition.x}px ${mousePosition.y}px, black 20%, transparent 100%)`,
+          maskImage: isHovering
+            ? `radial-gradient(circle 450px at ${mousePosition.x}px ${mousePosition.y}px, transparent 0%, transparent 50%, rgba(0,0,0,1) 80%)`
+            : `none`,
+          WebkitMaskImage: isHovering
+            ? `radial-gradient(circle 450px at ${mousePosition.x}px ${mousePosition.y}px, transparent 0%, transparent 50%, rgba(0,0,0,1) 80%)`
+            : `none`,
         }}
       >
         <img
-          src="/images/hero-2.webp"
-          alt="Mozzin CEO Alternate"
-          className="absolute bottom-0 left-1/2 w-[900px] -translate-x-1/2 object-contain"
-        />
-        {/* Glow Element mimicking background brightness */}
-        <div
-          className="pointer-events-none absolute rounded-full bg-blue-300/40 mix-blend-screen blur-[100px]"
-          style={{
-            left: mousePosition.x - 200,
-            top: mousePosition.y - 200,
-            width: 400,
-            height: 400,
-          }}
+          src="/images/hero-1.webp"
+          alt="Mozzin CEO"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
         />
       </div>
+
+      {/* Invisible Trigger Zone - restricts hover effect to the actual person in the center */}
+      <div
+        className="absolute bottom-0 left-1/2 z-10 h-[85%] w-[600px] -translate-x-1/2 cursor-crosshair"
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      />
     </div>
   )
 }
