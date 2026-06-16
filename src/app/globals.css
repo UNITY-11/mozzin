@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+@theme {
+  --font-syncopate: var(--font-syncopate);
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

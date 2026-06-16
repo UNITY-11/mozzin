@@ -29,7 +29,7 @@ export default function InteractiveHero() {
       <img
         src="/images/hero-1.webp"
         alt="Mozzin CEO"
-        className="pointer-events-none absolute bottom-0 w-[600px] object-contain transition-opacity duration-300"
+        className="pointer-events-none absolute bottom-0 w-[900px] object-contain transition-opacity duration-300"
       />
 
       {/* Hover Mask Hero Image */}
@@ -37,23 +37,23 @@ export default function InteractiveHero() {
         className="pointer-events-none absolute inset-0 transition-opacity duration-300"
         style={{
           opacity: isHovering ? 1 : 0,
-          maskImage: `radial-gradient(circle 250px at ${mousePosition.x}px ${mousePosition.y}px, black 20%, transparent 100%)`,
-          WebkitMaskImage: `radial-gradient(circle 250px at ${mousePosition.x}px ${mousePosition.y}px, black 20%, transparent 100%)`,
+          maskImage: `radial-gradient(circle 300px at ${mousePosition.x}px ${mousePosition.y}px, black 20%, transparent 100%)`,
+          WebkitMaskImage: `radial-gradient(circle 300px at ${mousePosition.x}px ${mousePosition.y}px, black 20%, transparent 100%)`,
         }}
       >
         <img
           src="/images/hero-2.webp"
           alt="Mozzin CEO Alternate"
-          className="absolute bottom-0 left-1/2 w-[600px] -translate-x-1/2 object-contain"
+          className="absolute bottom-0 left-1/2 w-[900px] -translate-x-1/2 object-contain"
         />
         {/* Glow Element mimicking background brightness */}
         <div
-          className="pointer-events-none absolute rounded-full bg-blue-400/30 mix-blend-screen blur-[80px]"
+          className="pointer-events-none absolute rounded-full bg-blue-300/40 mix-blend-screen blur-[100px]"
           style={{
-            left: mousePosition.x - 150,
-            top: mousePosition.y - 150,
-            width: 300,
-            height: 300,
+            left: mousePosition.x - 200,
+            top: mousePosition.y - 200,
+            width: 400,
+            height: 400,
           }}
         />
       </div>
