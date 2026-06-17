@@ -8,7 +8,7 @@ export default function HeroContent() {
       {/* Header */}
       <header className="pointer-events-auto flex items-center justify-between">
         <div className="flex flex-1">
-          <div 
+          <div
             onClick={() => window.dispatchEvent(new Event('toggle-navigation'))}
             className="group flex cursor-pointer flex-col gap-2.5"
           >
