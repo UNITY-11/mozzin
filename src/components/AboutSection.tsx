@@ -219,7 +219,7 @@ export default function AboutSection() {
                 {/* Paragraph 1 */}
                 <p
                   ref={p1Ref}
-                  className="col-start-1 row-start-1 w-full bg-clip-text text-2xl leading-relaxed font-light text-transparent opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-3xl lg:text-4xl uppercase"
+                  className="col-start-1 row-start-1 w-full bg-clip-text text-xl leading-relaxed font-light text-transparent opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:text-3xl lg:leading-[1.4] uppercase"
                   style={{
                     backgroundImage:
                       'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
@@ -231,7 +231,7 @@ export default function AboutSection() {
                 {/* Paragraph 2 */}
                 <p
                   ref={p2Ref}
-                  className="col-start-1 row-start-1 w-full bg-clip-text text-2xl leading-relaxed font-light text-transparent opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-3xl lg:text-4xl uppercase"
+                  className="col-start-1 row-start-1 w-full bg-clip-text text-xl leading-relaxed font-light text-transparent opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:text-3xl lg:leading-[1.4] uppercase"
                   style={{
                     backgroundImage:
                       'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
@@ -243,7 +243,7 @@ export default function AboutSection() {
                 {/* Paragraph 3 */}
                 <p
                   ref={p3Ref}
-                  className="col-start-1 row-start-1 w-full bg-clip-text text-2xl leading-relaxed font-light text-transparent opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-3xl lg:text-4xl uppercase"
+                  className="col-start-1 row-start-1 w-full bg-clip-text text-xl leading-relaxed font-light text-transparent opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:text-3xl lg:leading-[1.4] uppercase"
                   style={{
                     backgroundImage:
                       'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
