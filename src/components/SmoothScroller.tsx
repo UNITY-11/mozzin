@@ -1,7 +1,8 @@
 'use client'
 
-import Lenis from 'lenis'
 import { ReactNode, useEffect } from 'react'
+
+import Lenis from 'lenis'
 
 export default function SmoothScroller({ children }: { children: ReactNode }) {
   useEffect(() => {
@@ -18,7 +19,15 @@ export default function SmoothScroller({ children }: { children: ReactNode }) {
 
     requestAnimationFrame(raf)
 
+    const handleStop = () => lenis.stop()
+    const handleStart = () => lenis.start()
+
+    window.addEventListener('lenis-stop', handleStop)
+    window.addEventListener('lenis-start', handleStart)
+
     return () => {
+      window.removeEventListener('lenis-stop', handleStop)
+      window.removeEventListener('lenis-start', handleStart)
       lenis.destroy()
     }
   }, [])

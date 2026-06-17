@@ -9,7 +9,10 @@ import InteractiveHero from '@/components/InteractiveHero'
 
 export default function Home() {
   return (
-    <main className="relative w-full bg-[#01030a] font-sans text-white">
+    <main
+      id="home"
+      className="relative w-full bg-[#01030a] font-sans text-white"
+    >
       {/* 1. FIXED BACKGROUND z-0 */}
       <HeroBackground />
 
@@ -34,18 +37,22 @@ export default function Home() {
       </div>
 
       {/* 6. ABOUT SECTION z-50 (Scrolls up and covers all fixed layers) */}
-      <AboutSection />
+      <div id="about">
+        <AboutSection />
+      </div>
 
       {/* 7. EXPERTISE SECTION (What I Do) */}
-      <ExpertiseSection />
+      <div id="expertise">
+        <ExpertiseSection />
+      </div>
 
       {/* FOUNDER SECTION (Slides over ExpertiseSection) */}
-      <div className="relative z-30 mt-[-100vh] bg-[#01030a]">
+      <div id="founder" className="relative z-30 mt-[-100vh] bg-[#01030a]">
         <FounderSection />
       </div>
 
       {/* APPROACH SECTION */}
-      <div className="relative z-30 bg-[#01030a]">
+      <div id="approach" className="relative z-30 bg-[#01030a]">
         <ApproachSection />
       </div>
     </main>
