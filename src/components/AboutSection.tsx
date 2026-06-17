@@ -29,21 +29,9 @@ const ScrollRevealParagraph = ({
         Math.min(1, (start - rect.top) / (start - end)),
       )
 
-      const spans = pRef.current.querySelectorAll('.reveal-word')
-      const totalWords = spans.length
-
-      spans.forEach((span, index) => {
-        const wordStart = index / totalWords
-        const wordEnd = wordStart + 0.2
-        const wordProgress = Math.max(
-          0,
-          Math.min(1, (progress - wordStart) / (wordEnd - wordStart)),
-        )
-        ;(span as HTMLElement).style.opacity = (
-          0.15 +
-          wordProgress * 0.85
-        ).toString()
-      })
+      // Map progress 0→1 to revealPct -20%→120%
+      const revealPct = -20 + progress * 140
+      pRef.current.style.setProperty('--reveal-pct', `${revealPct}%`)
 
       animationFrameId = requestAnimationFrame(handleScroll)
     }
@@ -55,25 +43,30 @@ const ScrollRevealParagraph = ({
     }
   }, [])
 
-  const words = text.split(' ')
+  // Render text with "Vijil Raj," bolded
+  const renderText = () => {
+    const boldPhrase = 'Vijil Raj,'
+    const idx = text.indexOf(boldPhrase)
+    if (idx === -1) return text
+    return (
+      <>
+        {text.slice(0, idx)}
+        <span className="font-semibold">{boldPhrase}</span>
+        {text.slice(idx + boldPhrase.length)}
+      </>
+    )
+  }
 
   return (
     <p
       ref={pRef}
-      className={`flex flex-wrap gap-x-[0.25em] gap-y-1 ${className || ''}`}
+      className={className || ''}
+      style={{
+        backgroundImage:
+          'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
+      }}
     >
-      {words.map((word, i) => {
-        const isBold = word === 'Vijil' || word === 'Raj,'
-        return (
-          <span
-            key={i}
-            className={`reveal-word ${isBold ? 'font-semibold text-white' : ''}`}
-            style={{ opacity: 0.15 }}
-          >
-            {word}
-          </span>
-        )
-      })}
+      {renderText()}
     </p>
   )
 }
@@ -173,15 +166,27 @@ export default function AboutSection() {
         className="mx-auto max-w-[1500px] px-6 py-24 md:px-10 lg:py-32"
       >
         <div className="flex flex-col gap-12 lg:flex-row lg:gap-24">
-          {/* Left Title */}
+          {/* Left Title + Person Image */}
           <div
-            className={`flex transform items-center gap-4 transition-all duration-1000 lg:w-1/3 lg:items-start lg:pt-2 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
+            className={`flex transform flex-col gap-8 transition-all duration-1000 lg:w-1/3 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
           >
-            <div className="h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_10px_#3b82f6]" />
-            <h3 className="font-syncopate text-sm font-bold tracking-widest text-white uppercase">
-              About Me
-            </h3>
-            <div className="ml-4 h-[1px] w-24 bg-white/20 lg:w-48" />
+            <div className="flex items-center gap-4 lg:pt-2">
+              <div className="h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_10px_#3b82f6]" />
+              <h3 className="font-syncopate text-sm font-bold tracking-widest text-white uppercase">
+                About Me
+              </h3>
+              <div className="ml-4 h-[1px] w-24 bg-white/20 lg:w-48" />
+            </div>
+
+            {/* Person Image */}
+            <div className="relative w-full max-w-[400px] overflow-hidden rounded-lg bg-white/[0.03]">
+              <img
+                src="/images/amiz.webp"
+                alt="Vijil Raj"
+                className="h-auto w-full object-cover object-top"
+              />
+              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#01030a] to-transparent" />
+            </div>
           </div>
 
           {/* Right Content */}
@@ -190,15 +195,15 @@ export default function AboutSection() {
           >
             <ScrollRevealParagraph
               text="I'm Vijil Raj, a Digital Marketing Professional, Social Media Expert, and Branding Consultant with a strong passion for helping businesses build impactful brands and meaningful digital presence."
-              className="font-sans text-2xl leading-relaxed font-light text-gray-300 md:text-3xl lg:text-[32px] lg:leading-[1.4]"
+              className="font-sans text-2xl leading-relaxed font-light bg-clip-text text-transparent md:text-3xl lg:text-[32px] lg:leading-[1.4]"
             />
             <ScrollRevealParagraph
               text="Over the years, I have worked with entrepreneurs, business leaders, creators, and growing brands across different industries, helping them improve visibility, strengthen their brand identity, and connect with the right audience."
-              className="font-sans text-xl leading-relaxed font-light text-gray-400 md:text-2xl lg:text-[24px] lg:leading-[1.5]"
+              className="font-sans text-xl leading-relaxed font-light bg-clip-text text-transparent md:text-2xl lg:text-[24px] lg:leading-[1.5]"
             />
             <ScrollRevealParagraph
               text="As the founder of Mozz.in, I focus on combining branding, content strategy, social media marketing, and business growth to help brands stand out in competitive markets."
-              className="mb-4 font-sans text-xl leading-relaxed font-light text-gray-400 md:text-2xl lg:text-[24px] lg:leading-[1.5]"
+              className="mb-4 font-sans text-xl leading-relaxed font-light bg-clip-text text-transparent md:text-2xl lg:text-[24px] lg:leading-[1.5]"
             />
 
             {/* Buttons */}
@@ -223,7 +228,7 @@ export default function AboutSection() {
               </button>
 
               <button className="group font-syncopate flex cursor-pointer items-center gap-3 text-sm font-bold tracking-wider text-white transition-colors hover:text-blue-400">
-                View My Work
+                View My Services
                 <svg
                   className="h-4 w-4 transition-transform group-hover:translate-x-1"
                   fill="none"
