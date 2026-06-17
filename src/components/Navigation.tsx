@@ -34,6 +34,7 @@ export default function Navigation() {
     { name: 'EXPERTISE', id: 'expertise' },
     { name: 'APPROACH', id: 'approach' },
     { name: 'FOUNDER', id: 'founder' },
+    { name: 'CONTACT', id: 'contact' },
   ]
 
   const handleScrollTo = (id: string) => {
@@ -99,7 +100,7 @@ export default function Navigation() {
             <div className="mt-auto pt-16">
               <div className="mb-4 flex gap-4 text-white opacity-50">
                 <a
-                  href="#"
+                  href="https://x.com/amozz_in?s=11"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="transition-colors hover:text-blue-500"
@@ -109,7 +110,7 @@ export default function Navigation() {
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
-                    <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                   </svg>
                 </a>
                 <a
@@ -151,9 +152,10 @@ export default function Navigation() {
                   href="https://unity11solutions.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text font-bold text-transparent transition-opacity hover:opacity-80"
+                  className="inline-flex items-center gap-1 align-middle transition-opacity hover:opacity-80"
                 >
-                  UNITY11
+                  <img src="/gif/unity11-logo.gif" alt="Unity11 Logo" className="h-4 w-4 object-contain" />
+                  <span className="bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text font-bold text-transparent">UNITY11</span>
                 </a>
               </p>
             </div>
