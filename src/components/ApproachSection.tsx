@@ -314,7 +314,7 @@ export default function ApproachSection() {
               {/* Paragraph 1 */}
               <p
                 ref={p1Ref}
-                className="col-start-1 row-start-1 w-full bg-clip-text text-2xl leading-relaxed font-light text-transparent md:text-3xl lg:text-4xl"
+                className="col-start-1 row-start-1 w-full bg-clip-text text-2xl leading-relaxed font-light text-transparent md:text-3xl lg:text-4xl uppercase"
                 style={{
                   backgroundImage:
                     'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
@@ -328,7 +328,7 @@ export default function ApproachSection() {
               {/* Paragraph 2 */}
               <p
                 ref={p2Ref}
-                className="col-start-1 row-start-1 w-full bg-clip-text text-2xl leading-relaxed font-light text-transparent md:text-3xl lg:text-4xl"
+                className="col-start-1 row-start-1 w-full bg-clip-text text-2xl leading-relaxed font-light text-transparent md:text-3xl lg:text-4xl uppercase"
                 style={{
                   backgroundImage:
                     'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
