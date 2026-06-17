@@ -78,7 +78,7 @@ export default function Navigation() {
                   src="/images/hero-ui.webp"
                   alt="Navigation Image"
                   fill
-                  className="object-cover"
+                  className="object-contain object-left-bottom"
                 />
               </div>
               <div className="font-syncopate mt-4 flex justify-between text-[10px] font-medium tracking-wider text-white/50 uppercase lg:text-xs">
