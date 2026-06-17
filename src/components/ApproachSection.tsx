@@ -126,7 +126,7 @@ export default function ApproachSection() {
       // NOTE: Using ts-ignore for the ref array to bypass type errors for quick indexing
       // Flip cards simultaneously with spread
       // NOTE: Using ts-ignore for the ref array to bypass type errors for quick indexing
-      // @ts-expect-error - ref assignment
+
       blueCardsRef.current.forEach((card, i) => {
         if (!card) return
 
@@ -296,7 +296,6 @@ export default function ApproachSection() {
                 style={{ transformStyle: 'preserve-3d' }}
               >
                 <div
-                  // @ts-expect-error - ref assignment
                   ref={(el) => {
                     blueCardsRef.current[i] = el
                   }}
