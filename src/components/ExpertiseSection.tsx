@@ -177,15 +177,15 @@ export default function ExpertiseSection() {
   const isTablet = windowWidth >= 768 && windowWidth < 1024
 
   // Derived progress values for phased animation
-  // Phase 1 (0 to 0.4): Cards slide up from bottom
-  const entryProgress = Math.min(1, Math.max(0, progress / 0.4))
-  // Phase 2 (0.4 to 1.0): Cards spread out
-  const spreadProgress = Math.min(1, Math.max(0, (progress - 0.4) / 0.6))
+  // Phase 1 (0 to 0.3): Cards slide up from bottom
+  const entryProgress = Math.min(1, Math.max(0, progress / 0.3))
+  // Phase 2 (0.3 to 0.75): Cards spread out
+  const spreadProgress = Math.min(1, Math.max(0, (progress - 0.3) / 0.45))
 
   return (
     <section
       ref={containerRef}
-      className="relative z-20 h-[400vh] bg-[#01030a]"
+      className="relative z-20 h-[500vh] bg-[#01030a]"
     >
       <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden border-t border-white/5 px-6 md:px-10">
         <div className="relative flex h-full w-full max-w-[1500px] items-center justify-center">
