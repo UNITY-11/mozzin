@@ -1,4 +1,5 @@
 import AboutSection from '@/components/AboutSection'
+import ApproachSection from '@/components/ApproachSection'
 import ExpertiseSection from '@/components/ExpertiseSection'
 import FounderSection from '@/components/FounderSection'
 import HeroBackground from '@/components/HeroBackground'
@@ -41,6 +42,11 @@ export default function Home() {
       {/* FOUNDER SECTION (Slides over ExpertiseSection) */}
       <div className="relative z-30 mt-[-100vh] bg-[#01030a]">
         <FounderSection />
+      </div>
+
+      {/* APPROACH SECTION */}
+      <div className="relative z-30 bg-[#01030a]">
+        <ApproachSection />
       </div>
     </main>
   )
