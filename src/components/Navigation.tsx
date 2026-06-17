@@ -73,7 +73,7 @@ export default function Navigation() {
           {/* Left Content */}
           <div className="flex h-full w-full flex-col justify-between overflow-y-auto px-12 py-4 lg:px-24 lg:py-12">
             <div className="w-full max-w-sm lg:max-w-[400px]">
-              <div className="relative h-[220px] w-full bg-white/5 lg:h-[260px]">
+              <div className="relative h-[220px] w-full lg:h-[260px]">
                 <Image
                   src="/images/hero-ui.webp"
                   alt="Navigation Image"
