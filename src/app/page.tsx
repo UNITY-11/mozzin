@@ -1,5 +1,6 @@
 import AboutSection from '@/components/AboutSection'
 import ApproachSection from '@/components/ApproachSection'
+import ContactSection from '@/components/ContactSection'
 import ExpertiseSection from '@/components/ExpertiseSection'
 import FounderSection from '@/components/FounderSection'
 import HeroBackground from '@/components/HeroBackground'
@@ -54,6 +55,11 @@ export default function Home() {
       {/* APPROACH SECTION */}
       <div id="approach" className="relative z-30 bg-[#01030a]">
         <ApproachSection />
+      </div>
+
+      {/* CONTACT SECTION */}
+      <div id="contact" className="relative z-30 bg-[#01030a]">
+        <ContactSection />
       </div>
     </main>
   )
