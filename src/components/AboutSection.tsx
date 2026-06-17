@@ -152,7 +152,7 @@ export default function AboutSection() {
   }, [])
 
   return (
-    <section className="pointer-events-auto relative z-50 w-full overflow-hidden border-t border-white/10 bg-[#01030a]">
+    <section className="pointer-events-auto relative z-50 w-full border-t border-white/10 bg-[#01030a]">
       {/* Top Marquee */}
       <div className="flex w-full overflow-hidden border-b border-white/5 bg-white/[0.02] py-6 backdrop-blur-md">
         <div ref={topMarqueeRef} className="flex w-max">
