@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import Image from 'next/image'
 
 export default function InteractiveHero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -19,10 +20,12 @@ export default function InteractiveHero() {
   return (
     <div ref={containerRef} className="relative h-full w-full">
       {/* Background Hero Image (Hero 2 - Hidden when not hovering to avoid bleeding through transparent areas) */}
-      <img
+      <Image
         src="/images/hero-2.webp"
         alt="Mozzin CEO Alternate"
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-300"
+        fill
+        priority
+        className="pointer-events-none absolute inset-0 object-cover transition-opacity duration-300"
         style={{ opacity: isHovering ? 1 : 0 }}
       />
 
@@ -38,10 +41,12 @@ export default function InteractiveHero() {
             : `none`,
         }}
       >
-        <img
+        <Image
           src="/images/hero-1.webp"
           alt="Mozzin CEO"
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+          fill
+          priority
+          className="pointer-events-none absolute inset-0 object-cover"
         />
       </div>
 

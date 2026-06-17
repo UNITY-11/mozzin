@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -72,11 +73,14 @@ export default function Navigation() {
           {/* Left Content */}
           <div className="flex h-full w-full flex-col justify-between overflow-y-auto p-12 lg:p-24">
             <div className="w-full max-w-lg">
-              <img
-                src="/images/hero-ui.webp"
-                alt="Navigation Image"
-                className="h-[250px] w-full bg-white/5 object-cover lg:h-[300px]"
-              />
+              <div className="relative h-[250px] w-full bg-white/5 lg:h-[300px]">
+                <Image
+                  src="/images/hero-ui.webp"
+                  alt="Navigation Image"
+                  fill
+                  className="object-cover"
+                />
+              </div>
               <div className="font-syncopate mt-6 flex justify-between text-[10px] font-medium tracking-wider text-white/50 uppercase lg:text-xs">
                 <div>
                   <p className="mb-2">Recent Project</p>
@@ -103,25 +107,34 @@ export default function Navigation() {
                   href="https://x.com/amozz_in?s=11"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-syncopate text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-500"
+                  className="group font-syncopate flex items-center text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-500"
                 >
                   X
+                  <svg className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
                 </a>
                 <a
                   href="https://www.instagram.com/amozz.in?igsh=MTdqZGMwYzJ4OWJobQ=="
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-syncopate text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-500"
+                  className="group font-syncopate flex items-center text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-500"
                 >
                   INSTAGRAM
+                  <svg className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
                 </a>
                 <a
                   href="https://www.linkedin.com/in/vijilraj?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-syncopate text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-500"
+                  className="group font-syncopate flex items-center text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-500"
                 >
                   LINKEDIN
+                  <svg className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
                 </a>
               </div>
               <p className="text-xs leading-relaxed tracking-wide text-white/40">
@@ -136,7 +149,9 @@ export default function Navigation() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 align-middle transition-opacity hover:opacity-80"
                 >
-                  <img src="/gif/unity11-logo.gif" alt="Unity11 Logo" className="h-4 w-4 object-contain" />
+                  <span className="relative inline-block h-4 w-4">
+                    <Image src="/gif/unity11-logo.gif" alt="Unity11 Logo" fill className="object-contain" unoptimized />
+                  </span>
                   <span className="bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text font-bold text-transparent">UNITY11</span>
                 </a>
               </p>
@@ -171,7 +186,7 @@ export default function Navigation() {
                 onClick={() => handleScrollTo(link.id)}
                 className="group relative flex w-full items-center px-8 py-3 text-left transition-colors duration-300 hover:bg-blue-600 md:px-12 md:py-4 lg:px-24 lg:py-5"
               >
-                <span className="font-syncopate flex items-center gap-2 text-2xl font-bold tracking-tighter text-blue-500 transition-all duration-300 group-hover:text-[#0a0a0a] md:text-4xl lg:text-5xl xl:text-6xl">
+                <span className="font-syncopate flex items-center gap-2 text-4xl font-bold tracking-tighter text-blue-500 transition-all duration-300 group-hover:text-[#0a0a0a] md:text-6xl lg:text-7xl xl:text-[80px]">
                   {/* Arrow Icon */}
                   <span className="w-0 overflow-hidden opacity-0 transition-all duration-300 ease-[cubic-bezier(0.87,0,0.13,1)] group-hover:w-8 group-hover:opacity-100 md:group-hover:w-12 lg:group-hover:w-16">
                     <svg

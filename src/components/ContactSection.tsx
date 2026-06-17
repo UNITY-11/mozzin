@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 
 export default function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -229,25 +230,34 @@ export default function ContactSection() {
                 href="https://x.com/amozz_in?s=11"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-syncopate text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-400"
+                className="group font-syncopate flex items-center text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-400"
               >
                 X
+                <svg className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
               </a>
               <a
                 href="https://www.instagram.com/amozz.in?igsh=MTdqZGMwYzJ4OWJobQ=="
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-syncopate text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-400"
+                className="group font-syncopate flex items-center text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-400"
               >
                 INSTAGRAM
+                <svg className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
               </a>
               <a
                 href="https://www.linkedin.com/in/vijilraj?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-syncopate text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-400"
+                className="group font-syncopate flex items-center text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-400"
               >
                 LINKEDIN
+                <svg className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
               </a>
             </div>
           </div>
@@ -267,7 +277,9 @@ export default function ContactSection() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 align-middle transition-opacity hover:opacity-80"
               >
-                <img src="/gif/unity11-logo.gif" alt="Unity11 Logo" className="h-4 w-4 object-contain" />
+                <span className="relative inline-block h-4 w-4">
+                  <Image src="/gif/unity11-logo.gif" alt="Unity11 Logo" fill className="object-contain" unoptimized />
+                </span>
                 <span className="bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text font-bold text-transparent">UNITY11</span>
               </a>
             </p>

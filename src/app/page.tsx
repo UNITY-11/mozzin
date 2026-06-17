@@ -1,12 +1,14 @@
-import AboutSection from '@/components/AboutSection'
-import ApproachSection from '@/components/ApproachSection'
-import ContactSection from '@/components/ContactSection'
-import ExpertiseSection from '@/components/ExpertiseSection'
-import FounderSection from '@/components/FounderSection'
+import dynamic from 'next/dynamic'
 import HeroBackground from '@/components/HeroBackground'
 import HeroContent from '@/components/HeroContent'
 import HeroMarquee from '@/components/HeroMarquee'
 import InteractiveHero from '@/components/InteractiveHero'
+
+const AboutSection = dynamic(() => import('@/components/AboutSection'))
+const ApproachSection = dynamic(() => import('@/components/ApproachSection'))
+const ContactSection = dynamic(() => import('@/components/ContactSection'))
+const ExpertiseSection = dynamic(() => import('@/components/ExpertiseSection'))
+const FounderSection = dynamic(() => import('@/components/FounderSection'))
 
 export default function Home() {
   return (

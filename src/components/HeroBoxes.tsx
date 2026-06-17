@@ -1,4 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from 'next/image'
+
 export default function HeroBoxes() {
   return (
     <div className="mt-10 flex w-full flex-col justify-between gap-8 md:flex-row md:items-end lg:px-4">
@@ -40,18 +41,24 @@ export default function HeroBoxes() {
                 200+
               </span>
               <div className="flex -space-x-2 md:-space-x-3">
-                <img
+                <Image
                   src="https://i.pravatar.cc/150?img=11"
+                  width={40}
+                  height={40}
                   className="h-6 w-6 rounded-full border-2 border-white/10 shadow-sm grayscale md:h-8 md:w-8 lg:h-10 lg:w-10"
                   alt="avatar"
                 />
-                <img
+                <Image
                   src="https://i.pravatar.cc/150?img=33"
+                  width={40}
+                  height={40}
                   className="h-6 w-6 rounded-full border-2 border-white/10 shadow-sm grayscale md:h-8 md:w-8 lg:h-10 lg:w-10"
                   alt="avatar"
                 />
-                <img
+                <Image
                   src="https://i.pravatar.cc/150?img=47"
+                  width={40}
+                  height={40}
                   className="h-6 w-6 rounded-full border-2 border-white/10 shadow-sm grayscale md:h-8 md:w-8 lg:h-10 lg:w-10"
                   alt="avatar"
                 />

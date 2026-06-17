@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import Image from 'next/image'
 
 export default function ApproachSection() {
   const containerRef = useRef<HTMLElement>(null)
@@ -301,11 +302,13 @@ export default function ApproachSection() {
         >
           <div className="flex w-full max-w-7xl flex-col items-center justify-between gap-12 md:flex-row lg:gap-16">
             {/* Left Side GIF */}
-            <div className="w-full max-w-sm shrink-0 md:w-1/2 md:max-w-md lg:max-w-lg">
-              <img
+            <div className="relative w-full max-w-sm shrink-0 md:w-1/2 md:max-w-md lg:max-w-lg aspect-square">
+              <Image
                 src="/gif/animate.gif"
                 alt="Approach Animation"
-                className="h-auto w-full object-contain"
+                fill
+                className="object-contain"
+                unoptimized
               />
             </div>
 

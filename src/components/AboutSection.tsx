@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 
 export default function AboutSection() {
   const [isVisible, setIsVisible] = useState(false)
@@ -201,11 +202,12 @@ export default function AboutSection() {
               </div>
 
               {/* Person Image */}
-              <div className="relative w-full max-w-[400px] overflow-hidden rounded-lg bg-white/[0.03]">
-                <img
+              <div className="relative w-full max-w-[400px] aspect-[3/4] overflow-hidden rounded-lg bg-white/[0.03]">
+                <Image
                   src="/images/amiz.webp"
                   alt="Vijil Raj"
-                  className="h-auto w-full object-cover object-top"
+                  fill
+                  className="object-cover object-top"
                 />
                 <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#01030a] to-transparent" />
               </div>
