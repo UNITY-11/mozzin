@@ -135,9 +135,10 @@ export default function AboutSection() {
           ref.current.style.setProperty('--reveal-pct', `${revealPct}%`)
         }
 
-        animateParagraph(p1Ref, 0, 0.33, false)
-        animateParagraph(p2Ref, 0.33, 0.66, false)
-        animateParagraph(p3Ref, 0.66, 1.0, true)
+        // Adjust progress range so animations finish before 1.0, leaving time to read the last paragraph
+        animateParagraph(p1Ref, 0, 0.25, false)
+        animateParagraph(p2Ref, 0.25, 0.50, false)
+        animateParagraph(p3Ref, 0.50, 0.75, true)
       }
 
       animationFrameId = requestAnimationFrame(handleScroll)
@@ -182,7 +183,7 @@ export default function AboutSection() {
       {/* Main About Content with Sticky Scroll */}
       <div
         ref={scrollContainerRef}
-        className="relative h-[250vh] w-full"
+        className="relative h-[400vh] w-full"
       >
         <div className="sticky top-0 flex h-screen w-full items-center justify-center px-6 md:px-10">
           <div className="flex w-full max-w-[1500px] flex-col gap-12 lg:flex-row lg:gap-24">
