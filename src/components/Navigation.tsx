@@ -184,9 +184,9 @@ export default function Navigation() {
               <button
                 key={link.id}
                 onClick={() => handleScrollTo(link.id)}
-                className="group relative flex w-full items-center px-8 py-3 text-left transition-colors duration-300 hover:bg-blue-600 md:px-12 md:py-4 lg:px-24 lg:py-5"
+                className="group relative flex w-full items-center px-8 py-2 text-left transition-colors duration-300 hover:bg-blue-600 md:px-12 md:py-3 lg:px-24 lg:py-4"
               >
-                <span className="font-syncopate flex items-center gap-2 text-4xl font-bold tracking-tighter text-blue-500 transition-all duration-300 group-hover:text-[#0a0a0a] md:text-6xl lg:text-7xl xl:text-[80px]">
+                <span className="font-syncopate flex items-center gap-2 text-2xl font-bold tracking-tighter text-blue-500 transition-all duration-300 group-hover:text-[#0a0a0a] md:text-4xl lg:text-5xl xl:text-6xl">
                   {/* Arrow Icon */}
                   <span className="w-0 overflow-hidden opacity-0 transition-all duration-300 ease-[cubic-bezier(0.87,0,0.13,1)] group-hover:w-8 group-hover:opacity-100 md:group-hover:w-12 lg:group-hover:w-16">
                     <svg
