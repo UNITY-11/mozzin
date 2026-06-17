@@ -68,6 +68,41 @@ export default function Navigation() {
             <span className="font-syncopate text-xl font-bold tracking-wider">
               mozzin
             </span>
+            <div className="flex gap-6 text-white opacity-50">
+              <a
+                href="https://x.com/amozz_in?s=11"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group font-syncopate flex items-center text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-500"
+              >
+                X
+                <svg className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                </svg>
+              </a>
+              <a
+                href="https://www.instagram.com/amozz.in?igsh=MTdqZGMwYzJ4OWJobQ=="
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group font-syncopate flex items-center text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-500"
+              >
+                INSTAGRAM
+                <svg className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                </svg>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/vijilraj?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group font-syncopate flex items-center text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-500"
+              >
+                LINKEDIN
+                <svg className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                </svg>
+              </a>
+            </div>
           </div>
 
           {/* Left Content */}
@@ -102,41 +137,6 @@ export default function Navigation() {
             </div>
 
             <div className="mt-auto pt-8">
-              <div className="mb-4 flex gap-6 text-white opacity-50">
-                <a
-                  href="https://x.com/amozz_in?s=11"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group font-syncopate flex items-center text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-500"
-                >
-                  X
-                  <svg className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                  </svg>
-                </a>
-                <a
-                  href="https://www.instagram.com/amozz.in?igsh=MTdqZGMwYzJ4OWJobQ=="
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group font-syncopate flex items-center text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-500"
-                >
-                  INSTAGRAM
-                  <svg className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                  </svg>
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/vijilraj?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group font-syncopate flex items-center text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-500"
-                >
-                  LINKEDIN
-                  <svg className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                  </svg>
-                </a>
-              </div>
               <p className="text-xs leading-relaxed tracking-wide text-white/40">
                 Delivering success with every solution.
                 <br />© {new Date().getFullYear()} . Mozzin . All Rights
