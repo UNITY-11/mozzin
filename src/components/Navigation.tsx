@@ -71,9 +71,9 @@ export default function Navigation() {
           </div>
 
           {/* Left Content */}
-          <div className="flex h-full w-full flex-col justify-between overflow-y-auto p-12 lg:p-24">
+          <div className="flex h-full w-full flex-col justify-between overflow-y-auto p-8 lg:p-16">
             <div className="w-full max-w-lg">
-              <div className="relative h-[250px] w-full bg-white/5 lg:h-[300px]">
+              <div className="relative h-[180px] w-full bg-white/5 lg:h-[220px]">
                 <Image
                   src="/images/hero-ui.webp"
                   alt="Navigation Image"
@@ -81,15 +81,15 @@ export default function Navigation() {
                   className="object-cover"
                 />
               </div>
-              <div className="font-syncopate mt-6 flex justify-between text-[10px] font-medium tracking-wider text-white/50 uppercase lg:text-xs">
+              <div className="font-syncopate mt-4 flex justify-between text-[10px] font-medium tracking-wider text-white/50 uppercase lg:text-xs">
                 <div>
-                  <p className="mb-2">Recent Project</p>
+                  <p className="mb-1">Recent Project</p>
                   <p className="text-white capitalize">
                     Mozzin Brand & Strategy
                   </p>
                 </div>
                 <div className="text-right md:text-left">
-                  <p className="mb-2">Scope</p>
+                  <p className="mb-1">Scope</p>
                   <p className="leading-relaxed text-white capitalize">
                     Visual Design
                     <br />
@@ -101,7 +101,7 @@ export default function Navigation() {
               </div>
             </div>
 
-            <div className="mt-auto pt-16">
+            <div className="mt-auto pt-8">
               <div className="mb-4 flex gap-6 text-white opacity-50">
                 <a
                   href="https://x.com/amozz_in?s=11"
