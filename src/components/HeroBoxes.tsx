@@ -18,7 +18,7 @@ export default function HeroBoxes() {
             <div className="font-syncopate text-4xl font-black tracking-tighter text-white md:text-5xl lg:text-6xl">
               475+
             </div>
-            <div className="font-sans text-[9px] font-semibold tracking-widest text-[#8fb7e8] md:text-[10px]">
+            <div className="font-sans text-[9px] font-semibold tracking-widest text-white/70 md:text-[10px]">
               BUSINESS EXPERTS
             </div>
           </div>
@@ -57,7 +57,7 @@ export default function HeroBoxes() {
                 />
               </div>
             </div>
-            <div className="relative z-10 font-sans text-[8px] leading-relaxed font-bold tracking-[0.2em] text-[#8fb7e8] uppercase md:text-[10px] lg:text-[11px]">
+            <div className="relative z-10 font-sans text-[8px] leading-relaxed font-bold tracking-[0.2em] text-white/70 uppercase md:text-[10px] lg:text-[11px]">
               YOUR PARTNER IN
               <br />
               BUSINESS GROWTH

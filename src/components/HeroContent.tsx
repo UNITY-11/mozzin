@@ -1,3 +1,5 @@
+'use client'
+
 import HeroBoxes from './HeroBoxes'
 
 export default function HeroContent() {
@@ -6,9 +8,12 @@ export default function HeroContent() {
       {/* Header */}
       <header className="pointer-events-auto flex items-center justify-between">
         <div className="flex flex-1">
-          <div className="group flex cursor-pointer flex-col gap-2.5">
-            <div className="h-0.5 w-12 bg-white md:w-14 lg:w-16" />
-            <div className="h-0.5 w-12 bg-white md:w-14 lg:w-16" />
+          <div 
+            onClick={() => window.dispatchEvent(new Event('toggle-navigation'))}
+            className="group flex cursor-pointer flex-col gap-2.5"
+          >
+            <div className="h-0.5 w-12 bg-white transition-transform group-hover:translate-x-2 md:w-14 lg:w-16" />
+            <div className="h-0.5 w-12 bg-white transition-transform group-hover:-translate-x-2 md:w-14 lg:w-16" />
           </div>
         </div>
 
@@ -19,7 +24,7 @@ export default function HeroContent() {
         <div className="flex flex-1 items-center justify-end gap-4 md:gap-6">
           <div className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/50 transition-all hover:bg-white">
             <svg
-              className="h-4 w-4 text-white transition-colors group-hover:text-blue-500 md:h-5 md:w-5"
+              className="h-4 w-4 text-white transition-colors group-hover:text-black md:h-5 md:w-5"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -34,7 +39,7 @@ export default function HeroContent() {
           </div>
           <div className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/50 transition-all hover:bg-white">
             <svg
-              className="h-4 w-4 text-white transition-colors group-hover:text-blue-500 md:h-5 md:w-5"
+              className="h-4 w-4 text-white transition-colors group-hover:text-black md:h-5 md:w-5"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -47,7 +52,7 @@ export default function HeroContent() {
           </div>
           <div className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/50 transition-all hover:bg-white">
             <svg
-              className="h-4 w-4 text-white transition-colors group-hover:text-blue-500 md:h-5 md:w-5"
+              className="h-4 w-4 text-white transition-colors group-hover:text-black md:h-5 md:w-5"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -69,7 +74,7 @@ export default function HeroContent() {
           {/* Left Text */}
           <div className="pointer-events-auto w-full max-w-[300px] md:max-w-md">
             <h1 className="mb-4 font-sans text-3xl leading-[1] font-semibold tracking-wide text-white md:mb-6 md:text-4xl lg:text-3xl">
-              <span className="font-syncopate bg-gradient-to-r from-blue-500 to-white bg-clip-text font-bold text-transparent drop-shadow-md">
+              <span className="font-syncopate font-bold text-white drop-shadow-md">
                 I&apos;m helping
                 <br />
                 Brands To Grow
