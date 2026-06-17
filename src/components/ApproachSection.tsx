@@ -12,6 +12,8 @@ export default function ApproachSection() {
 
   // Phase 2: Paragraphs Text Reveal
   const paragraphsRef = useRef<HTMLDivElement>(null)
+  const p1Ref = useRef<HTMLParagraphElement>(null)
+  const p2Ref = useRef<HTMLParagraphElement>(null)
 
   // Phase 3 & 4: Blue Stack and Flip
   const blueStackContainerRef = useRef<HTMLDivElement>(null)
@@ -66,21 +68,72 @@ export default function ApproachSection() {
         }
       }
 
-      // ===== PHASE 2: Paragraphs Text Reveal (0.3 to 0.6) =====
-      // Fade in at 0.3, reveal text 0.35 -> 0.55, fade out at 0.6
-      const pFadeIn = Math.max(0, Math.min(1, (progress - 0.3) / 0.05))
-      const pFadeOut =
-        progress > 0.6 ? Math.max(0, 1 - (progress - 0.6) / 0.05) : 1
-      const pOpacity = Math.min(pFadeIn, pFadeOut)
-
-      // Map 0.35 to 0.55 to 0% to 100%
-      const revealPct = Math.max(0, Math.min(1, (progress - 0.35) / 0.2)) * 100
-
+      // ===== PHASE 2: Paragraphs Text Reveal (0.3 to 0.65) =====
       if (paragraphsRef.current) {
+        let pOpacity = 0
+        if (progress >= 0.3 && progress < 0.32) {
+          pOpacity = (progress - 0.3) / 0.02
+        } else if (progress >= 0.32 && progress < 0.6) {
+          pOpacity = 1
+        } else if (progress >= 0.6 && progress <= 0.65) {
+          pOpacity = 1 - (progress - 0.6) / 0.05
+        }
         paragraphsRef.current.style.opacity = pOpacity.toString()
         paragraphsRef.current.style.pointerEvents =
           pOpacity > 0.5 ? 'auto' : 'none'
-        paragraphsRef.current.style.setProperty('--reveal-pct', `${revealPct}%`)
+      }
+
+      // Paragraph 1: Reveal 0.32->0.42, Slide up 0.43->0.46
+      if (p1Ref.current) {
+        let opacity = 0
+        let translateY = 0
+        let revealPct = -20
+        if (progress >= 0.3 && progress < 0.32) {
+          opacity = (progress - 0.3) / 0.02
+        } else if (progress >= 0.32 && progress < 0.43) {
+          opacity = 1
+          revealPct = -20 + ((progress - 0.32) / 0.11) * 140
+        } else if (progress >= 0.43 && progress < 0.46) {
+          const outP = (progress - 0.43) / 0.03
+          opacity = 1 - outP
+          translateY = -50 * outP
+          revealPct = 120
+        } else if (progress >= 0.46) {
+          opacity = 0
+          revealPct = 120
+          translateY = -50
+        }
+        p1Ref.current.style.opacity = opacity.toString()
+        p1Ref.current.style.transform = `translateY(${translateY}px)`
+        p1Ref.current.style.setProperty('--reveal-pct', `${revealPct}%`)
+      }
+
+      // Paragraph 2: Slide in 0.44->0.47, Reveal 0.47->0.57, Fade out 0.60->0.65
+      if (p2Ref.current) {
+        let opacity = 0
+        let translateY = 50
+        let revealPct = -20
+        if (progress >= 0.44 && progress < 0.47) {
+          const inP = (progress - 0.44) / 0.03
+          opacity = inP
+          translateY = 50 * (1 - inP)
+        } else if (progress >= 0.47 && progress < 0.6) {
+          opacity = 1
+          translateY = 0
+          revealPct = -20 + Math.min(1, (progress - 0.47) / 0.1) * 140
+        } else if (progress >= 0.6 && progress <= 0.65) {
+          const outP = (progress - 0.6) / 0.05
+          opacity = 1 - outP
+          translateY = -50 * outP
+          revealPct = 120
+        } else if (progress > 0.65) {
+          opacity = 0
+          revealPct = 120
+          translateY = -50
+        }
+        p2Ref.current.style.opacity = opacity.toString()
+        p2Ref.current.style.transform = `translateY(${translateY}px)`
+        p2Ref.current.style.setProperty('--reveal-pct', `${revealPct}%`)
       }
 
       // ===== PHASE 3 & 4: Blue Stack (0.65 to 1.0) =====
@@ -160,7 +213,7 @@ export default function ApproachSection() {
   return (
     <section
       ref={containerRef}
-      className="relative h-[1200vh] w-full border-t border-white/10 bg-[#01030a]"
+      className="relative h-[1200vh] w-full border-t border-white/10 bg-black"
     >
       <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden px-6 lg:px-8">
         {/* Main Heading (Static Top) */}
@@ -244,31 +297,48 @@ export default function ApproachSection() {
             ========================================= */}
         <div
           ref={paragraphsRef}
-          className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center opacity-0"
+          className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center px-6 transition-opacity duration-300 lg:px-16"
         >
-          <div className="flex w-full max-w-7xl flex-col items-center justify-between gap-12 px-6 md:flex-row lg:gap-16 lg:px-8">
-            <p
-              className="flex-1 bg-clip-text text-2xl leading-relaxed font-light text-transparent md:text-3xl lg:text-4xl"
-              style={{
-                backgroundImage:
-                  'linear-gradient(to right, white var(--reveal-pct, 0%), #1f2937 var(--reveal-pct, 0%))',
-              }}
-            >
-              I believe successful brands are not built through random marketing
-              efforts, but through a calculated mix of strategy, creativity, and
-              consistency.
-            </p>
-            <p
-              className="flex-1 bg-clip-text text-2xl leading-relaxed font-light text-transparent md:text-3xl lg:text-4xl"
-              style={{
-                backgroundImage:
-                  'linear-gradient(to right, white var(--reveal-pct, 0%), #1f2937 var(--reveal-pct, 0%))',
-              }}
-            >
-              I don’t just create content. I help businesses understand their
-              audience, craft compelling narratives, and execute strategies that
-              drive real growth.
-            </p>
+          <div className="flex w-full max-w-7xl flex-col items-center justify-between gap-12 md:flex-row lg:gap-16">
+            {/* Left Side GIF */}
+            <div className="w-full max-w-sm shrink-0 md:w-1/2 md:max-w-md lg:max-w-lg">
+              <img
+                src="/gif/animate.gif"
+                alt="Approach Animation"
+                className="h-auto w-full object-contain"
+              />
+            </div>
+
+            {/* Right-aligned text container using CSS grid to automatically size to the text height */}
+            <div className="grid w-full max-w-2xl md:w-1/2">
+              {/* Paragraph 1 */}
+              <p
+                ref={p1Ref}
+                className="col-start-1 row-start-1 w-full bg-clip-text text-2xl leading-relaxed font-light text-transparent md:text-3xl lg:text-4xl"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
+                }}
+              >
+                I believe successful brands are not built through random
+                marketing efforts, but through a calculated mix of strategy,
+                creativity, and consistency.
+              </p>
+
+              {/* Paragraph 2 */}
+              <p
+                ref={p2Ref}
+                className="col-start-1 row-start-1 w-full bg-clip-text text-2xl leading-relaxed font-light text-transparent md:text-3xl lg:text-4xl"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
+                }}
+              >
+                I don’t just create content. I help businesses understand their
+                audience, craft compelling narratives, and execute strategies
+                that drive real growth.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -286,7 +356,7 @@ export default function ApproachSection() {
             {/* Solid blue backdrop to hide any sub-pixel rendering gaps before the flip starts */}
             <div
               ref={backdropRef}
-              className="pointer-events-none absolute top-0 right-6 bottom-0 left-6 bg-blue-600 transition-opacity duration-75"
+              className="pointer-events-none absolute top-0 right-6 bottom-0 left-6 rounded-lg bg-blue-600 transition-opacity duration-75"
             />
 
             {items.map((item, i) => (
@@ -307,7 +377,7 @@ export default function ApproachSection() {
                 >
                   {/* Front Face: Solid Blue with Sliced Text */}
                   <div
-                    className="absolute inset-0 h-full w-full overflow-hidden bg-blue-600"
+                    className={`absolute inset-0 h-full w-full overflow-hidden bg-blue-600 ${i === 0 ? 'rounded-l-lg' : ''} ${i === items.length - 1 ? 'rounded-r-lg' : ''}`}
                     style={{ backfaceVisibility: 'hidden' }}
                   >
                     <div
@@ -334,7 +404,7 @@ export default function ApproachSection() {
                       style={{ backfaceVisibility: 'hidden' }}
                     >
                       <path
-                        d="M 0 0 L 35 0 L 50 32 L 110 32 L 125 0 L 160 0 Z"
+                        d="M 0 0 L 33 0 Q 36.3 0, 38 4 L 48 28 Q 49.7 32, 54 32 L 106 32 Q 110.3 32, 112 28 L 122 4 Q 123.7 0, 127 0 L 160 0 Z"
                         fill="#01030a"
                       />
                     </svg>
@@ -347,7 +417,7 @@ export default function ApproachSection() {
                       style={{ backfaceVisibility: 'hidden' }}
                     >
                       <path
-                        d="M 0 32 L 35 32 L 50 0 L 110 0 L 125 32 L 160 32 Z"
+                        d="M 0 32 L 33 32 Q 36.3 32, 38 28 L 48 4 Q 49.7 0, 54 0 L 106 0 Q 110.3 0, 112 4 L 122 28 Q 123.7 32, 127 32 L 160 32 Z"
                         fill="#01030a"
                       />
                     </svg>
@@ -355,86 +425,109 @@ export default function ApproachSection() {
 
                   {/* Back Face Wrapper */}
                   <div
-                    className="absolute inset-0 h-full w-full"
+                    className="group absolute inset-0 h-full w-full"
                     style={{
                       transform: 'rotateX(180deg)',
                       backfaceVisibility: 'hidden',
                     }}
                   >
-                    {/* Back Face Background */}
-                    <div className="absolute inset-0 flex h-full w-full flex-col items-center justify-center overflow-hidden bg-white px-4 py-6 shadow-[0_0_40px_rgba(37,99,235,0.12)] md:px-6 md:py-8">
-                      {/* Decorative Background Elements */}
-                      <div className="pointer-events-none absolute top-0 right-0 -mt-6 -mr-6 h-32 w-32 rounded-full bg-blue-50 opacity-70 blur-2xl"></div>
-                      <div className="pointer-events-none absolute bottom-0 left-0 -mb-10 -ml-10 h-40 w-40 rounded-full bg-blue-100/60 opacity-60 blur-3xl"></div>
-
-                      <svg
-                        className="pointer-events-none absolute inset-0 h-full w-full text-blue-900/[0.03]"
-                        aria-hidden="true"
-                      >
-                        <defs>
-                          <pattern
-                            id={`dots-${i}`}
-                            x="0"
-                            y="0"
-                            width="24"
-                            height="24"
-                            patternUnits="userSpaceOnUse"
-                          >
-                            <circle cx="2" cy="2" r="1.5" fill="currentColor" />
-                          </pattern>
-                        </defs>
-                        <rect
-                          width="100%"
-                          height="100%"
-                          fill={`url(#dots-${i})`}
-                        />
-                      </svg>
-
-                      <div className="relative z-10 mb-6 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl border border-blue-100/60 bg-gradient-to-br from-blue-50 to-white shadow-sm md:h-16 md:w-16">
+                    <div className="relative h-full w-full transition-all duration-300">
+                      {/* Back Face Container */}
+                      <div className="absolute inset-0 flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-blue-600 shadow-[0_0_40px_rgba(37,99,235,0.12)] transition-all duration-300 group-hover:shadow-[0_20px_40px_rgba(37,99,235,0.2)]">
+                        {/* Animated SVG Pattern (Dots) */}
                         <svg
-                          className="h-6 w-6 text-blue-600 md:h-8 md:w-8"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
+                          className="absolute inset-0 h-full w-full text-white/5"
+                          aria-hidden="true"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={1.5}
-                            d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                          <defs>
+                            <pattern
+                              id={`dots-base-${i}`}
+                              x="0"
+                              y="0"
+                              width="24"
+                              height="24"
+                              patternUnits="userSpaceOnUse"
+                            >
+                              <circle
+                                cx="2"
+                                cy="2"
+                                r="1.5"
+                                fill="currentColor"
+                              />
+                              <animate
+                                attributeName="x"
+                                from="0"
+                                to="24"
+                                dur="4s"
+                                repeatCount="indefinite"
+                              />
+                              <animate
+                                attributeName="y"
+                                from="0"
+                                to="24"
+                                dur="4s"
+                                repeatCount="indefinite"
+                              />
+                            </pattern>
+                          </defs>
+                          <rect
+                            width="100%"
+                            height="100%"
+                            fill={`url(#dots-base-${i})`}
                           />
                         </svg>
-                      </div>
-                      <span className="relative z-10 text-center text-sm leading-relaxed font-medium text-slate-800 md:text-base lg:text-lg">
-                        {item}
-                      </span>
-                    </div>
 
-                    {/* Back Face Notches (Siblings inside wrapper) */}
-                    {(i === 0 || i === 2) && (
-                      <svg
-                        viewBox="0 0 160 32"
-                        className="pointer-events-none absolute -bottom-[1px] left-1/2 z-50 h-6 w-48 -translate-x-1/2 md:h-8 md:w-64"
-                        preserveAspectRatio="none"
-                      >
-                        <path
-                          d="M 0 32 L 35 32 L 50 0 L 110 0 L 125 32 L 160 32 Z"
-                          fill="#01030a"
-                        />
-                      </svg>
-                    )}
-                    {(i === 1 || i === 3) && (
-                      <svg
-                        viewBox="0 0 160 32"
-                        className="pointer-events-none absolute -top-[1px] left-1/2 z-50 h-6 w-48 -translate-x-1/2 md:h-8 md:w-64"
-                        preserveAspectRatio="none"
-                      >
-                        <path
-                          d="M 0 0 L 35 0 L 50 32 L 110 32 L 125 0 L 160 0 Z"
-                          fill="#01030a"
-                        />
-                      </svg>
-                    )}
+                        {/* Icon */}
+                        <div className="relative z-10 mb-6 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl border border-white/20 bg-white/10 shadow-sm backdrop-blur-md transition-all duration-300 group-hover:scale-105 md:h-16 md:w-16">
+                          <svg
+                            className="h-6 w-6 text-white md:h-8 md:w-8"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.5}
+                              d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                            />
+                          </svg>
+                        </div>
+
+                        {/* Text */}
+                        <span className="relative z-10 text-center text-sm leading-relaxed font-medium text-white md:text-base lg:text-lg">
+                          {item}
+                        </span>
+                      </div>
+
+                      {/* Back Face Notches (Siblings inside wrapper) */}
+                      {(i === 0 || i === 2) && (
+                        <svg
+                          viewBox="0 0 160 32"
+                          className="pointer-events-none absolute -bottom-[1px] left-1/2 z-50 h-6 w-48 -translate-x-1/2 md:h-8 md:w-64"
+                          preserveAspectRatio="none"
+                          style={{ backfaceVisibility: 'hidden' }}
+                        >
+                          <path
+                            d="M 0 32 L 33 32 Q 36.3 32, 38 28 L 48 4 Q 49.7 0, 54 0 L 106 0 Q 110.3 0, 112 4 L 122 28 Q 123.7 32, 127 32 L 160 32 Z"
+                            fill="#01030a"
+                          />
+                        </svg>
+                      )}
+                      {(i === 1 || i === 3) && (
+                        <svg
+                          viewBox="0 0 160 32"
+                          className="pointer-events-none absolute -top-[1px] left-1/2 z-50 h-6 w-48 -translate-x-1/2 md:h-8 md:w-64"
+                          preserveAspectRatio="none"
+                          style={{ backfaceVisibility: 'hidden' }}
+                        >
+                          <path
+                            d="M 0 0 L 33 0 Q 36.3 0, 38 4 L 48 28 Q 49.7 32, 54 32 L 106 32 Q 110.3 32, 112 28 L 122 4 Q 123.7 0, 127 0 L 160 0 Z"
+                            fill="#01030a"
+                          />
+                        </svg>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
