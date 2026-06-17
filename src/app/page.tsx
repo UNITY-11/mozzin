@@ -1,9 +1,10 @@
 import AboutSection from '@/components/AboutSection'
+import ExpertiseSection from '@/components/ExpertiseSection'
+import FounderSection from '@/components/FounderSection'
 import HeroBackground from '@/components/HeroBackground'
 import HeroContent from '@/components/HeroContent'
 import HeroMarquee from '@/components/HeroMarquee'
 import InteractiveHero from '@/components/InteractiveHero'
-import ExpertiseSection from '@/components/ExpertiseSection'
 
 export default function Home() {
   return (
@@ -29,14 +30,18 @@ export default function Home() {
             <HeroContent />
           </div>
         </div>
-
       </div>
 
       {/* 6. ABOUT SECTION z-50 (Scrolls up and covers all fixed layers) */}
       <AboutSection />
 
-      {/* 7. EXPERTISE SECTION */}
+      {/* 7. EXPERTISE SECTION (What I Do) */}
       <ExpertiseSection />
+
+      {/* FOUNDER SECTION (Slides over ExpertiseSection) */}
+      <div className="relative z-30 mt-[-100vh] bg-[#01030a]">
+        <FounderSection />
+      </div>
     </main>
   )
 }
