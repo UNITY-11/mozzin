@@ -34,6 +34,11 @@ export default function ApproachSection() {
     let animationFrameId: number
 
     const handleScroll = () => {
+      if (window.innerWidth < 768) {
+        animationFrameId = requestAnimationFrame(handleScroll)
+        return
+      }
+
       if (!containerRef.current) return
       const rect = containerRef.current.getBoundingClientRect()
       const windowHeight = window.innerHeight
@@ -182,6 +187,8 @@ export default function ApproachSection() {
       // Flip cards simultaneously with spread
       // NOTE: Using ts-ignore for the ref array to bypass type errors for quick indexing
 
+      const isMobile = window.innerWidth < 768
+
       blueCardsRef.current.forEach((card, i) => {
         if (!card) return
 
@@ -191,10 +198,14 @@ export default function ApproachSection() {
         // Spread calculation (gap without shrinking cards)
         // 4 cards: indices 0, 1, 2, 3 -> multipliers -1.5, -0.5, 0.5, 1.5
         const spreadMax = 16 // px
-        const translateX = (i - 1.5) * (cardP * spreadMax)
+        const translate = (i - 1.5) * (cardP * spreadMax)
 
         // RotateX from 0 to -180deg for simultaneous venetian blind effect
-        card.style.transform = `translateX(${translateX}px) rotateX(${cardP * -180}deg)`
+        if (isMobile) {
+          card.style.transform = `translateY(${translate}px) rotateX(${cardP * -180}deg)`
+        } else {
+          card.style.transform = `translateX(${translate}px) rotateX(${cardP * -180}deg)`
+        }
       })
 
       animationFrameId = requestAnimationFrame(handleScroll)
@@ -215,9 +226,163 @@ export default function ApproachSection() {
   return (
     <section
       ref={containerRef}
-      className="relative h-[1200vh] w-full border-t border-white/10 bg-black"
+      className="relative w-full border-t border-white/10 bg-black md:h-[1200vh]"
     >
-      <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden px-6 lg:px-8">
+      {/* =========================================
+          MOBILE NATIVE LAYOUT (< 768px)
+          ========================================= */}
+      <div className="flex w-full flex-col gap-20 overflow-hidden px-6 py-24 md:hidden">
+        {/* Main Heading */}
+        <div className="flex w-full justify-center">
+          <h2 className="font-syncopate text-lg font-black tracking-widest text-blue-500 uppercase">
+            WHY WORK WITH ME
+          </h2>
+        </div>
+
+        {/* Phase 1 Statically */}
+        <div className="flex w-full flex-col gap-10">
+          {['Strategy.', 'Creativity.', 'Consistency.'].map((word, i) => (
+            <h3
+              key={i}
+              className="font-syncopate text-left text-[22vw] leading-[0.85] font-black tracking-tighter break-all whitespace-normal text-white sm:text-[18vw]"
+            >
+              {word}
+            </h3>
+          ))}
+        </div>
+
+        {/* Phase 2 Statically */}
+        <div className="flex w-full flex-col items-center gap-12">
+          <div className="relative aspect-square w-full max-w-sm">
+            <Image
+              src="/gif/animate.gif"
+              alt="Approach Animation"
+              fill
+              className="object-contain"
+              unoptimized
+            />
+          </div>
+          <div className="flex w-full flex-col gap-8">
+            <p className="text-xl leading-relaxed font-light text-white capitalize">
+              I believe successful brands are not built through random marketing
+              efforts, but through a calculated mix of strategy, creativity, and
+              consistency.
+            </p>
+            <p className="text-xl leading-relaxed font-light text-white capitalize">
+              I don’t just create content. I help businesses understand their
+              audience, craft compelling narratives, and execute strategies that
+              drive real growth.
+            </p>
+          </div>
+        </div>
+
+        {/* Phase 3 & 4: Static Cards */}
+        <div className="mt-4 flex w-full flex-col items-center gap-12">
+          <h4 className="font-syncopate w-full text-center text-3xl font-black text-white uppercase">
+            What I&apos;ve Been
+            <br />
+            Working On
+          </h4>
+
+          <div className="flex w-full flex-col gap-16">
+            {items.map((item, i) => (
+              <div
+                key={i}
+                className="relative flex aspect-[4/3] w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-blue-600 p-6 shadow-[0_20px_40px_rgba(37,99,235,0.2)]"
+              >
+                {/* Animated Background Dots */}
+                <svg
+                  className="absolute inset-0 h-full w-full text-white/10"
+                  aria-hidden="true"
+                >
+                  <defs>
+                    <pattern
+                      id={`dots-mobile-${i}`}
+                      x="0"
+                      y="0"
+                      width="24"
+                      height="24"
+                      patternUnits="userSpaceOnUse"
+                    >
+                      <circle cx="2" cy="2" r="1.5" fill="currentColor" />
+                      <animate
+                        attributeName="x"
+                        from="0"
+                        to="24"
+                        dur="4s"
+                        repeatCount="indefinite"
+                      />
+                      <animate
+                        attributeName="y"
+                        from="0"
+                        to="24"
+                        dur="4s"
+                        repeatCount="indefinite"
+                      />
+                    </pattern>
+                  </defs>
+                  <rect
+                    width="100%"
+                    height="100%"
+                    fill={`url(#dots-mobile-${i})`}
+                  />
+                </svg>
+
+                {/* Top Notch */}
+                <svg
+                  viewBox="0 0 160 32"
+                  className="pointer-events-none absolute -top-[1px] left-1/2 z-50 h-8 w-64 -translate-x-1/2"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M 0 0 L 33 0 Q 36.3 0, 38 4 L 48 28 Q 49.7 32, 54 32 L 106 32 Q 110.3 32, 112 28 L 122 4 Q 123.7 0, 127 0 L 160 0 Z"
+                    fill="#01030a"
+                  />
+                </svg>
+
+                {/* Bottom Notch */}
+                <svg
+                  viewBox="0 0 160 32"
+                  className="pointer-events-none absolute -bottom-[1px] left-1/2 z-50 h-8 w-64 -translate-x-1/2"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M 0 32 L 33 32 Q 36.3 32, 38 28 L 48 4 Q 49.7 0, 54 0 L 106 0 Q 110.3 0, 112 4 L 122 28 Q 123.7 32, 127 32 L 160 32 Z"
+                    fill="#01030a"
+                  />
+                </svg>
+
+                {/* Icon */}
+                <div className="relative z-10 mb-6 flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl border border-white/20 bg-white/10 shadow-sm backdrop-blur-md">
+                  <svg
+                    className="h-8 w-8 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                    />
+                  </svg>
+                </div>
+
+                {/* Text */}
+                <span className="relative z-10 text-center text-lg leading-relaxed font-medium text-white">
+                  {item}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* =========================================
+          DESKTOP ANIMATED LAYOUT (>= 768px)
+          ========================================= */}
+      <div className="sticky top-0 hidden h-screen w-full flex-col items-center justify-center overflow-hidden px-6 md:flex lg:px-8">
         {/* Main Heading (Static Top) */}
         <div className="pointer-events-none absolute top-12 z-10 flex w-full justify-center md:top-16 lg:top-20">
           <h2 className="font-syncopate text-lg font-black tracking-widest text-blue-500 uppercase md:text-2xl lg:text-3xl">
@@ -354,7 +519,7 @@ export default function ApproachSection() {
           className="pointer-events-none absolute inset-0 z-40 flex flex-col items-center justify-center opacity-0"
         >
           <div
-            className="relative flex h-[50vh] max-h-[500px] min-h-[300px] w-full max-w-6xl flex-row px-6"
+            className="relative flex h-[50vh] max-h-[500px] min-h-[300px] w-full max-w-6xl flex-col px-6 md:flex-row"
             style={{ gap: '0px', perspective: '5000px' }}
           >
             {/* Solid blue backdrop to hide any sub-pixel rendering gaps before the flip starts */}
@@ -381,15 +546,12 @@ export default function ApproachSection() {
                 >
                   {/* Front Face: Solid Blue with Sliced Text */}
                   <div
-                    className={`absolute inset-0 h-full w-full overflow-hidden bg-blue-600 ${i === 0 ? 'rounded-l-lg' : ''} ${i === items.length - 1 ? 'rounded-r-lg' : ''}`}
+                    className={`absolute inset-0 h-full w-full overflow-hidden bg-blue-600 ${i === 0 ? 'rounded-t-lg md:rounded-t-none md:rounded-l-lg' : ''} ${i === items.length - 1 ? 'rounded-b-lg md:rounded-r-lg md:rounded-b-none' : ''}`}
                     style={{ backfaceVisibility: 'hidden' }}
                   >
                     <div
-                      className="pointer-events-none absolute top-0 flex h-full items-center justify-center"
-                      style={{
-                        width: 'calc(100% * 4)',
-                        left: `calc(-100% * ${i})`,
-                      }}
+                      className="pointer-events-none absolute top-[calc(-100%*var(--card-index))] left-0 flex h-[calc(100%*4)] w-full items-center justify-center md:top-0 md:left-[calc(-100%*var(--card-index))] md:h-full md:w-[calc(100%*4)]"
+                      style={{ '--card-index': i } as React.CSSProperties}
                     >
                       <h4 className="font-syncopate w-full px-4 text-center text-2xl font-black text-black uppercase md:text-4xl lg:text-5xl xl:text-6xl">
                         What I&apos;ve Been
@@ -399,11 +561,10 @@ export default function ApproachSection() {
                     </div>
                   </div>
 
-                  {/* Front Face Notches (Extracted as siblings to avoid overflow-hidden aliasing lines) */}
                   {(i === 0 || i === 2) && (
                     <svg
                       viewBox="0 0 160 32"
-                      className="pointer-events-none absolute -top-[1px] left-1/2 z-50 h-6 w-48 -translate-x-1/2 md:h-8 md:w-64"
+                      className="pointer-events-none absolute -top-[1px] left-1/2 z-50 hidden h-6 w-48 -translate-x-1/2 md:block md:h-8 md:w-64"
                       preserveAspectRatio="none"
                       style={{ backfaceVisibility: 'hidden' }}
                     >
@@ -416,7 +577,7 @@ export default function ApproachSection() {
                   {(i === 1 || i === 3) && (
                     <svg
                       viewBox="0 0 160 32"
-                      className="pointer-events-none absolute -bottom-[1px] left-1/2 z-50 h-6 w-48 -translate-x-1/2 md:h-8 md:w-64"
+                      className="pointer-events-none absolute -bottom-[1px] left-1/2 z-50 hidden h-6 w-48 -translate-x-1/2 md:block md:h-8 md:w-64"
                       preserveAspectRatio="none"
                       style={{ backfaceVisibility: 'hidden' }}
                     >
@@ -504,11 +665,10 @@ export default function ApproachSection() {
                         </span>
                       </div>
 
-                      {/* Back Face Notches (Siblings inside wrapper) */}
                       {(i === 0 || i === 2) && (
                         <svg
                           viewBox="0 0 160 32"
-                          className="pointer-events-none absolute -bottom-[1px] left-1/2 z-50 h-6 w-48 -translate-x-1/2 md:h-8 md:w-64"
+                          className="pointer-events-none absolute -bottom-[1px] left-1/2 z-50 hidden h-6 w-48 -translate-x-1/2 md:block md:h-8 md:w-64"
                           preserveAspectRatio="none"
                           style={{ backfaceVisibility: 'hidden' }}
                         >
@@ -521,7 +681,7 @@ export default function ApproachSection() {
                       {(i === 1 || i === 3) && (
                         <svg
                           viewBox="0 0 160 32"
-                          className="pointer-events-none absolute -top-[1px] left-1/2 z-50 h-6 w-48 -translate-x-1/2 md:h-8 md:w-64"
+                          className="pointer-events-none absolute -top-[1px] left-1/2 z-50 hidden h-6 w-48 -translate-x-1/2 md:block md:h-8 md:w-64"
                           preserveAspectRatio="none"
                           style={{ backfaceVisibility: 'hidden' }}
                         >
