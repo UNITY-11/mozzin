@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 
 export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false)
+  const [isTouchDevice, setIsTouchDevice] = useState(false)
   const dotRef = useRef<HTMLDivElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
 
@@ -12,10 +13,24 @@ export default function CustomCursor() {
   const hoverRef = useRef(false)
 
   useEffect(() => {
+    // Check multiple ways to determine if it's a touch device
+    const isTouch =
+      'ontouchstart' in window ||
+      navigator.maxTouchPoints > 0 ||
+      window.matchMedia('(pointer: coarse)').matches
+
+    // Use setTimeout to avoid synchronous state setting inside useEffect (lint rule)
+    const timer = setTimeout(() => setIsTouchDevice(isTouch), 0)
+    return () => clearTimeout(timer)
+  }, [])
+
+  useEffect(() => {
     hoverRef.current = isHovering
   }, [isHovering])
 
   useEffect(() => {
+    if (isTouchDevice) return
+
     const updatePosition = (e: MouseEvent) => {
       mouse.current = { x: e.clientX, y: e.clientY }
 
@@ -77,18 +92,22 @@ export default function CustomCursor() {
       window.removeEventListener('mousemove', updatePosition)
       cancelAnimationFrame(animationFrameId)
     }
-  }, [])
+  }, [isTouchDevice])
+
+  if (isTouchDevice) {
+    return null
+  }
 
   return (
     <>
       <div
         ref={ringRef}
-        className="pointer-events-none fixed top-0 left-0 z-[9999] h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/80 transition-[scale,background-color] duration-300 ease-out"
+        className="pointer-events-none fixed top-0 left-0 z-[9999] hidden h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/80 transition-[scale,background-color] duration-300 ease-out md:block"
         style={{ transform: 'translate(-100px, -100px)' }}
       />
       <div
         ref={dotRef}
-        className="pointer-events-none fixed top-0 left-0 z-[10000] h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white transition-opacity duration-150"
+        className="pointer-events-none fixed top-0 left-0 z-[10000] hidden h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white transition-opacity duration-150 md:block"
         style={{ transform: 'translate(-100px, -100px)' }}
       />
     </>
