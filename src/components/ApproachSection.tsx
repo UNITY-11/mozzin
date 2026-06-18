@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+
 import Image from 'next/image'
 
 export default function ApproachSection() {
@@ -232,7 +233,7 @@ export default function ApproachSection() {
           className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center"
         >
           <div
-            className="pointer-events-auto relative h-[16vw] w-full max-w-[100vw] overflow-hidden select-none md:h-[12vw] lg:h-[10vw]"
+            className="pointer-events-auto relative h-[100vw] w-full max-w-[100vw] overflow-hidden select-none sm:h-[40vw] md:h-[12vw] lg:h-[10vw]"
             onMouseMove={(e) => {
               const rect = e.currentTarget.getBoundingClientRect()
               const x = e.clientX - rect.left
@@ -253,9 +254,9 @@ export default function ApproachSection() {
               {['Strategy.', 'Creativity.', 'Consistency.'].map((word, i) => (
                 <div
                   key={i}
-                  className="flex h-[16vw] w-full shrink-0 items-center justify-center md:h-[12vw] lg:h-[10vw]"
+                  className="flex h-[100vw] w-full shrink-0 items-center justify-start px-4 sm:h-[40vw] md:h-[12vw] md:justify-center md:px-0 lg:h-[10vw]"
                 >
-                  <h3 className="font-syncopate text-[13vw] leading-none font-black tracking-tighter whitespace-nowrap text-white md:text-[9vw] lg:text-[7vw] xl:text-[8vw]">
+                  <h3 className="font-syncopate text-left text-[28vw] leading-[0.85] font-black tracking-tighter break-all whitespace-normal text-white sm:text-[18vw] md:text-center md:text-[9vw] md:leading-none md:whitespace-nowrap lg:text-[7vw] xl:text-[8vw]">
                     {word}
                   </h3>
                 </div>
@@ -281,9 +282,9 @@ export default function ApproachSection() {
                 {['Strategy.', 'Creativity.', 'Consistency.'].map((word, i) => (
                   <div
                     key={i}
-                    className="flex h-[16vw] w-full shrink-0 items-center justify-center md:h-[12vw] lg:h-[10vw]"
+                    className="flex h-[100vw] w-full shrink-0 items-center justify-start px-4 sm:h-[40vw] md:h-[12vw] md:justify-center md:px-0 lg:h-[10vw]"
                   >
-                    <h3 className="font-syncopate text-[13vw] leading-none font-black tracking-tighter whitespace-nowrap text-blue-500 md:text-[9vw] lg:text-[7vw] xl:text-[8vw]">
+                    <h3 className="font-syncopate text-left text-[28vw] leading-[0.85] font-black tracking-tighter break-all whitespace-normal text-blue-500 sm:text-[18vw] md:text-center md:text-[9vw] md:leading-none md:whitespace-nowrap lg:text-[7vw] xl:text-[8vw]">
                       {word}
                     </h3>
                   </div>
@@ -302,7 +303,7 @@ export default function ApproachSection() {
         >
           <div className="flex w-full max-w-7xl flex-col items-center justify-between gap-12 md:flex-row lg:gap-16">
             {/* Left Side GIF */}
-            <div className="relative w-full max-w-sm shrink-0 md:w-1/2 md:max-w-md lg:max-w-lg aspect-square">
+            <div className="relative aspect-square w-full max-w-sm shrink-0 md:w-1/2 md:max-w-md lg:max-w-lg">
               <Image
                 src="/gif/animate.gif"
                 alt="Approach Animation"
@@ -317,7 +318,7 @@ export default function ApproachSection() {
               {/* Paragraph 1 */}
               <p
                 ref={p1Ref}
-                className="col-start-1 row-start-1 w-full bg-clip-text text-2xl leading-relaxed font-light text-transparent md:text-3xl lg:text-4xl capitalize"
+                className="col-start-1 row-start-1 w-full bg-clip-text text-2xl leading-relaxed font-light text-transparent capitalize md:text-3xl lg:text-4xl"
                 style={{
                   backgroundImage:
                     'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
@@ -331,7 +332,7 @@ export default function ApproachSection() {
               {/* Paragraph 2 */}
               <p
                 ref={p2Ref}
-                className="col-start-1 row-start-1 w-full bg-clip-text text-2xl leading-relaxed font-light text-transparent md:text-3xl lg:text-4xl capitalize"
+                className="col-start-1 row-start-1 w-full bg-clip-text text-2xl leading-relaxed font-light text-transparent capitalize md:text-3xl lg:text-4xl"
                 style={{
                   backgroundImage:
                     'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
