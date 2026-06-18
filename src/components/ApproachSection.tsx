@@ -384,18 +384,16 @@ export default function ApproachSection() {
           ========================================= */}
       <div className="sticky top-0 hidden h-screen w-full flex-col items-center justify-center overflow-hidden px-6 md:flex lg:px-8">
         {/* Main Heading (Static Top) */}
-        <div className="pointer-events-none absolute top-12 z-10 flex w-full justify-center md:top-16 lg:top-20">
+        <div className="pointer-events-none absolute top-12 z-50 flex w-full justify-center md:top-16 lg:top-20">
           <h2 className="font-syncopate text-lg font-black tracking-widest text-blue-500 uppercase md:text-2xl lg:text-3xl">
             WHY WORK WITH ME
           </h2>
         </div>
 
-        {/* =========================================
-            PHASE 1: ROLLING TEXT
-            ========================================= */}
+        {/* PHASE 1: ROLLING TEXT (Mask + Blue Fill) */}
         <div
           ref={rollingTextContainerRef}
-          className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center"
+          className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center"
         >
           <div
             className="pointer-events-auto relative h-[100vw] w-full max-w-[100vw] overflow-hidden select-none sm:h-[40vw] md:h-[12vw] lg:h-[10vw]"
@@ -459,12 +457,10 @@ export default function ApproachSection() {
           </div>
         </div>
 
-        {/* =========================================
-            PHASE 2: PARAGRAPHS REVEAL
-            ========================================= */}
+        {/* PHASE 2: PARAGRAPHS & GIF */}
         <div
           ref={paragraphsRef}
-          className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center px-6 transition-opacity duration-300 lg:px-16"
+          className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center px-6 opacity-0 transition-opacity duration-300 lg:px-16"
         >
           <div className="flex w-full max-w-7xl flex-col items-center justify-between gap-12 md:flex-row lg:gap-16">
             {/* Left Side GIF */}

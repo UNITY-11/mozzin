@@ -83,25 +83,50 @@ export default function FounderSection() {
           searchOpacity > 0.5 ? 'auto' : 'none'
       }
 
-      // Subtle parallax for cards
+      const isMobile = window.innerWidth < 768
+
+      // Subtle parallax for cards (Desktop Only)
       cardsRef.current.forEach((el, i) => {
         if (!el) return
-        const elRect = el.getBoundingClientRect()
-        const elCenterY = elRect.top + elRect.height / 2
-        const dist = elCenterY - centerY
+        if (!isMobile) {
+          const elRect = el.getBoundingClientRect()
+          const elCenterY = elRect.top + elRect.height / 2
+          const dist = elCenterY - centerY
 
-        // Even indices are bottom-aligned (mt-40), so they move UP faster (positive factor)
-        // Odd indices are top-aligned (mt-0), so they move DOWN slower (negative factor)
-        // Increased movement factor as requested
-        const factor = i % 2 === 0 ? 0.12 : -0.12
-        el.style.transform = `translateY(${dist * factor}px)`
+          // Even indices are bottom-aligned (mt-40), so they move UP faster (positive factor)
+          // Odd indices are top-aligned (mt-0), so they move DOWN slower (negative factor)
+          // Increased movement factor as requested
+          const factor = i % 2 === 0 ? 0.12 : -0.12
+          el.style.transform = `translateY(${dist * factor}px)`
+        }
       })
 
       animationFrameId = requestAnimationFrame(updateScroll)
     }
 
     animationFrameId = requestAnimationFrame(updateScroll)
-    return () => cancelAnimationFrame(animationFrameId)
+
+    // Mobile Intersection Observer for smooth fade-in
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && window.innerWidth < 768) {
+            entry.target.classList.remove('opacity-0', 'translate-y-16')
+            entry.target.classList.add('opacity-100', 'translate-y-0')
+          }
+        })
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -50px 0px' },
+    )
+
+    cardsRef.current.forEach((card) => {
+      if (card) observer.observe(card)
+    })
+
+    return () => {
+      cancelAnimationFrame(animationFrameId)
+      observer.disconnect()
+    }
   }, [])
 
   return (
@@ -341,7 +366,7 @@ export default function FounderSection() {
 
         {/* Cards Grid - 4 Column Ladder */}
         <div className="relative z-10 mx-auto max-w-[1600px] px-6 pt-[25vh] pb-32 lg:px-8">
-          <div className="grid grid-cols-1 items-start gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-4 lg:gap-8">
+          <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-2 md:gap-8 lg:grid-cols-4 lg:gap-8">
             {services.map((service, idx) => {
               // Alternating zigzag stagger logic based on screenshot
               const getStaggerClass = (index: number) => {
@@ -357,7 +382,7 @@ export default function FounderSection() {
                   ref={(el) => {
                     cardsRef.current[idx] = el
                   }}
-                  className={`flex w-full justify-center ${getStaggerClass(idx)} transition-all duration-75 will-change-transform`}
+                  className={`flex w-full justify-center ${getStaggerClass(idx)} translate-y-16 opacity-0 transition-all duration-[800ms] ease-out will-change-transform md:translate-y-0 md:opacity-100 md:duration-75`}
                 >
                   <ServiceCard service={service} index={idx} />
                 </div>
