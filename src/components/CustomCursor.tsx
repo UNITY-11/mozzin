@@ -94,10 +94,6 @@ export default function CustomCursor() {
     }
   }, [isTouchDevice])
 
-  if (isTouchDevice) {
-    return null
-  }
-
   return (
     <>
       <div
