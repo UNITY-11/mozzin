@@ -18,14 +18,14 @@ export default function InteractiveHero() {
   const [isHovering, setIsHovering] = useState(false)
 
   return (
-    <div ref={containerRef} className="relative h-full w-full">
+    <div ref={containerRef} className="relative h-full w-full scale-[1.8] origin-bottom md:scale-90">
       {/* Background Hero Image (Hero 2 - Hidden when not hovering to avoid bleeding through transparent areas) */}
       <Image
         src="/images/hero-2.webp"
         alt="Mozzin CEO Alternate"
         fill
         priority
-        className="pointer-events-none absolute inset-0 object-cover transition-opacity duration-300"
+        className="pointer-events-none absolute inset-0 object-contain object-bottom transition-opacity duration-300 md:object-cover"
         style={{ opacity: isHovering ? 1 : 0 }}
       />
 
@@ -46,7 +46,7 @@ export default function InteractiveHero() {
           alt="Mozzin CEO"
           fill
           priority
-          className="pointer-events-none absolute inset-0 object-cover"
+          className="pointer-events-none absolute inset-0 object-contain object-bottom md:object-cover"
         />
       </div>
 
