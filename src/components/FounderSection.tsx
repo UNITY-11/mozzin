@@ -288,14 +288,14 @@ export default function FounderSection() {
 
             <div className="relative z-10 flex w-full max-w-2xl flex-col items-center">
               {/* Ultra Premium Search Bar */}
-              <div className="group relative flex h-20 w-full items-center overflow-hidden rounded-full border border-white/10 bg-[#050914]/80 shadow-[0_8px_32px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-all duration-500 hover:border-blue-500/50 hover:shadow-[0_0_40px_rgba(37,99,235,0.15)] md:h-[90px]">
+              <div className="group relative flex h-16 w-full items-center overflow-hidden rounded-full border border-white/10 bg-[#050914]/80 shadow-[0_8px_32px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-all duration-500 hover:border-blue-500/50 hover:shadow-[0_0_40px_rgba(37,99,235,0.15)] sm:h-20 md:h-[90px]">
                 {/* Glowing orb behind input */}
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-blue-600/10 via-transparent to-blue-600/10 opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
 
                 {/* Search Icon */}
-                <div className="absolute left-8 text-gray-500 transition-colors duration-300 group-hover:text-blue-400">
+                <div className="absolute left-6 text-gray-500 transition-colors duration-300 group-hover:text-blue-400 sm:left-12 md:left-14">
                   <svg
-                    className="h-7 w-7 md:h-8 md:w-8"
+                    className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -314,13 +314,13 @@ export default function FounderSection() {
                   type="text"
                   value="mozzin.in"
                   readOnly
-                  className="font-syncopate h-full w-full cursor-default bg-transparent pr-32 pl-20 text-2xl tracking-widest text-white outline-none md:pr-48 md:pl-24 md:text-3xl"
+                  className="font-syncopate h-full w-full cursor-default bg-transparent pr-28 pl-20 text-lg tracking-widest text-white outline-none sm:pr-32 sm:pl-28 sm:text-xl md:pr-48 md:pl-36 md:text-3xl"
                 />
 
                 {/* Go Button */}
                 <button
                   onClick={() => window.open('https://mozzin.in', '_blank')}
-                  className="font-syncopate absolute right-3 flex h-14 items-center justify-center rounded-full bg-white px-8 text-sm font-black tracking-[0.2em] text-black shadow-lg transition-all duration-300 hover:bg-blue-600 hover:text-white md:right-4 md:h-[68px] md:px-12 md:text-lg"
+                  className="font-syncopate absolute right-2 flex h-12 items-center justify-center rounded-full bg-white px-6 text-sm font-black tracking-[0.2em] text-black shadow-lg transition-all duration-300 hover:bg-blue-600 hover:text-white sm:right-3 sm:h-14 sm:px-8 md:right-4 md:h-[68px] md:px-12 md:text-lg"
                 >
                   GO
                 </button>
