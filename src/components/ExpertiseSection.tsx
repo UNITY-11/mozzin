@@ -261,14 +261,26 @@ function ExpertiseCard({
 
   // Base initial rotation for the "card hand" effect
   const initialRotations = [-20, -12, -4, 4, 12, 20]
-  const currentRotation = initialRotations[index] * stackAmount
+  let currentRotation = initialRotations[index] * stackAmount
 
   let xCalc = '0px'
   let yCalc = '0px'
 
   if (isMobile) {
+    // 1. Force the grid column into a perfect center stack
     const rowOffset = index - 2.5
-    yCalc = `calc((${rowOffset} * -100% + ${rowOffset} * -24px) * ${stackAmount})`
+    const baseYCalc = `calc(${rowOffset} * -100% + ${rowOffset} * -24px)`
+
+    // 2. Swipe off sequentially
+    const chunkStart = index * 0.2
+    let localProgress = (spreadProgress - chunkStart) / 0.2
+    localProgress = Math.max(0, Math.min(1, localProgress))
+    const direction = index % 2 === 0 ? 1 : -1
+
+    xCalc = `calc(${localProgress * direction * 200}vw)`
+    yCalc = baseYCalc
+    const baseRotation = (index - 2.5) * 3
+    currentRotation = baseRotation + localProgress * direction * 45
   } else if (isTablet) {
     const col = index % 2
     const row = Math.floor(index / 2)
