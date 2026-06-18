@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+
 import Image from 'next/image'
 
 export default function AboutSection() {
@@ -9,7 +10,7 @@ export default function AboutSection() {
 
   const topMarqueeRef = useRef<HTMLDivElement>(null)
   const bottomMarqueeRef = useRef<HTMLDivElement>(null)
-  
+
   const p1Ref = useRef<HTMLParagraphElement>(null)
   const p2Ref = useRef<HTMLParagraphElement>(null)
   const p3Ref = useRef<HTMLParagraphElement>(null)
@@ -25,7 +26,8 @@ export default function AboutSection() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true)
-          if (scrollContainerRef.current) observer.unobserve(scrollContainerRef.current)
+          if (scrollContainerRef.current)
+            observer.unobserve(scrollContainerRef.current)
         }
       },
       { threshold: 0.1 },
@@ -80,7 +82,7 @@ export default function AboutSection() {
           ref: React.RefObject<HTMLParagraphElement | null>,
           start: number,
           end: number,
-          isLast: boolean
+          isLast: boolean,
         ) => {
           if (!ref.current) return
 
@@ -98,13 +100,13 @@ export default function AboutSection() {
               opacity = inP
               translateY = 50 * (1 - inP)
               revealPct = -20
-            } 
+            }
             // Reveal: 0.2 to 0.8 of its range
             else if (p >= 0.2 && p < 0.8) {
               opacity = 1
               translateY = 0
               revealPct = -20 + ((p - 0.2) / 0.6) * 140
-            } 
+            }
             // Outro: 0.8 to 1.0 of its range
             else {
               if (isLast) {
@@ -138,8 +140,8 @@ export default function AboutSection() {
 
         // Adjust progress range so animations finish before 1.0, leaving time to read the last paragraph
         animateParagraph(p1Ref, 0, 0.25, false)
-        animateParagraph(p2Ref, 0.25, 0.50, false)
-        animateParagraph(p3Ref, 0.50, 0.75, true)
+        animateParagraph(p2Ref, 0.25, 0.5, false)
+        animateParagraph(p3Ref, 0.5, 0.75, true)
       }
 
       animationFrameId = requestAnimationFrame(handleScroll)
@@ -155,7 +157,7 @@ export default function AboutSection() {
   return (
     <section className="pointer-events-auto relative z-50 w-full border-t border-white/10 bg-[#01030a]">
       {/* Top Marquee */}
-      <div className="flex w-full overflow-hidden border-b border-white/5 bg-white/[0.02] py-6 backdrop-blur-md">
+      <div className="mb-8 flex w-full overflow-hidden border-b border-white/5 bg-white/[0.02] py-6 backdrop-blur-md md:mb-0">
         <div ref={topMarqueeRef} className="flex w-max">
           <div
             className="animate-marquee flex w-max whitespace-nowrap"
@@ -182,13 +184,9 @@ export default function AboutSection() {
       </div>
 
       {/* Main About Content with Sticky Scroll */}
-      <div
-        ref={scrollContainerRef}
-        className="relative h-[400vh] w-full"
-      >
+      <div ref={scrollContainerRef} className="relative h-[400vh] w-full">
         <div className="sticky top-0 flex h-screen w-full items-center justify-center px-6 md:px-10">
           <div className="flex w-full max-w-[1500px] flex-col gap-12 lg:flex-row lg:gap-24">
-            
             {/* Left Title + Person Image */}
             <div
               className={`flex transform flex-col gap-8 transition-all duration-1000 lg:w-1/3 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
@@ -202,7 +200,7 @@ export default function AboutSection() {
               </div>
 
               {/* Person Image */}
-              <div className="relative w-full max-w-[400px] aspect-[3/4] overflow-hidden rounded-lg bg-white/[0.03]">
+              <div className="relative aspect-[3/4] w-full max-w-[400px] overflow-hidden rounded-lg bg-white/[0.03]">
                 <Image
                   src="/images/amiz.webp"
                   alt="Vijil Raj"
@@ -221,42 +219,54 @@ export default function AboutSection() {
                 {/* Paragraph 1 */}
                 <p
                   ref={p1Ref}
-                  className="col-start-1 row-start-1 w-full bg-clip-text text-xl leading-relaxed font-light text-transparent opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:text-3xl lg:leading-[1.4] capitalize"
+                  className="col-start-1 row-start-1 w-full bg-clip-text text-xl leading-relaxed font-light text-transparent capitalize opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:text-3xl lg:leading-[1.4]"
                   style={{
                     backgroundImage:
                       'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
                   }}
                 >
-                  I'm <span className="font-semibold text-white uppercase">Vijil Raj,</span> a Digital Marketing Professional, Social Media Expert, and Branding Consultant with a strong passion for helping businesses build impactful brands and meaningful digital presence.
+                  I&apos;m{' '}
+                  <span className="font-semibold text-white uppercase">
+                    Vijil Raj,
+                  </span>{' '}
+                  a Digital Marketing Professional, Social Media Expert, and
+                  Branding Consultant with a strong passion for helping
+                  businesses build impactful brands and meaningful digital
+                  presence.
                 </p>
 
                 {/* Paragraph 2 */}
                 <p
                   ref={p2Ref}
-                  className="col-start-1 row-start-1 w-full bg-clip-text text-xl leading-relaxed font-light text-transparent opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:text-3xl lg:leading-[1.4] capitalize"
+                  className="col-start-1 row-start-1 w-full bg-clip-text text-xl leading-relaxed font-light text-transparent capitalize opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:text-3xl lg:leading-[1.4]"
                   style={{
                     backgroundImage:
                       'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
                   }}
                 >
-                  Over the years, I have worked with entrepreneurs, business leaders, creators, and growing brands across different industries, helping them improve visibility, strengthen their brand identity, and connect with the right audience.
+                  Over the years, I have worked with entrepreneurs, business
+                  leaders, creators, and growing brands across different
+                  industries, helping them improve visibility, strengthen their
+                  brand identity, and connect with the right audience.
                 </p>
 
                 {/* Paragraph 3 */}
                 <p
                   ref={p3Ref}
-                  className="col-start-1 row-start-1 w-full bg-clip-text text-xl leading-relaxed font-light text-transparent opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:text-3xl lg:leading-[1.4] capitalize"
+                  className="col-start-1 row-start-1 w-full bg-clip-text text-xl leading-relaxed font-light text-transparent capitalize opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:text-3xl lg:leading-[1.4]"
                   style={{
                     backgroundImage:
                       'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
                   }}
                 >
-                  As the founder of Mozz.in, I focus on combining branding, content strategy, social media marketing, and business growth to help brands stand out in competitive markets.
+                  As the founder of Mozz.in, I focus on combining branding,
+                  content strategy, social media marketing, and business growth
+                  to help brands stand out in competitive markets.
                 </p>
               </div>
 
               {/* Buttons */}
-              <div className="flex flex-wrap items-center gap-8 mt-4 lg:mt-8">
+              <div className="-mt-2 flex flex-wrap items-center gap-8 md:mt-4 lg:mt-8">
                 <button className="group font-syncopate relative flex cursor-pointer items-center gap-4 overflow-hidden rounded-full bg-blue-600 px-8 py-4 text-sm font-bold tracking-wider text-white transition-transform hover:scale-105 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]">
                   <span>Start a Project</span>
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-blue-600 transition-transform group-hover:rotate-45">
@@ -276,7 +286,7 @@ export default function AboutSection() {
                   </div>
                 </button>
 
-                <button className="group font-syncopate flex cursor-pointer items-center gap-3 text-sm font-bold tracking-wider text-white transition-colors hover:text-blue-400">
+                <button className="group font-syncopate hidden cursor-pointer items-center gap-3 text-sm font-bold tracking-wider text-white transition-colors hover:text-blue-400 md:flex">
                   View My Services
                   <svg
                     className="h-4 w-4 transition-transform group-hover:translate-x-1"
