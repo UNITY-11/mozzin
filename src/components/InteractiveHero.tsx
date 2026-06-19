@@ -23,14 +23,6 @@ export default function InteractiveHero() {
       ref={containerRef}
       className="relative h-full w-full origin-bottom scale-[1.9] md:scale-95"
     >
-      {/* Spotlight Background Effect */}
-      <div
-        className="pointer-events-none absolute inset-0 -z-10 transition-opacity duration-300"
-        style={{
-          opacity: isHovering ? 1 : 0,
-          background: `radial-gradient(circle 500px at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.15) 0%, transparent 80%)`,
-        }}
-      />
       {/* Base Image (Always visible) */}
       <Image
         src="/images/hero-top.webp"
