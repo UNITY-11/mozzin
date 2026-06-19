@@ -38,10 +38,10 @@ export default function InteractiveHero() {
         className="pointer-events-none absolute inset-0 transition-opacity duration-300"
         style={{
           maskImage: isHovering
-            ? `radial-gradient(circle 450px at ${mousePosition.x}px ${mousePosition.y}px, transparent 0%, transparent 50%, rgba(0,0,0,1) 80%)`
+            ? `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, transparent 0%, transparent 50%, rgba(0,0,0,1) 80%)`
             : `none`,
           WebkitMaskImage: isHovering
-            ? `radial-gradient(circle 450px at ${mousePosition.x}px ${mousePosition.y}px, transparent 0%, transparent 50%, rgba(0,0,0,1) 80%)`
+            ? `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, transparent 0%, transparent 50%, rgba(0,0,0,1) 80%)`
             : `none`,
         }}
       >
