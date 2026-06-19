@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
+
 import Image from 'next/image'
 
 export default function InteractiveHero() {
@@ -18,14 +19,17 @@ export default function InteractiveHero() {
   const [isHovering, setIsHovering] = useState(false)
 
   return (
-    <div ref={containerRef} className="relative h-full w-full scale-[1.8] origin-bottom md:scale-90">
+    <div
+      ref={containerRef}
+      className="relative h-full w-full origin-bottom scale-[1.9] md:scale-95"
+    >
       {/* Background Hero Image (Hero 2 - Hidden when not hovering to avoid bleeding through transparent areas) */}
       <Image
-        src="/images/hero-2.webp"
+        src="/images/hero-bottom.webp"
         alt="Mozzin CEO Alternate"
         fill
         priority
-        className="pointer-events-none absolute inset-0 object-contain object-bottom transition-opacity duration-300 md:object-cover"
+        className="pointer-events-none absolute inset-0 object-contain object-bottom transition-opacity duration-300"
         style={{ opacity: isHovering ? 1 : 0 }}
       />
 
@@ -42,11 +46,11 @@ export default function InteractiveHero() {
         }}
       >
         <Image
-          src="/images/hero-1.webp"
+          src="/images/hero-top.webp"
           alt="Mozzin CEO"
           fill
           priority
-          className="pointer-events-none absolute inset-0 object-contain object-bottom md:object-cover"
+          className="pointer-events-none absolute inset-0 object-contain object-bottom"
         />
       </div>
 
