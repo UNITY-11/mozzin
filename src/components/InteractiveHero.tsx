@@ -23,31 +23,27 @@ export default function InteractiveHero() {
       ref={containerRef}
       className="relative h-full w-full origin-bottom scale-[1.9] md:scale-95"
     >
-      {/* Background Hero Image (Hero 2 - Hidden when not hovering to avoid bleeding through transparent areas) */}
+      {/* Base Image (Always visible) */}
       <Image
-        src="/images/hero-bottom.webp"
-        alt="Mozzin CEO Alternate"
+        src="/images/hero-top.webp"
+        alt="Mozzin CEO"
         fill
         priority
-        className="pointer-events-none absolute inset-0 object-contain object-bottom transition-opacity duration-300"
-        style={{ opacity: isHovering ? 1 : 0 }}
+        className="pointer-events-none absolute inset-0 object-contain object-bottom"
       />
 
-      {/* Foreground Hero Image (Hero 1 - Erased at the cursor) */}
+      {/* Reveal Image (Only visible inside the cursor circle) */}
       <div
         className="pointer-events-none absolute inset-0 transition-opacity duration-300"
         style={{
-          maskImage: isHovering
-            ? `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, transparent 0%, transparent 50%, rgba(0,0,0,1) 80%)`
-            : `none`,
-          WebkitMaskImage: isHovering
-            ? `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, transparent 0%, transparent 50%, rgba(0,0,0,1) 80%)`
-            : `none`,
+          opacity: isHovering ? 1 : 0,
+          maskImage: `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, black 0%, black 50%, transparent 80%)`,
+          WebkitMaskImage: `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, black 0%, black 50%, transparent 80%)`,
         }}
       >
         <Image
-          src="/images/hero-top.webp"
-          alt="Mozzin CEO"
+          src="/images/hero-bottom.webp"
+          alt="Mozzin CEO Alternate"
           fill
           priority
           className="pointer-events-none absolute inset-0 object-contain object-bottom"
