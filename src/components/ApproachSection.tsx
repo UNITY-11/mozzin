@@ -4,6 +4,43 @@ import { useEffect, useRef } from 'react'
 
 import Image from 'next/image'
 
+const items = [
+  'BRAND IDENTITY',
+  'SOCIAL MEDIA MARKETING',
+  'CONTENT STRATEGY',
+  'WEB DESIGN',
+]
+
+const P1_WORDS =
+  'I believe successful brands are not built through random marketing efforts, but through a calculated mix of strategy, creativity, and consistency.'.split(
+    ' ',
+  )
+const P2_WORDS =
+  'I don’t just create content. I help businesses understand their audience, craft compelling narratives, and execute strategies that drive real growth.'.split(
+    ' ',
+  )
+
+const renderWords = (words: string[]) => {
+  return words.map((text, i) => (
+    <span key={i} className="inline-block" style={{ perspective: '800px' }}>
+      <span
+        className="word-span inline-block"
+        style={{
+          color: '#1f2937',
+          filter: 'blur(12px)',
+          transform: 'rotateX(-60deg) rotate(5deg) translateY(40px)',
+          transformOrigin: 'bottom center',
+          willChange: 'color, filter, transform',
+          transition: 'none',
+        }}
+      >
+        {text}
+      </span>
+      {i < words.length - 1 && ' '}
+    </span>
+  ))
+}
+
 export default function ApproachSection() {
   const containerRef = useRef<HTMLElement>(null)
 
@@ -22,13 +59,6 @@ export default function ApproachSection() {
   const stackHeaderRef = useRef<HTMLHeadingElement>(null)
   const blueCardsRef = useRef<(HTMLDivElement | null)[]>([])
   const backdropRef = useRef<HTMLDivElement>(null)
-
-  const items = [
-    'Developing comprehensive brand identities from scratch',
-    'Executing high-ROI social media and content campaigns',
-    'Designing and launching high-conversion web platforms',
-    'Consulting startups on go-to-market strategies',
-  ]
 
   useEffect(() => {
     let animationFrameId: number
@@ -90,57 +120,108 @@ export default function ApproachSection() {
           pOpacity > 0.5 ? 'auto' : 'none'
       }
 
-      // Paragraph 1: Reveal 0.32->0.42, Slide up 0.43->0.46
+      // Paragraph 1: Slide in 0.28->0.32, Reveal 0.32->0.43, Fade out 0.43->0.46
       if (p1Ref.current) {
         let opacity = 0
-        let translateY = 0
-        let revealPct = -20
-        if (progress >= 0.3 && progress < 0.32) {
-          opacity = (progress - 0.3) / 0.02
+        let translateY = 50
+        let wordProgress = 0
+        if (progress >= 0.28 && progress < 0.32) {
+          const inP = (progress - 0.28) / 0.04
+          opacity = inP
+          translateY = 50 * (1 - inP)
+          wordProgress = 0
         } else if (progress >= 0.32 && progress < 0.43) {
           opacity = 1
-          revealPct = -20 + ((progress - 0.32) / 0.11) * 140
+          translateY = 0
+          wordProgress = (progress - 0.32) / 0.11
         } else if (progress >= 0.43 && progress < 0.46) {
           const outP = (progress - 0.43) / 0.03
           opacity = 1 - outP
           translateY = -50 * outP
-          revealPct = 120
+          wordProgress = 1
         } else if (progress >= 0.46) {
           opacity = 0
-          revealPct = 120
+          wordProgress = 1
           translateY = -50
         }
         p1Ref.current.style.opacity = opacity.toString()
         p1Ref.current.style.transform = `translateY(${translateY}px)`
-        p1Ref.current.style.setProperty('--reveal-pct', `${revealPct}%`)
+
+        const spans = p1Ref.current.querySelectorAll(
+          '.word-span',
+        ) as NodeListOf<HTMLElement>
+        const total = spans.length
+        spans.forEach((span, i) => {
+          const wordStart = i / total
+          const wordEnd = Math.min(1, (i + 1) / total + 0.25)
+          let wp = (wordProgress - wordStart) / (wordEnd - wordStart)
+          wp = Math.max(0, Math.min(1, wp))
+
+          const r = Math.round(31 + (255 - 31) * wp)
+          const g = Math.round(41 + (255 - 41) * wp)
+          const b = Math.round(55 + (255 - 55) * wp)
+          span.style.color = `rgb(${r}, ${g}, ${b})`
+
+          const blur = 12 * Math.pow(1 - wp, 1.5)
+          span.style.filter = `blur(${blur}px)`
+
+          const rotX = -60 * (1 - wp)
+          const rotZ = 5 * (1 - wp)
+          const ty = 40 * (1 - wp)
+          span.style.transform = `rotateX(${rotX}deg) rotate(${rotZ}deg) translateY(${ty}px)`
+        })
       }
 
       // Paragraph 2: Slide in 0.44->0.47, Reveal 0.47->0.57, Fade out 0.60->0.65
       if (p2Ref.current) {
         let opacity = 0
         let translateY = 50
-        let revealPct = -20
+        let wordProgress = 0
         if (progress >= 0.44 && progress < 0.47) {
           const inP = (progress - 0.44) / 0.03
           opacity = inP
           translateY = 50 * (1 - inP)
+          wordProgress = 0
         } else if (progress >= 0.47 && progress < 0.6) {
           opacity = 1
           translateY = 0
-          revealPct = -20 + Math.min(1, (progress - 0.47) / 0.1) * 140
+          wordProgress = Math.min(1, (progress - 0.47) / 0.1)
         } else if (progress >= 0.6 && progress <= 0.65) {
           const outP = (progress - 0.6) / 0.05
           opacity = 1 - outP
           translateY = -50 * outP
-          revealPct = 120
+          wordProgress = 1
         } else if (progress > 0.65) {
           opacity = 0
-          revealPct = 120
+          wordProgress = 1
           translateY = -50
         }
         p2Ref.current.style.opacity = opacity.toString()
         p2Ref.current.style.transform = `translateY(${translateY}px)`
-        p2Ref.current.style.setProperty('--reveal-pct', `${revealPct}%`)
+
+        const spans = p2Ref.current.querySelectorAll(
+          '.word-span',
+        ) as NodeListOf<HTMLElement>
+        const total = spans.length
+        spans.forEach((span, i) => {
+          const wordStart = i / total
+          const wordEnd = Math.min(1, (i + 1) / total + 0.25)
+          let wp = (wordProgress - wordStart) / (wordEnd - wordStart)
+          wp = Math.max(0, Math.min(1, wp))
+
+          const r = Math.round(31 + (255 - 31) * wp)
+          const g = Math.round(41 + (255 - 41) * wp)
+          const b = Math.round(55 + (255 - 55) * wp)
+          span.style.color = `rgb(${r}, ${g}, ${b})`
+
+          const blur = 12 * Math.pow(1 - wp, 1.5)
+          span.style.filter = `blur(${blur}px)`
+
+          const rotX = -60 * (1 - wp)
+          const rotZ = 5 * (1 - wp)
+          const ty = 40 * (1 - wp)
+          span.style.transform = `rotateX(${rotX}deg) rotate(${rotZ}deg) translateY(${ty}px)`
+        })
       }
 
       // ===== PHASE 3 & 4: Blue Stack (0.65 to 1.0) =====
@@ -226,7 +307,7 @@ export default function ApproachSection() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full border-t border-white/10 bg-black md:h-[1200vh]"
+      className="relative w-full border-t border-white/10 bg-black md:h-[800vh]"
     >
       {/* =========================================
           MOBILE NATIVE LAYOUT (< 768px)
@@ -460,29 +541,17 @@ export default function ApproachSection() {
               {/* Paragraph 1 */}
               <p
                 ref={p1Ref}
-                className="col-start-1 row-start-1 w-full bg-clip-text text-2xl leading-relaxed font-light text-transparent capitalize md:text-3xl lg:text-4xl"
-                style={{
-                  backgroundImage:
-                    'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
-                }}
+                className="col-start-1 row-start-1 w-full text-2xl leading-relaxed font-light capitalize md:text-3xl lg:text-4xl"
               >
-                I believe successful brands are not built through random
-                marketing efforts, but through a calculated mix of strategy,
-                creativity, and consistency.
+                {renderWords(P1_WORDS)}
               </p>
 
               {/* Paragraph 2 */}
               <p
                 ref={p2Ref}
-                className="col-start-1 row-start-1 w-full bg-clip-text text-2xl leading-relaxed font-light text-transparent capitalize md:text-3xl lg:text-4xl"
-                style={{
-                  backgroundImage:
-                    'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
-                }}
+                className="col-start-1 row-start-1 w-full text-2xl leading-relaxed font-light capitalize md:text-3xl lg:text-4xl"
               >
-                I don’t just create content. I help businesses understand their
-                audience, craft compelling narratives, and execute strategies
-                that drive real growth.
+                {renderWords(P2_WORDS)}
               </p>
             </div>
           </div>

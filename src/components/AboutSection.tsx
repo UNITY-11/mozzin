@@ -4,6 +4,68 @@ import { useEffect, useRef, useState } from 'react'
 
 import Image from 'next/image'
 
+const P1_WORDS = [
+  "I'm",
+  { text: 'Vijil', bold: true },
+  { text: 'Raj,', bold: true },
+  'a',
+  'Digital',
+  'Marketing',
+  'Professional,',
+  'Social',
+  'Media',
+  'Expert,',
+  'and',
+  'Branding',
+  'Consultant',
+  'with',
+  'a',
+  'strong',
+  'passion',
+  'for',
+  'helping',
+  'businesses',
+  'build',
+  'impactful',
+  'brands',
+  'and',
+  'meaningful',
+  'digital',
+  'presence.',
+]
+const P2_WORDS =
+  'Over the years, I have worked with entrepreneurs, business leaders, creators, and growing brands across different industries, helping them improve visibility, strengthen their brand identity, and connect with the right audience.'.split(
+    ' ',
+  )
+const P3_WORDS =
+  'As the founder of Mozz.in, I focus on combining branding, content strategy, social media marketing, and business growth to help brands stand out in competitive markets.'.split(
+    ' ',
+  )
+
+const renderWords = (words: (string | { text: string; bold: boolean })[]) => {
+  return words.map((w, i) => {
+    const isBold = typeof w === 'object' && w.bold
+    const text = typeof w === 'object' ? w.text : w
+    return (
+      <span key={i} className="inline-block" style={{ perspective: '800px' }}>
+        <span
+          className={`word-span inline-block ${isBold ? 'font-semibold uppercase' : ''}`}
+          style={{
+            color: '#1f2937',
+            filter: 'blur(12px)',
+            transform: 'rotateX(-60deg) rotate(5deg) translateY(40px)',
+            transformOrigin: 'bottom center',
+            willChange: 'color, filter, transform',
+          }}
+        >
+          {text}
+        </span>
+        {i < words.length - 1 && ' '}
+      </span>
+    )
+  })
+}
+
 export default function AboutSection() {
   const [isVisible, setIsVisible] = useState(false)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -11,9 +73,9 @@ export default function AboutSection() {
   const topMarqueeRef = useRef<HTMLDivElement>(null)
   const bottomMarqueeRef = useRef<HTMLDivElement>(null)
 
-  const p1Ref = useRef<HTMLParagraphElement>(null)
-  const p2Ref = useRef<HTMLParagraphElement>(null)
-  const p3Ref = useRef<HTMLParagraphElement>(null)
+  const p1Ref = useRef<HTMLDivElement>(null)
+  const p2Ref = useRef<HTMLDivElement>(null)
+  const p3Ref = useRef<HTMLDivElement>(null)
 
   const extraOffsetTop = useRef(0)
   const extraOffsetBottom = useRef(0)
@@ -62,86 +124,109 @@ export default function AboutSection() {
       }
 
       // Paragraph animation logic
-      if (scrollContainerRef.current) {
-        const rect = scrollContainerRef.current.getBoundingClientRect()
-        const windowHeight = window.innerHeight
-        const containerHeight = rect.height
-        const scrollableDistance = containerHeight - windowHeight
+      const isLargeScreen = window.innerWidth >= 1024
+      if (isLargeScreen) {
+        if (scrollContainerRef.current) {
+          const rect = scrollContainerRef.current.getBoundingClientRect()
+          const windowHeight = window.innerHeight
+          const containerHeight = rect.height
+          const scrollableDistance = containerHeight - windowHeight
 
-        // Progress from 0 to 1 based on sticky container
-        const progress = Math.max(
-          0,
-          Math.min(1, -rect.top / scrollableDistance),
-        )
+          // Progress from 0 to 1 based on sticky container
+          const progress = Math.max(
+            0,
+            Math.min(1, -rect.top / scrollableDistance),
+          )
 
-        // Helper to compute reveal and fade for a paragraph
-        // p1: 0 -> 0.33
-        // p2: 0.33 -> 0.66
-        // p3: 0.66 -> 1.0
-        const animateParagraph = (
-          ref: React.RefObject<HTMLParagraphElement | null>,
-          start: number,
-          end: number,
-          isLast: boolean,
-        ) => {
-          if (!ref.current) return
+          // Progress from 0 to 1 based on sticky container
+          let activeIndex = 0
+          if (progress >= 0.33 && progress < 0.66) activeIndex = 1
+          else if (progress >= 0.66) activeIndex = 2
 
-          let opacity = 0
-          let translateY = 50
-          let revealPct = -20
+          const paras = [p1Ref.current, p2Ref.current, p3Ref.current]
+          paras.forEach((para, idx) => {
+            if (!para) return
 
-          const range = end - start
-          const p = (progress - start) / range
+            const isActive = idx === activeIndex
+            const isPast = idx < activeIndex
 
-          if (progress >= start && progress < end) {
-            // Intro: 0 to 0.2 of its range
-            if (p < 0.2) {
-              const inP = p / 0.2
-              opacity = inP
-              translateY = 50 * (1 - inP)
-              revealPct = -20
-            }
-            // Reveal: 0.2 to 0.8 of its range
-            else if (p >= 0.2 && p < 0.8) {
-              opacity = 1
-              translateY = 0
-              revealPct = -20 + ((p - 0.2) / 0.6) * 140
-            }
-            // Outro: 0.8 to 1.0 of its range
-            else {
-              if (isLast) {
-                // Last paragraph stays visible
-                opacity = 1
-                translateY = 0
-                revealPct = 120
+            para.style.transition =
+              'opacity 700ms ease-out, transform 700ms ease-out'
+            para.style.opacity = isActive ? '1' : '0'
+            para.style.transform = isActive
+              ? 'translateY(0px)'
+              : isPast
+                ? 'translateY(-50px)'
+                : 'translateY(50px)'
+
+            const spans = para.querySelectorAll(
+              '.word-span',
+            ) as NodeListOf<HTMLElement>
+            spans.forEach((span, i) => {
+              if (isActive) {
+                span.style.transition = `all 700ms ease-out ${i * 20}ms`
+                span.style.color = 'white'
+                span.style.filter = 'blur(0px)'
+                span.style.transform =
+                  'rotateX(0deg) rotate(0deg) translateY(0px)'
               } else {
-                const outP = (p - 0.8) / 0.2
-                opacity = 1 - outP
-                translateY = -50 * outP
-                revealPct = 120
+                span.style.transition = 'all 300ms ease-out 0ms'
+                span.style.color = '#1f2937'
+                span.style.filter = 'blur(12px)'
+                span.style.transform = isPast
+                  ? 'translateY(-20px)'
+                  : 'rotateX(-60deg) rotate(5deg) translateY(40px)'
               }
-            }
-          } else if (progress >= end) {
-            if (isLast) {
-              opacity = 1
-              translateY = 0
-              revealPct = 120
-            } else {
-              opacity = 0
-              translateY = -50
-              revealPct = 120
-            }
-          }
+            })
+          })
+        }
+      } else {
+        // Mobile / Small Screen: Normal scrolling blur reveal
+        ;[p1Ref, p2Ref, p3Ref].forEach((ref) => {
+          if (!ref.current) return
+          const rect = ref.current.getBoundingClientRect()
+          const windowHeight = window.innerHeight
 
+          const startReveal = windowHeight * 0.9
+          const endReveal = windowHeight * 0.3
+
+          let p = (startReveal - rect.top) / (startReveal - endReveal)
+          p = Math.max(0, Math.min(1, p))
+
+          const opacity = Math.min(1, p * 3)
+          const translateY = 80 * (1 - p)
+          const wordProgress = p
+
+          ref.current.style.transition = 'none'
           ref.current.style.opacity = opacity.toString()
           ref.current.style.transform = `translateY(${translateY}px)`
-          ref.current.style.setProperty('--reveal-pct', `${revealPct}%`)
-        }
 
-        // Adjust progress range so animations finish before 1.0, leaving time to read the last paragraph
-        animateParagraph(p1Ref, 0, 0.25, false)
-        animateParagraph(p2Ref, 0.25, 0.5, false)
-        animateParagraph(p3Ref, 0.5, 0.75, true)
+          const spans = ref.current.querySelectorAll(
+            '.word-span',
+          ) as NodeListOf<HTMLElement>
+          const total = spans.length
+          spans.forEach((span, i) => {
+            span.style.transition = 'none'
+
+            const wordStart = i / total
+            const wordEnd = Math.min(1, (i + 1) / total + 0.25)
+            let wp = (wordProgress - wordStart) / (wordEnd - wordStart)
+            wp = Math.max(0, Math.min(1, wp))
+
+            const r = Math.round(31 + (255 - 31) * wp)
+            const g = Math.round(41 + (255 - 41) * wp)
+            const b = Math.round(55 + (255 - 55) * wp)
+            span.style.color = `rgb(${r}, ${g}, ${b})`
+
+            const blur = 12 * Math.pow(1 - wp, 1.5)
+            span.style.filter = `blur(${blur}px)`
+
+            const rotX = -60 * (1 - wp)
+            const rotZ = 5 * (1 - wp)
+            const ty = 40 * (1 - wp)
+            span.style.transform = `rotateX(${rotX}deg) rotate(${rotZ}deg) translateY(${ty}px)`
+          })
+        })
       }
 
       animationFrameId = requestAnimationFrame(handleScroll)
@@ -184,8 +269,11 @@ export default function AboutSection() {
       </div>
 
       {/* Main About Content with Sticky Scroll */}
-      <div ref={scrollContainerRef} className="relative h-[400vh] w-full">
-        <div className="sticky top-0 flex h-screen w-full items-center justify-center px-6 md:px-10">
+      <div
+        ref={scrollContainerRef}
+        className="relative h-auto w-full lg:h-[400vh]"
+      >
+        <div className="relative flex h-auto w-full items-center justify-center px-6 py-24 md:px-10 lg:sticky lg:top-0 lg:h-screen lg:py-0">
           <div className="flex w-full max-w-[1500px] flex-col gap-12 lg:flex-row lg:gap-24">
             {/* Left Title + Person Image */}
             <div
@@ -215,53 +303,29 @@ export default function AboutSection() {
             <div
               className={`flex transform flex-col justify-center transition-all delay-200 duration-1000 lg:w-2/3 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
             >
-              <div className="relative mb-8 grid w-full">
+              <div className="relative mb-8 flex w-full flex-col gap-10 lg:grid lg:gap-0">
                 {/* Paragraph 1 */}
                 <p
                   ref={p1Ref}
-                  className="col-start-1 row-start-1 w-full bg-clip-text text-xl leading-relaxed font-light text-transparent capitalize opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:text-3xl lg:leading-[1.4]"
-                  style={{
-                    backgroundImage:
-                      'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
-                  }}
+                  className="w-full text-xl leading-relaxed font-light capitalize opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:col-start-1 lg:row-start-1 lg:text-3xl lg:leading-[1.4]"
                 >
-                  I&apos;m{' '}
-                  <span className="font-semibold text-white uppercase">
-                    Vijil Raj,
-                  </span>{' '}
-                  a Digital Marketing Professional, Social Media Expert, and
-                  Branding Consultant with a strong passion for helping
-                  businesses build impactful brands and meaningful digital
-                  presence.
+                  {renderWords(P1_WORDS)}
                 </p>
 
                 {/* Paragraph 2 */}
                 <p
                   ref={p2Ref}
-                  className="col-start-1 row-start-1 w-full bg-clip-text text-xl leading-relaxed font-light text-transparent capitalize opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:text-3xl lg:leading-[1.4]"
-                  style={{
-                    backgroundImage:
-                      'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
-                  }}
+                  className="w-full text-xl leading-relaxed font-light capitalize opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:col-start-1 lg:row-start-1 lg:text-3xl lg:leading-[1.4]"
                 >
-                  Over the years, I have worked with entrepreneurs, business
-                  leaders, creators, and growing brands across different
-                  industries, helping them improve visibility, strengthen their
-                  brand identity, and connect with the right audience.
+                  {renderWords(P2_WORDS)}
                 </p>
 
                 {/* Paragraph 3 */}
                 <p
                   ref={p3Ref}
-                  className="col-start-1 row-start-1 w-full bg-clip-text text-xl leading-relaxed font-light text-transparent capitalize opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:text-3xl lg:leading-[1.4]"
-                  style={{
-                    backgroundImage:
-                      'linear-gradient(to bottom, white calc(var(--reveal-pct, -20%) - 20%), #1f2937 calc(var(--reveal-pct, -20%) + 20%))',
-                  }}
+                  className="w-full text-xl leading-relaxed font-light capitalize opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:col-start-1 lg:row-start-1 lg:text-3xl lg:leading-[1.4]"
                 >
-                  As the founder of Mozz.in, I focus on combining branding,
-                  content strategy, social media marketing, and business growth
-                  to help brands stand out in competitive markets.
+                  {renderWords(P3_WORDS)}
                 </p>
               </div>
 
