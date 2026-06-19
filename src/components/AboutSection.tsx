@@ -105,13 +105,20 @@ export default function AboutSection() {
   useEffect(() => {
     lastScrollY.current = window.scrollY
     let animationFrameId: number
+    let isRunning = false
 
-    const handleScroll = () => {
+    const handleScrollUpdate = () => {
       const currentScroll = window.scrollY
       const delta = currentScroll - lastScrollY.current
       lastScrollY.current = currentScroll
 
       smoothVelocity.current += (delta - smoothVelocity.current) * 0.1
+
+      // Pause loop if no scrolling is happening and velocity is near zero
+      if (Math.abs(delta) < 0.1 && Math.abs(smoothVelocity.current) < 0.1) {
+        isRunning = false
+        return
+      }
 
       extraOffsetTop.current -= smoothVelocity.current * 0.8
       extraOffsetBottom.current += smoothVelocity.current * 0.4
@@ -229,12 +236,21 @@ export default function AboutSection() {
         })
       }
 
-      animationFrameId = requestAnimationFrame(handleScroll)
+      animationFrameId = requestAnimationFrame(handleScrollUpdate)
     }
 
-    animationFrameId = requestAnimationFrame(handleScroll)
+    const onScroll = () => {
+      if (!isRunning) {
+        isRunning = true
+        animationFrameId = requestAnimationFrame(handleScrollUpdate)
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
 
     return () => {
+      window.removeEventListener('scroll', onScroll)
       cancelAnimationFrame(animationFrameId)
     }
   }, [])
