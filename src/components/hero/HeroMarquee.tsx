@@ -4,34 +4,8 @@ import { useEffect, useRef } from 'react'
 
 export default function HeroMarquee() {
   const marqueeRef = useRef<HTMLDivElement>(null)
-  const extraOffset = useRef(0)
-  const smoothVelocity = useRef(0)
-  const lastScrollY = useRef(0)
-
   useEffect(() => {
-    lastScrollY.current = window.scrollY
-    let animationFrameId: number
-
-    const updateScroll = () => {
-      const currentScroll = window.scrollY
-      const delta = currentScroll - lastScrollY.current
-      lastScrollY.current = currentScroll
-
-      smoothVelocity.current += (delta - smoothVelocity.current) * 0.1
-      extraOffset.current -= smoothVelocity.current * 0.8
-
-      if (marqueeRef.current) {
-        marqueeRef.current.style.transform = `translateX(${extraOffset.current}px)`
-      }
-
-      animationFrameId = requestAnimationFrame(updateScroll)
-    }
-
-    animationFrameId = requestAnimationFrame(updateScroll)
-
-    return () => {
-      cancelAnimationFrame(animationFrameId)
-    }
+    // Component mounted
   }, [])
 
   return (
