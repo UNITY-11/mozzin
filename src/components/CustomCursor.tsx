@@ -31,27 +31,16 @@ export default function CustomCursor() {
   useEffect(() => {
     if (isTouchDevice) return
 
-    const updatePosition = (e: MouseEvent) => {
-      mouse.current = { x: e.clientX, y: e.clientY }
-
-      const target = e.target as HTMLElement
-      const isPointer =
-        window.getComputedStyle(target).cursor === 'pointer' ||
-        target.tagName.toLowerCase() === 'a' ||
-        target.tagName.toLowerCase() === 'button' ||
-        target.closest('a') ||
-        target.closest('button')
-
-      setIsHovering(!!isPointer)
-    }
-
-    window.addEventListener('mousemove', updatePosition)
-
     let animationFrameId: number
+    let isRunning = false
+
     const render = () => {
       // Smoothly interpolate (lerp) the ring towards the mouse
-      ring.current.x += (mouse.current.x - ring.current.x) * 0.2
-      ring.current.y += (mouse.current.y - ring.current.y) * 0.2
+      const dxRing = mouse.current.x - ring.current.x
+      const dyRing = mouse.current.y - ring.current.y
+
+      ring.current.x += dxRing * 0.2
+      ring.current.y += dyRing * 0.2
 
       // Calculate the distance between the mouse and the center of the ring
       const dx = mouse.current.x - ring.current.x
@@ -59,7 +48,6 @@ export default function CustomCursor() {
       const distance = Math.sqrt(dx * dx + dy * dy)
 
       // The maximum distance the dot is allowed to travel from the center of the ring
-      // Ring radius = 20px, Dot radius = 4px. Max safe distance = 16px. We use 14px for a nice margin.
       const maxDistance = 14
 
       let dotX = mouse.current.x
@@ -70,6 +58,13 @@ export default function CustomCursor() {
         const angle = Math.atan2(dy, dx)
         dotX = ring.current.x + Math.cos(angle) * maxDistance
         dotY = ring.current.y + Math.sin(angle) * maxDistance
+      }
+
+      // If idle (close enough), pause the loop to save CPU
+      if (Math.abs(dxRing) < 0.1 && Math.abs(dyRing) < 0.1) {
+        ring.current.x = mouse.current.x
+        ring.current.y = mouse.current.y
+        isRunning = false
       }
 
       if (ringRef.current) {
@@ -83,10 +78,36 @@ export default function CustomCursor() {
         dotRef.current.style.opacity = hoverRef.current ? '0' : '1'
       }
 
-      animationFrameId = requestAnimationFrame(render)
+      if (isRunning) {
+        animationFrameId = requestAnimationFrame(render)
+      }
     }
 
-    render()
+    const updatePosition = (e: MouseEvent) => {
+      mouse.current = { x: e.clientX, y: e.clientY }
+
+      const target = e.target as HTMLElement
+      const isPointer =
+        window.getComputedStyle(target).cursor === 'pointer' ||
+        target.tagName.toLowerCase() === 'a' ||
+        target.tagName.toLowerCase() === 'button' ||
+        target.closest('a') ||
+        target.closest('button')
+
+      setIsHovering(!!isPointer)
+
+      if (!isRunning) {
+        isRunning = true
+        animationFrameId = requestAnimationFrame(render)
+      }
+    }
+
+    window.addEventListener('mousemove', updatePosition)
+    updatePosition({
+      clientX: mouse.current.x,
+      clientY: mouse.current.y,
+      target: document.body,
+    } as unknown as MouseEvent)
 
     return () => {
       window.removeEventListener('mousemove', updatePosition)
