@@ -284,15 +284,15 @@ export default function ApproachSection() {
             Working On
           </h4>
 
-          <div className="flex w-full flex-col gap-16">
+          <div className="flex w-full flex-col gap-6">
             {items.map((item, i) => (
               <div
                 key={i}
-                className="relative flex aspect-[4/3] w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-blue-600 p-6 shadow-[0_20px_40px_rgba(37,99,235,0.2)]"
+                className="group relative flex min-h-[220px] w-full flex-col items-start justify-end overflow-hidden rounded-[32px] bg-blue-600 p-8 pt-16 shadow-[0_20px_40px_rgba(37,99,235,0.15)] transition-colors hover:bg-blue-500"
               >
                 {/* Animated Background Dots */}
                 <svg
-                  className="absolute inset-0 h-full w-full text-white/10"
+                  className="absolute inset-0 z-0 h-full w-full text-white/10"
                   aria-hidden="true"
                 >
                   <defs>
@@ -328,34 +328,13 @@ export default function ApproachSection() {
                   />
                 </svg>
 
-                {/* Top Notch */}
-                <svg
-                  viewBox="0 0 160 32"
-                  className="pointer-events-none absolute -top-[1px] left-1/2 z-50 h-8 w-64 -translate-x-1/2"
-                  preserveAspectRatio="none"
-                >
-                  <path
-                    d="M 0 0 L 33 0 Q 36.3 0, 38 4 L 48 28 Q 49.7 32, 54 32 L 106 32 Q 110.3 32, 112 28 L 122 4 Q 123.7 0, 127 0 L 160 0 Z"
-                    fill="#01030a"
-                  />
-                </svg>
+                {/* --- TRENDING S-CURVE NOTCH --- */}
+                <div className="absolute top-0 right-0 z-10 h-20 w-20 rounded-bl-[28px] bg-black before:absolute before:top-0 before:-left-6 before:h-6 before:w-6 before:rounded-tr-[24px] before:bg-transparent before:shadow-[12px_-12px_0_12px_black] before:content-[''] after:absolute after:right-0 after:-bottom-6 after:h-6 after:w-6 after:rounded-tr-[24px] after:bg-transparent after:shadow-[12px_-12px_0_12px_black] after:content-['']" />
 
-                {/* Bottom Notch */}
-                <svg
-                  viewBox="0 0 160 32"
-                  className="pointer-events-none absolute -bottom-[1px] left-1/2 z-50 h-8 w-64 -translate-x-1/2"
-                  preserveAspectRatio="none"
-                >
-                  <path
-                    d="M 0 32 L 33 32 Q 36.3 32, 38 28 L 48 4 Q 49.7 0, 54 0 L 106 0 Q 110.3 0, 112 4 L 122 28 Q 123.7 32, 127 32 L 160 32 Z"
-                    fill="#01030a"
-                  />
-                </svg>
-
-                {/* Icon */}
-                <div className="relative z-10 mb-6 flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl border border-white/20 bg-white/10 shadow-sm backdrop-blur-md">
+                {/* Floating Icon inside the Notch Area */}
+                <div className="absolute top-3 right-3 z-20 flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.4)] transition-transform group-hover:scale-110">
                   <svg
-                    className="h-8 w-8 text-white"
+                    className="h-6 w-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -369,10 +348,12 @@ export default function ApproachSection() {
                   </svg>
                 </div>
 
-                {/* Text */}
-                <span className="relative z-10 text-center text-lg leading-relaxed font-medium text-white">
-                  {item}
-                </span>
+                {/* Content */}
+                <div className="relative z-20 w-full pr-8">
+                  <h3 className="text-xl leading-relaxed font-medium text-white">
+                    {item}
+                  </h3>
+                </div>
               </div>
             ))}
           </div>
