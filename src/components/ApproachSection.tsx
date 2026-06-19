@@ -79,9 +79,9 @@ export default function ApproachSection() {
         const startReveal = windowHeight * 0.9
         const endReveal = windowHeight * 0.2
 
-        let overallProgress = (startReveal - rect.top) / (startReveal - endReveal)
+        let overallProgress =
+          (startReveal - rect.top) / (startReveal - endReveal)
         overallProgress = Math.max(0, Math.min(1, overallProgress))
-
         ;[mobileP1Ref, mobileP2Ref].forEach((ref, idx) => {
           if (!ref.current) return
 
@@ -94,7 +94,9 @@ export default function ApproachSection() {
             p = Math.max(0, (overallProgress - 0.5) / 0.5)
           }
 
-          const spans = ref.current.querySelectorAll('.word-span') as NodeListOf<HTMLElement>
+          const spans = ref.current.querySelectorAll(
+            '.word-span',
+          ) as NodeListOf<HTMLElement>
           const total = spans.length
           spans.forEach((span, i) => {
             const wordStart = i / total
@@ -341,10 +343,16 @@ export default function ApproachSection() {
             />
           </div>
           <div className="flex w-full flex-col gap-8">
-            <p ref={mobileP1Ref} className="text-xl leading-relaxed font-light capitalize">
+            <p
+              ref={mobileP1Ref}
+              className="text-xl leading-relaxed font-light capitalize"
+            >
               {renderWords(P1_WORDS)}
             </p>
-            <p ref={mobileP2Ref} className="text-xl leading-relaxed font-light capitalize">
+            <p
+              ref={mobileP2Ref}
+              className="text-xl leading-relaxed font-light capitalize"
+            >
               {renderWords(P2_WORDS)}
             </p>
           </div>
