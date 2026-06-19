@@ -11,6 +11,45 @@ const items = [
   'WEB DESIGN',
 ]
 
+const CARD_THEMES = [
+  {
+    bg: 'bg-blue-800',
+    hoverBg: 'hover:bg-blue-700',
+    shadow: 'shadow-[0_20px_40px_rgba(30,64,175,0.2)]',
+    iconBg: 'bg-blue-800',
+    iconText: 'text-white',
+    iconShadow: 'shadow-[0_0_15px_rgba(30,64,175,0.5)]',
+    textColor: 'text-white',
+  },
+  {
+    bg: 'bg-blue-600',
+    hoverBg: 'hover:bg-blue-500',
+    shadow: 'shadow-[0_20px_40px_rgba(37,99,235,0.15)]',
+    iconBg: 'bg-blue-600',
+    iconText: 'text-white',
+    iconShadow: 'shadow-[0_0_15px_rgba(37,99,235,0.4)]',
+    textColor: 'text-white',
+  },
+  {
+    bg: 'bg-cyan-500',
+    hoverBg: 'hover:bg-cyan-400',
+    shadow: 'shadow-[0_20px_40px_rgba(6,182,212,0.15)]',
+    iconBg: 'bg-cyan-500',
+    iconText: 'text-white',
+    iconShadow: 'shadow-[0_0_15px_rgba(6,182,212,0.4)]',
+    textColor: 'text-white',
+  },
+  {
+    bg: 'bg-slate-100',
+    hoverBg: 'hover:bg-white',
+    shadow: 'shadow-[0_20px_40px_rgba(255,255,255,0.1)]',
+    iconBg: 'bg-white',
+    iconText: 'text-blue-600',
+    iconShadow: 'shadow-[0_0_15px_rgba(0,0,0,0.1)]',
+    textColor: 'text-blue-600',
+  },
+]
+
 const P1_WORDS =
   'I believe successful brands are not built through random marketing efforts, but through a calculated mix of strategy, creativity, and consistency.'.split(
     ' ',
@@ -370,77 +409,89 @@ export default function ApproachSection() {
           </h4>
 
           <div className="flex w-full flex-col gap-6">
-            {items.map((item, i) => (
-              <div
-                key={i}
-                className="group relative flex min-h-[220px] w-full flex-col items-start justify-end overflow-hidden rounded-[32px] bg-blue-600 p-8 pt-16 shadow-[0_20px_40px_rgba(37,99,235,0.15)] transition-colors hover:bg-blue-500"
-              >
-                {/* Animated Background Dots */}
-                <svg
-                  className="absolute inset-0 z-0 h-full w-full text-white/10"
-                  aria-hidden="true"
+            {items.map((item, i) => {
+              const theme = CARD_THEMES[i % CARD_THEMES.length]
+              return (
+                <div
+                  key={i}
+                  className={`group relative flex min-h-[220px] w-full flex-col items-start justify-end overflow-hidden rounded-[32px] p-8 pt-16 transition-colors ${theme.bg} ${theme.hoverBg} ${theme.shadow}`}
                 >
-                  <defs>
-                    <pattern
-                      id={`dots-mobile-${i}`}
-                      x="0"
-                      y="0"
-                      width="24"
-                      height="24"
-                      patternUnits="userSpaceOnUse"
-                    >
-                      <circle cx="2" cy="2" r="1.5" fill="currentColor" />
-                      <animate
-                        attributeName="x"
-                        from="0"
-                        to="24"
-                        dur="4s"
-                        repeatCount="indefinite"
-                      />
-                      <animate
-                        attributeName="y"
-                        from="0"
-                        to="24"
-                        dur="4s"
-                        repeatCount="indefinite"
-                      />
-                    </pattern>
-                  </defs>
-                  <rect
-                    width="100%"
-                    height="100%"
-                    fill={`url(#dots-mobile-${i})`}
-                  />
-                </svg>
-
-                {/* --- TRENDING S-CURVE NOTCH --- */}
-                <div className="absolute top-0 right-0 z-10 h-20 w-20 rounded-bl-[28px] bg-black before:absolute before:top-0 before:-left-6 before:h-6 before:w-6 before:rounded-tr-[24px] before:bg-transparent before:shadow-[12px_-12px_0_12px_black] before:content-[''] after:absolute after:right-0 after:-bottom-6 after:h-6 after:w-6 after:rounded-tr-[24px] after:bg-transparent after:shadow-[12px_-12px_0_12px_black] after:content-['']" />
-
-                {/* Floating Icon inside the Notch Area */}
-                <div className="absolute top-3 right-3 z-20 flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.4)] transition-transform group-hover:scale-110">
+                  {/* Animated Background Dots */}
                   <svg
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                    className="absolute inset-0 z-0 h-full w-full text-white/10"
+                    aria-hidden="true"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                    <defs>
+                      <pattern
+                        id={`dots-mobile-${i}`}
+                        x="0"
+                        y="0"
+                        width="24"
+                        height="24"
+                        patternUnits="userSpaceOnUse"
+                      >
+                        <circle cx="2" cy="2" r="1.5" fill="currentColor" />
+                        <animate
+                          attributeName="x"
+                          from="0"
+                          to="24"
+                          dur="4s"
+                          repeatCount="indefinite"
+                        />
+                        <animate
+                          attributeName="y"
+                          from="0"
+                          to="24"
+                          dur="4s"
+                          repeatCount="indefinite"
+                        />
+                      </pattern>
+                    </defs>
+                    <rect
+                      width="100%"
+                      height="100%"
+                      fill={`url(#dots-mobile-${i})`}
                     />
                   </svg>
-                </div>
 
-                {/* Content */}
-                <div className="relative z-20 w-full pr-8">
-                  <h3 className="text-xl leading-relaxed font-medium text-white">
-                    {item}
-                  </h3>
+                  {/* --- TRENDING S-CURVE NOTCH (Radial Gradient Implementation) --- */}
+                  <div className="absolute top-0 right-0 z-10 h-20 w-20 rounded-bl-[28px] bg-black">
+                    {/* Top-Left Inverted Corner */}
+                    <div className="absolute top-0 -left-6 h-6 w-6 bg-[radial-gradient(circle_at_bottom_left,transparent_24px,#000_24.5px)]" />
+                    {/* Bottom-Right Inverted Corner */}
+                    <div className="absolute right-0 -bottom-6 h-6 w-6 bg-[radial-gradient(circle_at_bottom_left,transparent_24px,#000_24.5px)]" />
+                  </div>
+
+                  {/* Floating Icon inside the Notch Area */}
+                  <div
+                    className={`absolute top-3 right-3 z-20 flex h-14 w-14 items-center justify-center rounded-full transition-transform group-hover:scale-110 ${theme.iconBg} ${theme.iconText} ${theme.iconShadow}`}
+                  >
+                    <svg
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                      />
+                    </svg>
+                  </div>
+
+                  {/* Content */}
+                  <div className="relative z-20 w-full pr-8">
+                    <h3
+                      className={`text-xl leading-relaxed font-medium ${theme.textColor}`}
+                    >
+                      {item}
+                    </h3>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </div>
