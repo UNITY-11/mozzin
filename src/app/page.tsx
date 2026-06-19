@@ -68,7 +68,10 @@ export default function Home() {
       </div>
 
       {/* FOUNDER SECTION (Slides over ExpertiseSection) */}
-      <div id="founder" className="relative z-30 mt-[-100vh] bg-[#01030a]">
+      <div
+        id="founder"
+        className="relative z-30 mt-0 bg-[#01030a] md:-mt-[100vh]"
+      >
         <FounderSection />
       </div>
 
