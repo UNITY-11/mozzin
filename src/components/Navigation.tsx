@@ -54,7 +54,7 @@ export default function Navigation() {
   return (
     <>
       <div
-        className={`fixed inset-0 z-50 overflow-hidden text-white transition-all ${
+        className={`fixed inset-0 z-50 h-[100dvh] overflow-hidden text-white transition-all ${
           isOpen ? 'pointer-events-auto' : 'pointer-events-none delay-700'
         }`}
       >
@@ -221,12 +221,23 @@ export default function Navigation() {
           </div>
 
           {/* Right Content */}
-          <div className="flex h-full w-full flex-col justify-center gap-0 overflow-y-auto px-0 md:px-0">
+          <div className="flex h-[calc(100dvh-76px)] w-full flex-col justify-start gap-2 overflow-y-auto px-0 pt-8 md:h-full md:justify-center md:gap-0 md:px-0 md:pt-0">
+            {/* Mobile Only: Top Image */}
+            <div className="mb-8 flex w-full px-8 md:hidden">
+              <div className="relative h-[180px] w-full">
+                <Image
+                  src="/images/hero-ui.webp"
+                  alt="Navigation Image"
+                  fill
+                  className="object-contain object-left-bottom"
+                />
+              </div>
+            </div>
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => handleScrollTo(link.id)}
-                className="group relative flex w-full items-center px-8 py-2 text-left transition-colors duration-300 hover:bg-blue-600 md:px-12 md:py-3 lg:px-24 lg:py-4"
+                className="group relative flex w-full items-center border-b border-white/10 px-8 py-4 text-left transition-colors duration-300 hover:bg-blue-600 md:border-none md:px-12 md:py-3 lg:px-24 lg:py-4"
               >
                 <span className="font-syncopate flex items-center gap-2 text-2xl font-bold tracking-tighter text-blue-500 transition-all duration-300 group-hover:text-[#0a0a0a] md:text-4xl lg:text-5xl xl:text-6xl">
                   {/* Arrow Icon */}
@@ -249,6 +260,107 @@ export default function Navigation() {
                 </span>
               </button>
             ))}
+
+            {/* Mobile Only: Left Panel Content */}
+            <div className="mt-12 flex w-full flex-col gap-8 px-8 pb-12 md:hidden">
+              <div className="flex flex-col gap-4 text-white opacity-50">
+                <a
+                  href="https://x.com/amozz_in?s=11"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group font-syncopate flex items-center text-xs font-bold tracking-wider uppercase transition-colors hover:text-blue-500"
+                >
+                  X
+                  <svg
+                    className="ml-1 h-3 w-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+                    />
+                  </svg>
+                </a>
+                <a
+                  href="https://www.instagram.com/amozz.in?igsh=MTdqZGMwYzJ4OWJobQ=="
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group font-syncopate flex items-center text-xs font-bold tracking-wider uppercase transition-colors hover:text-blue-500"
+                >
+                  INSTAGRAM
+                  <svg
+                    className="ml-1 h-3 w-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+                    />
+                  </svg>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/vijilraj?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group font-syncopate flex items-center text-xs font-bold tracking-wider uppercase transition-colors hover:text-blue-500"
+                >
+                  LINKEDIN
+                  <svg
+                    className="ml-1 h-3 w-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+                    />
+                  </svg>
+                </a>
+              </div>
+
+              <div className="mt-4 border-t border-white/10 pt-8">
+                <p
+                  className="text-[10px] leading-relaxed tracking-wide text-white/40"
+                  suppressHydrationWarning
+                >
+                  Delivering success with every solution.
+                  <br />© {new Date().getFullYear()} . Mozzin . All Rights
+                  Reserved
+                  <br />
+                  Designed & Developed by{' '}
+                  <a
+                    href="https://unity11solutions.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 align-middle transition-opacity hover:opacity-80"
+                  >
+                    <span className="relative inline-block h-3 w-3">
+                      <Image
+                        src="/gif/unity11-logo.gif"
+                        alt="Unity11 Logo"
+                        fill
+                        className="object-contain"
+                        unoptimized
+                      />
+                    </span>
+                    <span className="bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text font-bold text-transparent">
+                      UNITY11
+                    </span>
+                  </a>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
