@@ -48,11 +48,17 @@ export default function InteractiveHero() {
           priority
           className="pointer-events-none absolute inset-0 object-contain object-bottom"
         />
+
+        {/* Blinking Chest Light Enhancement (Only visible with the cyber-suit) */}
+        <span
+          className="pointer-events-none absolute bottom-[6%] left-1/2 z-10 ml-[-4.5px] h-10 w-1.5 -translate-x-1/2 animate-pulse rounded-full bg-blue-400 shadow-[0_0_25px_10px_rgba(0,85,255,1)]"
+          style={{ animationDuration: '0.6s' }}
+        />
       </div>
 
       {/* Invisible Trigger Zone - restricts hover effect to the actual person in the center */}
       <div
-        className="absolute bottom-0 left-1/2 z-10 h-[85%] w-[600px] -translate-x-1/2 cursor-crosshair"
+        className="absolute bottom-0 left-1/2 z-0 h-[85%] w-[600px] -translate-x-1/2 cursor-crosshair"
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
