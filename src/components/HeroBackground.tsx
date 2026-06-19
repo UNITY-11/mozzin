@@ -1,11 +1,14 @@
+import Image from 'next/image'
+
 export default function HeroBackground() {
   return (
-    <div className="pointer-events-none fixed inset-0 z-0">
-      <div
-        className="absolute inset-0 opacity-80 mix-blend-lighten"
-        style={{
-          background: 'linear-gradient(to right, #000318, #0033cc, #00eeff)',
-        }}
+    <div className="pointer-events-none fixed inset-0 z-0 bg-[#01030a]">
+      <Image
+        src="/images/hero-bg.png"
+        alt="Hero Background"
+        fill
+        priority
+        className="object-cover opacity-80"
       />
       <div
         className="absolute inset-0 opacity-100 mix-blend-overlay"
