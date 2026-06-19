@@ -22,7 +22,11 @@ const P2_WORDS =
 
 const renderWords = (words: string[]) => {
   return words.map((text, i) => (
-    <span key={i} className="inline-block" style={{ perspective: '800px' }}>
+    <span
+      key={i}
+      className="mr-[0.25em] inline-block"
+      style={{ perspective: '800px' }}
+    >
       <span
         className="word-span inline-block"
         style={{
@@ -36,7 +40,6 @@ const renderWords = (words: string[]) => {
       >
         {text}
       </span>
-      {i < words.length - 1 && ' '}
     </span>
   ))
 }
@@ -345,13 +348,13 @@ export default function ApproachSection() {
           <div className="flex w-full flex-col gap-8">
             <p
               ref={mobileP1Ref}
-              className="text-xl leading-relaxed font-light capitalize"
+              className="text-xl leading-relaxed font-light tracking-wide"
             >
               {renderWords(P1_WORDS)}
             </p>
             <p
               ref={mobileP2Ref}
-              className="text-xl leading-relaxed font-light capitalize"
+              className="text-xl leading-relaxed font-light tracking-wide"
             >
               {renderWords(P2_WORDS)}
             </p>
@@ -542,7 +545,7 @@ export default function ApproachSection() {
               {/* Paragraph 1 */}
               <p
                 ref={p1Ref}
-                className="col-start-1 row-start-1 w-full text-2xl leading-relaxed font-light capitalize md:text-3xl lg:text-4xl"
+                className="col-start-1 row-start-1 w-full text-xl leading-relaxed font-light tracking-wide md:text-2xl lg:text-3xl"
               >
                 {renderWords(P1_WORDS)}
               </p>
@@ -550,7 +553,7 @@ export default function ApproachSection() {
               {/* Paragraph 2 */}
               <p
                 ref={p2Ref}
-                className="col-start-1 row-start-1 w-full text-2xl leading-relaxed font-light capitalize md:text-3xl lg:text-4xl"
+                className="col-start-1 row-start-1 w-full text-xl leading-relaxed font-light tracking-wide md:text-2xl lg:text-3xl"
               >
                 {renderWords(P2_WORDS)}
               </p>
