@@ -61,15 +61,18 @@ export default function ApproachSection() {
   const backdropRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    let animationFrameId: number
+    let ticking = false
 
-    const handleScroll = () => {
+    const handleScrollUpdate = () => {
       if (window.innerWidth < 768) {
-        animationFrameId = requestAnimationFrame(handleScroll)
+        ticking = false
         return
       }
 
-      if (!containerRef.current) return
+      if (!containerRef.current) {
+        ticking = false
+        return
+      }
       const rect = containerRef.current.getBoundingClientRect()
       const windowHeight = window.innerHeight
 
@@ -289,18 +292,24 @@ export default function ApproachSection() {
         }
       })
 
-      animationFrameId = requestAnimationFrame(handleScroll)
+      ticking = false
+    }
+
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(handleScrollUpdate)
+        ticking = true
+      }
     }
 
     // Initial call
-    handleScroll()
+    onScroll()
 
     // Add event listener
-    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('scroll', onScroll, { passive: true })
 
     return () => {
-      cancelAnimationFrame(animationFrameId)
-      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('scroll', onScroll)
     }
   }, [])
 
