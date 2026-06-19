@@ -19,6 +19,7 @@ const ExpertiseSection = dynamic(
 const FounderSection = dynamic(
   () => import('@/components/sections/FounderSection'),
 )
+import StatsMarquee from '@/components/hero/StatsMarquee'
 
 export default function Home() {
   return (
@@ -30,7 +31,7 @@ export default function Home() {
       <HeroBackground />
 
       {/* HERO SCROLLING CONTAINER */}
-      <div className="relative flex h-screen w-full flex-col md:block md:min-h-screen">
+      <div className="relative flex min-h-screen w-full flex-col md:block">
         {/* TOP SECTION ON MOBILE: NAVBAR + IMAGE + MARQUEE / FIXED OVERLAY ON DESKTOP */}
         <div className="relative z-20 flex h-[50vh] w-full flex-col overflow-hidden md:contents">
           {/* Mobile Navbar - client component for interactivity */}
@@ -50,14 +51,19 @@ export default function Home() {
         </div>
 
         {/* BOTTOM SECTION ON MOBILE: TEXT CONTENT / BASE LAYER ON DESKTOP */}
-        <div className="relative flex h-[50vh] w-full flex-col overflow-hidden bg-[#01030a] md:block md:h-auto md:min-h-screen md:bg-transparent">
+        <div className="relative flex flex-1 w-full flex-col bg-[#01030a] md:block md:h-auto md:min-h-screen md:bg-transparent overflow-hidden md:overflow-visible">
+          {/* Small Stats Marquee (Mobile Only, directly under image) */}
+          <div className="block w-full md:hidden">
+            <StatsMarquee />
+          </div>
+
           {/* Marquee on desktop only */}
           <div className="hidden md:block">
             <HeroMarquee />
           </div>
 
           {/* SCROLLING UI CONTENT z-30 */}
-          <div className="pointer-events-none relative z-30 flex h-full w-full flex-col p-6 md:min-h-screen md:pt-6">
+          <div className="pointer-events-none relative z-30 flex h-full w-full flex-col px-6 pb-6 pt-2 md:min-h-screen md:p-6">
             <div className="relative mx-auto flex w-full max-w-[1500px] flex-1 flex-col">
               <HeroContent />
             </div>

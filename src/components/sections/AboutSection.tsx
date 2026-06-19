@@ -249,7 +249,7 @@ export default function AboutSection() {
   return (
     <section className="pointer-events-auto relative z-50 w-full border-t border-white/10 bg-[#01030a]">
       {/* Top Marquee */}
-      <div className="mb-8 flex w-full overflow-hidden border-b border-white/5 bg-white/[0.02] py-6 backdrop-blur-md md:mb-0">
+      <div className="mb-8 hidden w-full overflow-hidden border-b border-white/5 bg-white/[0.02] py-6 backdrop-blur-md md:mb-0 md:flex">
         <div ref={topMarqueeRef} className="flex w-max">
           <div
             className="animate-marquee flex w-max whitespace-nowrap"

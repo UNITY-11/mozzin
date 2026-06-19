@@ -70,12 +70,12 @@ export default function HeroContent() {
       </header>
 
       {/* Main Content Areas that space themselves out vertically */}
-      <div className="mt-12 flex flex-1 flex-col justify-between gap-16 md:mt-16 md:gap-0">
+      <div className="mt-0 flex flex-1 flex-col justify-between gap-6 md:mt-16 md:gap-0">
         {/* Top Row: Headings */}
-        <div className="flex w-full flex-col justify-between gap-8 md:flex-row md:items-start lg:px-4">
+        <div className="order-2 flex w-full flex-col justify-between gap-8 md:order-1 md:flex-row md:items-start lg:px-4">
           {/* Left Text */}
           <div className="pointer-events-auto w-full max-w-[300px] md:max-w-md">
-            <h1 className="mb-4 font-sans text-3xl leading-[1] font-semibold tracking-wide text-white md:mb-6 md:text-4xl lg:text-3xl">
+            <h1 className="mb-2 font-sans text-xl leading-[1.15] font-semibold tracking-wide text-white md:mb-6 md:text-4xl lg:text-3xl">
               <span className="font-syncopate font-bold text-white drop-shadow-md">
                 I&apos;m helping
                 <br />
@@ -87,8 +87,8 @@ export default function HeroContent() {
           </div>
 
           {/* Right Text */}
-          <div className="pointer-events-auto md:text-right">
-            <h2 className="font-syncopate text-3xl leading-[1] font-bold tracking-wide text-white md:text-4xl lg:text-3xl">
+          <div className="pointer-events-auto hidden md:block md:text-right">
+            <h2 className="font-syncopate text-2xl leading-[1.1] font-bold tracking-wide text-white md:text-4xl lg:text-3xl">
               CREATIVE
               <br />
               BRANDING
@@ -99,7 +99,9 @@ export default function HeroContent() {
         </div>
 
         {/* Bottom Row: Hero Boxes */}
-        <HeroBoxes />
+        <div className="order-1 w-full md:order-2">
+          <HeroBoxes />
+        </div>
       </div>
     </>
   )
