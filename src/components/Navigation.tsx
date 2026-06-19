@@ -54,7 +54,7 @@ export default function Navigation() {
   return (
     <>
       <div
-        className={`fixed inset-0 z-50 h-[100dvh] overflow-hidden text-white transition-all ${
+        className={`fixed inset-0 z-50 h-[100dvh] touch-none overflow-hidden text-white transition-all ${
           isOpen ? 'pointer-events-auto' : 'pointer-events-none delay-700'
         }`}
       >
@@ -203,7 +203,8 @@ export default function Navigation() {
 
         {/* RIGHT PANEL (Desktop + Mobile) */}
         <div
-          className={`absolute inset-y-0 right-0 flex w-full flex-col bg-[#0a0a0a] transition-transform duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] md:w-1/2 ${
+          data-lenis-prevent="true"
+          className={`absolute inset-y-0 right-0 flex h-full w-full touch-pan-y flex-col overflow-y-auto overscroll-contain bg-[#0a0a0a] transition-transform duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] md:w-1/2 ${
             isOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
@@ -221,7 +222,7 @@ export default function Navigation() {
           </div>
 
           {/* Right Content */}
-          <div className="flex w-full flex-1 flex-col justify-start overflow-y-auto px-0 pt-8 md:justify-center md:gap-0 md:px-0 md:pt-0">
+          <div className="flex w-full flex-1 flex-col justify-start px-0 pt-8 md:justify-center md:gap-0 md:px-0 md:pt-0">
             {/* Mobile Only: Top Image */}
             <div className="mb-8 flex w-full shrink-0 px-8 md:hidden">
               <div className="relative h-[180px] w-full">
@@ -262,7 +263,7 @@ export default function Navigation() {
             ))}
 
             {/* Mobile Only: Left Panel Content */}
-            <div className="mt-8 flex w-full shrink-0 flex-col gap-8 px-8 pb-12 md:hidden">
+            <div className="mt-8 flex w-full shrink-0 flex-col gap-8 px-8 pb-32 md:hidden">
               <div className="flex flex-col gap-4 text-white opacity-50">
                 <a
                   href="https://x.com/amozz_in?s=11"
