@@ -31,10 +31,13 @@ export default function FounderSection() {
   const searchBoxRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    let animationFrameId: number
+    let ticking = false
 
     const updateScroll = () => {
-      if (!stickyRef.current || !containerRef.current) return
+      if (!stickyRef.current || !containerRef.current) {
+        ticking = false
+        return
+      }
 
       const stickyRect = stickyRef.current.getBoundingClientRect()
       const containerRect = containerRef.current.getBoundingClientRect()
@@ -101,10 +104,18 @@ export default function FounderSection() {
         }
       })
 
-      animationFrameId = requestAnimationFrame(updateScroll)
+      ticking = false
     }
 
-    animationFrameId = requestAnimationFrame(updateScroll)
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateScroll)
+        ticking = true
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll() // Initial setup
 
     // Mobile Intersection Observer for smooth fade-in
     const observer = new IntersectionObserver(
@@ -124,7 +135,7 @@ export default function FounderSection() {
     })
 
     return () => {
-      cancelAnimationFrame(animationFrameId)
+      window.removeEventListener('scroll', onScroll)
       observer.disconnect()
     }
   }, [])
