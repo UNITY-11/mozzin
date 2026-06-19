@@ -221,9 +221,9 @@ export default function Navigation() {
           </div>
 
           {/* Right Content */}
-          <div className="flex h-[calc(100dvh-76px)] w-full flex-col justify-start gap-2 overflow-y-auto px-0 pt-8 md:h-full md:justify-center md:gap-0 md:px-0 md:pt-0">
+          <div className="flex h-[calc(100dvh-76px)] w-full flex-col justify-start overflow-y-auto px-0 pt-8 md:h-full md:justify-center md:gap-0 md:px-0 md:pt-0">
             {/* Mobile Only: Top Image */}
-            <div className="mb-8 flex w-full px-8 md:hidden">
+            <div className="mb-8 flex w-full shrink-0 px-8 md:hidden">
               <div className="relative h-[180px] w-full">
                 <Image
                   src="/images/hero-ui.webp"
@@ -237,7 +237,7 @@ export default function Navigation() {
               <button
                 key={link.id}
                 onClick={() => handleScrollTo(link.id)}
-                className="group relative flex w-full items-center border-b border-white/10 px-8 py-4 text-left transition-colors duration-300 hover:bg-blue-600 md:border-none md:px-12 md:py-3 lg:px-24 lg:py-4"
+                className="group relative flex w-full shrink-0 items-center border-b border-white/10 px-8 py-4 text-left transition-colors duration-300 hover:bg-blue-600 md:border-none md:px-12 md:py-3 lg:px-24 lg:py-4"
               >
                 <span className="font-syncopate flex items-center gap-2 text-2xl font-bold tracking-tighter text-blue-500 transition-all duration-300 group-hover:text-[#0a0a0a] md:text-4xl lg:text-5xl xl:text-6xl">
                   {/* Arrow Icon */}
@@ -262,7 +262,7 @@ export default function Navigation() {
             ))}
 
             {/* Mobile Only: Left Panel Content */}
-            <div className="mt-12 flex w-full flex-col gap-8 px-8 pb-12 md:hidden">
+            <div className="mt-8 flex w-full shrink-0 flex-col gap-8 px-8 pb-12 md:hidden">
               <div className="flex flex-col gap-4 text-white opacity-50">
                 <a
                   href="https://x.com/amozz_in?s=11"
