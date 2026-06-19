@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+
 import Image from 'next/image'
 
 export default function ContactSection() {
@@ -50,7 +51,7 @@ export default function ContactSection() {
 
           {/* ─── Right: Contact Form ─── */}
           <div
-            className={`flex flex-col justify-center transform transition-all delay-200 duration-1000 lg:w-1/2 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'}`}
+            className={`flex transform flex-col justify-center transition-all delay-200 duration-1000 lg:w-1/2 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'}`}
           >
             <form
               className="flex flex-col gap-0"
@@ -92,7 +93,7 @@ export default function ContactSection() {
                   <input
                     type="email"
                     placeholder="your@email.com"
-                    className="w-full bg-transparent text-lg font-light text-white outline-none placeholder:text-white/20 md:text-xl md:pr-4"
+                    className="w-full bg-transparent text-lg font-light text-white outline-none placeholder:text-white/20 md:pr-4 md:text-xl"
                   />
                   <div className="absolute right-0 bottom-6 text-white/20 transition-colors group-hover:text-white/50 md:right-4">
                     <svg
@@ -147,7 +148,7 @@ export default function ContactSection() {
                   placeholder="Tell me about your project..."
                   className="w-full resize-none bg-transparent text-lg font-light text-white outline-none placeholder:text-white/20 md:text-xl"
                 />
-                <div className="absolute right-0 top-6 text-white/20 transition-colors group-hover:text-white/50">
+                <div className="absolute top-6 right-0 text-white/20 transition-colors group-hover:text-white/50">
                   <svg
                     className="h-3 w-3"
                     fill="none"
@@ -193,7 +194,7 @@ export default function ContactSection() {
       {/* ─── Bottom: Contact Info + Social ─── */}
       <div className="mx-auto max-w-[1500px] border-t border-white/5 px-6 py-12 md:px-10 lg:py-16">
         <div
-          className={`flex flex-col gap-12 transform transition-all delay-500 duration-1000 md:flex-row md:items-start md:justify-between ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+          className={`flex transform flex-col gap-12 transition-all delay-500 duration-1000 md:flex-row md:items-start md:justify-between ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
         >
           {/* Location */}
           <div>
@@ -230,33 +231,63 @@ export default function ContactSection() {
                 href="https://x.com/amozz_in?s=11"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group font-syncopate flex items-center text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-400"
+                className="group font-syncopate flex items-center text-xs font-bold tracking-wider uppercase transition-colors hover:text-blue-400"
               >
                 X
-                <svg className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                <svg
+                  className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+                  />
                 </svg>
               </a>
               <a
                 href="https://www.instagram.com/amozz.in?igsh=MTdqZGMwYzJ4OWJobQ=="
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group font-syncopate flex items-center text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-400"
+                className="group font-syncopate flex items-center text-xs font-bold tracking-wider uppercase transition-colors hover:text-blue-400"
               >
                 INSTAGRAM
-                <svg className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                <svg
+                  className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+                  />
                 </svg>
               </a>
               <a
                 href="https://www.linkedin.com/in/vijilraj?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group font-syncopate flex items-center text-xs font-bold uppercase tracking-wider transition-colors hover:text-blue-400"
+                className="group font-syncopate flex items-center text-xs font-bold tracking-wider uppercase transition-colors hover:text-blue-400"
               >
                 LINKEDIN
-                <svg className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                <svg
+                  className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+                  />
                 </svg>
               </a>
             </div>
@@ -278,9 +309,17 @@ export default function ContactSection() {
                 className="inline-flex items-center gap-1 align-middle transition-opacity hover:opacity-80"
               >
                 <span className="relative inline-block h-4 w-4">
-                  <Image src="/gif/unity11-logo.gif" alt="Unity11 Logo" fill className="object-contain" unoptimized />
+                  <Image
+                    src="/gif/unity11-logo.gif"
+                    alt="Unity11 Logo"
+                    fill
+                    className="object-contain"
+                    unoptimized
+                  />
                 </span>
-                <span className="bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text font-bold text-transparent">UNITY11</span>
+                <span className="bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text font-bold text-transparent">
+                  UNITY11
+                </span>
               </a>
             </p>
           </div>
