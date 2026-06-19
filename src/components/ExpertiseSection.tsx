@@ -185,16 +185,16 @@ export default function ExpertiseSection() {
   return (
     <section
       ref={containerRef}
-      className="relative z-20 h-[500vh] bg-[#01030a]"
+      className="relative z-20 h-auto bg-[#01030a] md:h-[500vh]"
     >
-      <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden border-t border-white/5 px-6 md:px-10">
-        <div className="relative flex h-full w-full max-w-[1500px] items-center justify-center">
+      <div className="relative top-0 flex h-auto w-full flex-col items-center justify-center border-t border-white/5 px-6 py-20 md:sticky md:h-screen md:overflow-hidden md:px-10 md:py-0">
+        <div className="relative flex h-full w-full max-w-[1500px] flex-col items-center md:justify-center">
           {/* Section Header (Centered, fades out as cards enter) */}
           <div
-            className="absolute top-1/2 left-1/2 flex w-full max-w-3xl -translate-x-1/2 -translate-y-1/2 flex-col items-center px-6 text-center"
+            className="relative mb-12 flex w-full max-w-3xl flex-col items-center px-6 text-center max-md:!pointer-events-auto max-md:!opacity-100 md:absolute md:top-1/2 md:left-1/2 md:mb-0 md:-translate-x-1/2 md:-translate-y-1/2"
             style={{
-              opacity: Math.max(0, 1 - entryProgress * 1), // Fades out completely by entryProgress=0.5
-              pointerEvents: entryProgress > 0.1 ? 'none' : 'auto',
+              opacity: isMobile ? 1 : Math.max(0, 1 - entryProgress * 1), // Fades out completely by entryProgress=0.5
+              pointerEvents: !isMobile && entryProgress > 0.1 ? 'none' : 'auto',
             }}
           >
             <div className="mb-6 flex items-center gap-4">
@@ -214,9 +214,11 @@ export default function ExpertiseSection() {
 
           {/* 3x2 Grid Container (Slides up, then cards spread) */}
           <div
-            className="relative grid w-full grid-cols-1 gap-6 will-change-transform md:grid-cols-2 md:gap-8 lg:grid-cols-3"
+            className="relative grid w-full grid-cols-1 gap-6 will-change-transform max-md:!transform-none md:grid-cols-2 md:gap-8 lg:grid-cols-3"
             style={{
-              transform: `translateY(${(1 - entryProgress) * 100}vh)`,
+              transform: isMobile
+                ? 'none'
+                : `translateY(${(1 - entryProgress) * 100}vh)`,
             }}
           >
             {expertiseData.map((item, index) => (
@@ -252,6 +254,8 @@ function ExpertiseCard({
   isMobile: boolean
   isTablet: boolean
 }) {
+  const [isFlipped, setIsFlipped] = useState(false)
+
   // Use a smooth easing for the spread out (e.g. cubic ease-out)
   const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
   const spread = easeOut(spreadProgress)
@@ -267,20 +271,9 @@ function ExpertiseCard({
   let yCalc = '0px'
 
   if (isMobile) {
-    // 1. Force the grid column into a perfect center stack
-    const rowOffset = index - 2.5
-    const baseYCalc = `calc(${rowOffset} * -100% + ${rowOffset} * -24px)`
-
-    // 2. Swipe off sequentially
-    const chunkStart = index * 0.2
-    let localProgress = (spreadProgress - chunkStart) / 0.2
-    localProgress = Math.max(0, Math.min(1, localProgress))
-    const direction = index % 2 === 0 ? 1 : -1
-
-    xCalc = `calc(${localProgress * direction * 200}vw)`
-    yCalc = baseYCalc
-    const baseRotation = (index - 2.5) * 3
-    currentRotation = baseRotation + localProgress * direction * 45
+    xCalc = '0px'
+    yCalc = '0px'
+    currentRotation = 0
   } else if (isTablet) {
     const col = index % 2
     const row = Math.floor(index / 2)
@@ -305,14 +298,17 @@ function ExpertiseCard({
 
   return (
     <div
-      className="group relative aspect-[4/3] w-full will-change-transform md:aspect-square lg:aspect-[4/3]"
+      className="group relative aspect-square w-full cursor-pointer will-change-transform max-md:!transform-none lg:aspect-[4/3]"
+      onClick={() => setIsFlipped(!isFlipped)}
       style={{
         perspective: '1500px',
         transform: `translate(${xCalc}, ${yCalc}) rotate(${currentRotation}deg)`,
         zIndex,
       }}
     >
-      <div className="relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+      <div
+        className={`relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] md:group-hover:[transform:rotateY(180deg)] ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}
+      >
         {/* Front Side */}
         <div className="absolute inset-0 h-full w-full [-webkit-backface-visibility:hidden] [backface-visibility:hidden]">
           {/* Responsive SVG Background Shape */}
@@ -329,16 +325,16 @@ function ExpertiseCard({
 
           {/* Front Content */}
           <div
-            className={`absolute inset-0 flex flex-col p-10 lg:p-12 ${styleConfig.contentText}`}
+            className={`absolute inset-0 flex flex-col p-6 sm:p-10 lg:p-12 ${styleConfig.contentText}`}
           >
             <div
-              className={`mb-auto inline-flex h-16 w-16 items-center justify-center self-end rounded-2xl ${styleConfig.iconBg}`}
+              className={`mb-auto inline-flex h-16 w-16 items-center justify-center self-start rounded-2xl md:self-end ${styleConfig.iconBg}`}
             >
               {item.icon}
             </div>
 
-            <div className="pr-4 pb-4">
-              <h4 className="font-syncopate text-2xl font-black tracking-tight md:text-3xl">
+            <div className="pr-4 pb-16 sm:pb-4">
+              <h4 className="font-syncopate text-3xl font-black tracking-tight md:text-3xl">
                 {item.title}
               </h4>
             </div>
@@ -361,7 +357,7 @@ function ExpertiseCard({
 
           {/* Back Content */}
           <div
-            className={`absolute inset-0 flex flex-col items-center justify-center p-8 text-center lg:p-10 ${styleConfig.contentText}`}
+            className={`absolute inset-0 flex flex-col items-center justify-center p-6 text-center sm:p-8 lg:p-10 ${styleConfig.contentText}`}
           >
             <h4 className="font-syncopate mb-4 text-xl font-bold tracking-tight md:text-2xl">
               {item.title}
