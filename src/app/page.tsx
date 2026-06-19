@@ -4,6 +4,7 @@ import HeroBackground from '@/components/hero/HeroBackground'
 import HeroContent from '@/components/hero/HeroContent'
 import HeroMarquee from '@/components/hero/HeroMarquee'
 import InteractiveHero from '@/components/hero/InteractiveHero'
+import StatsMarquee from '@/components/hero/StatsMarquee'
 import MobileNavbar from '@/components/layout/MobileNavbar'
 
 const AboutSection = dynamic(() => import('@/components/sections/AboutSection'))
@@ -19,7 +20,6 @@ const ExpertiseSection = dynamic(
 const FounderSection = dynamic(
   () => import('@/components/sections/FounderSection'),
 )
-import StatsMarquee from '@/components/hero/StatsMarquee'
 
 export default function Home() {
   return (
@@ -51,7 +51,7 @@ export default function Home() {
         </div>
 
         {/* BOTTOM SECTION ON MOBILE: TEXT CONTENT / BASE LAYER ON DESKTOP */}
-        <div className="relative flex flex-1 w-full flex-col bg-[#01030a] md:block md:h-auto md:min-h-screen md:bg-transparent overflow-hidden md:overflow-visible">
+        <div className="relative flex w-full flex-1 flex-col overflow-hidden bg-[#01030a] md:block md:h-auto md:min-h-screen md:overflow-visible md:bg-transparent">
           {/* Small Stats Marquee (Mobile Only, directly under image) */}
           <div className="block w-full md:hidden">
             <StatsMarquee />
@@ -63,7 +63,7 @@ export default function Home() {
           </div>
 
           {/* SCROLLING UI CONTENT z-30 */}
-          <div className="pointer-events-none relative z-30 flex h-full w-full flex-col px-6 pb-6 pt-2 md:min-h-screen md:p-6">
+          <div className="pointer-events-none relative z-30 flex h-full w-full flex-col px-6 pt-2 pb-6 md:min-h-screen md:p-6">
             <div className="relative mx-auto flex w-full max-w-[1500px] flex-1 flex-col">
               <HeroContent />
             </div>
