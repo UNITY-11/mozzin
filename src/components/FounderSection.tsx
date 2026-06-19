@@ -3,14 +3,46 @@
 import { useEffect, useRef } from 'react'
 
 const services = [
-  { title: 'Brand Strategy', theme: 'white' },
-  { title: 'Social Media Marketing', theme: 'blue' },
-  { title: 'Content Creation', theme: 'cyan' },
-  { title: 'Personal Branding', theme: 'white' },
-  { title: 'Website Development', theme: 'blue' },
-  { title: 'Marketing Consultation', theme: 'cyan' },
-  { title: 'Business Growth Support', theme: 'white' },
-  { title: 'SEO & Analytics', theme: 'blue' },
+  {
+    title: 'Brand Strategy',
+    theme: 'white',
+    desc: "We dive deep into your brand's DNA to craft unique identities that resonate with your target audience. We build comprehensive roadmaps that define your voice, positioning, and long-term vision.",
+  },
+  {
+    title: 'Social Media Marketing',
+    theme: 'blue',
+    desc: 'Engaging campaigns designed to build a thriving community and drive measurable growth. We manage your presence across all platforms, fostering authentic connections with your followers.',
+  },
+  {
+    title: 'Content Creation',
+    theme: 'cyan',
+    desc: 'Compelling visuals and persuasive copy tailored specifically for your audience. From high-quality production to engaging posts, we produce assets that capture attention and drive conversions.',
+  },
+  {
+    title: 'Personal Branding',
+    theme: 'white',
+    desc: 'Elevating your professional profile and digital presence to establish you as an industry thought leader. We help you tell your unique story and unlock new opportunities.',
+  },
+  {
+    title: 'Website Development',
+    theme: 'blue',
+    desc: 'High-performance, beautifully designed web experiences that serve as the digital storefront for your brand. We focus on fast speeds, seamless user experiences, and responsive layouts.',
+  },
+  {
+    title: 'Marketing Consultation',
+    theme: 'cyan',
+    desc: 'Expert guidance and strategic insight to optimize your go-to-market plan. We analyze your performance, identify key bottlenecks, and provide actionable solutions to scale effectively.',
+  },
+  {
+    title: 'Business Growth',
+    theme: 'white',
+    desc: 'Strategic operations and tactical execution to scale your revenue and expand your reach. We partner with you to streamline processes and ensure sustainable long-term success.',
+  },
+  {
+    title: 'SEO & Analytics',
+    theme: 'blue',
+    desc: 'Data-driven insights and technical optimizations to dominate search rankings. We ensure your target audience finds you first while providing detailed analytics to measure your ROI.',
+  },
 ]
 
 export default function FounderSection() {
@@ -413,7 +445,7 @@ function ServiceCard({
   service,
   index,
 }: {
-  service: { title: string; theme: string }
+  service: { title: string; theme: string; desc: string }
   index: number
 }) {
   const isWhite = service.theme === 'white'
@@ -448,7 +480,7 @@ function ServiceCard({
 
   return (
     <div
-      className={`group relative aspect-square w-full ${bgClass} flex cursor-pointer flex-col justify-between overflow-hidden p-6 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)] ${glowClass}`}
+      className={`group relative aspect-square w-full ${bgClass} flex cursor-pointer flex-col justify-between overflow-hidden py-6 pr-6 pl-10 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)] ${glowClass}`}
       style={{
         clipPath:
           'polygon(0 10%, 5% 0, 72% 0, 76% 4%, 100% 4%, 100% 90%, 92% 100%, 0 100%, 0 65%, 5% 60%, 5% 35%, 0 30%)',
@@ -483,11 +515,8 @@ function ServiceCard({
         >
           {service.title}
         </h3>
-        <div className="h-0 overflow-hidden opacity-0 transition-all duration-500 group-hover:h-[60px] group-hover:opacity-100">
-          <p className={`text-sm ${descClass} mt-2 font-light`}>
-            Elevate your brand with premium {service.title.toLowerCase()}{' '}
-            solutions.
-          </p>
+        <div className="mt-2 opacity-100 transition-all duration-500">
+          <p className={`text-sm ${descClass} font-light`}>{service.desc}</p>
         </div>
       </div>
     </div>
