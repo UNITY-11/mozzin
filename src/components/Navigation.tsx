@@ -65,7 +65,7 @@ export default function Navigation() {
           }`}
         >
           {/* Left Header */}
-          <div className="flex h-[90px] w-full items-center justify-between border-b border-white/5 px-12">
+          <div className="flex h-[90px] w-full shrink-0 items-center justify-between border-b border-white/5 px-12">
             <span className="font-syncopate text-xl font-bold tracking-wider">
               mozzin
             </span>
@@ -137,8 +137,8 @@ export default function Navigation() {
           </div>
 
           {/* Left Content */}
-          <div className="flex h-full w-full flex-col justify-between overflow-y-auto px-12 py-4 md:px-32 md:py-12">
-            <div className="w-full">
+          <div className="flex w-full flex-1 flex-col justify-between overflow-y-auto px-12 py-4 md:px-32 md:py-12">
+            <div className="w-full shrink-0">
               <div className="relative h-[220px] w-full lg:h-[260px]">
                 <Image
                   src="/images/hero-ui.webp"
@@ -208,7 +208,7 @@ export default function Navigation() {
           }`}
         >
           {/* Right Header */}
-          <div className="flex h-[76px] w-full items-center justify-between border-b border-white/5 px-6 md:h-[90px] md:justify-end md:px-12">
+          <div className="flex h-[76px] w-full shrink-0 items-center justify-between border-b border-white/5 px-6 md:h-[90px] md:justify-end md:px-12">
             <span className="font-syncopate text-xl font-bold tracking-wider md:hidden">
               mozzin
             </span>
@@ -221,7 +221,7 @@ export default function Navigation() {
           </div>
 
           {/* Right Content */}
-          <div className="flex h-[calc(100dvh-76px)] w-full flex-col justify-start overflow-y-auto px-0 pt-8 md:h-full md:justify-center md:gap-0 md:px-0 md:pt-0">
+          <div className="flex w-full flex-1 flex-col justify-start overflow-y-auto px-0 pt-8 md:justify-center md:gap-0 md:px-0 md:pt-0">
             {/* Mobile Only: Top Image */}
             <div className="mb-8 flex w-full shrink-0 px-8 md:hidden">
               <div className="relative h-[180px] w-full">
