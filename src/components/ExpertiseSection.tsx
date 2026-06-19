@@ -142,7 +142,10 @@ const cardStyles = [
 
 export default function ExpertiseSection() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [progress, setProgress] = useState(0)
+  const headerRef = useRef<HTMLDivElement>(null)
+  const gridContainerRef = useRef<HTMLDivElement>(null)
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([])
+
   const [windowWidth, setWindowWidth] = useState(1200)
 
   useEffect(() => {
@@ -153,19 +156,95 @@ export default function ExpertiseSection() {
   }, [])
 
   useEffect(() => {
+    let ticking = false
     const handleScroll = () => {
-      if (!containerRef.current) return
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (!containerRef.current) {
+            ticking = false
+            return
+          }
 
-      const rect = containerRef.current.getBoundingClientRect()
-      // Total scrollable distance
-      const scrollDistance = rect.height - window.innerHeight
-      // How far we've scrolled past the top of the container
-      const scrolled = -rect.top
+          const isMobile = window.innerWidth < 768
+          const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024
 
-      let p = scrolled / scrollDistance
-      p = Math.max(0, Math.min(1, p))
+          const rect = containerRef.current.getBoundingClientRect()
+          const scrollDistance = rect.height - window.innerHeight
+          const scrolled = -rect.top
 
-      setProgress(p)
+          let p = scrolled / scrollDistance
+          p = Math.max(0, Math.min(1, p))
+
+          const entryProgress = Math.min(1, Math.max(0, p / 0.3))
+          const spreadProgress = Math.min(1, Math.max(0, (p - 0.3) / 0.45))
+
+          if (!isMobile) {
+            if (headerRef.current) {
+              headerRef.current.style.opacity = Math.max(
+                0,
+                1 - entryProgress * 1,
+              ).toString()
+              headerRef.current.style.pointerEvents =
+                entryProgress > 0.1 ? 'none' : 'auto'
+            }
+            if (gridContainerRef.current) {
+              gridContainerRef.current.style.transform = `translateY(${(1 - entryProgress) * 100}vh)`
+            }
+
+            const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
+            const spread = easeOut(spreadProgress)
+            const stackAmount = 1 - spread
+
+            const initialRotations = [-20, -12, -4, 4, 12, 20]
+
+            cardsRef.current.forEach((card, index) => {
+              if (!card) return
+
+              const currentRotation = initialRotations[index] * stackAmount
+              let xCalc = '0px'
+              let yCalc = '0px'
+
+              if (isTablet) {
+                const col = index % 2
+                const row = Math.floor(index / 2)
+
+                const colOffset = col === 0 ? 0.5 : -0.5
+                xCalc = `calc((${colOffset} * 100% + ${colOffset} * 32px) * ${stackAmount})`
+
+                const rowOffset = 1 - row
+                yCalc = `calc((${rowOffset} * 100% + ${rowOffset} * 32px) * ${stackAmount})`
+              } else {
+                const col = index % 3
+                const row = Math.floor(index / 3)
+
+                const colOffset = col === 0 ? 1 : col === 2 ? -1 : 0
+                xCalc = `calc((${colOffset} * 100% + ${colOffset} * 32px) * ${stackAmount})`
+
+                const rowOffset = row === 0 ? 0.5 : -0.5
+                yCalc = `calc((${rowOffset} * 100% + ${rowOffset} * 32px) * ${stackAmount})`
+              }
+
+              card.style.transform = `translate(${xCalc}, ${yCalc}) rotate(${currentRotation}deg)`
+            })
+          } else {
+            // Reset mobile styles
+            if (headerRef.current) {
+              headerRef.current.style.opacity = '1'
+              headerRef.current.style.pointerEvents = 'auto'
+            }
+            if (gridContainerRef.current) {
+              gridContainerRef.current.style.transform = 'none'
+            }
+            cardsRef.current.forEach((card) => {
+              if (card)
+                card.style.transform = 'translate(0px, 0px) rotate(0deg)'
+            })
+          }
+
+          ticking = false
+        })
+        ticking = true
+      }
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -174,13 +253,6 @@ export default function ExpertiseSection() {
   }, [])
 
   const isMobile = windowWidth < 768
-  const isTablet = windowWidth >= 768 && windowWidth < 1024
-
-  // Derived progress values for phased animation
-  // Phase 1 (0 to 0.3): Cards slide up from bottom
-  const entryProgress = Math.min(1, Math.max(0, progress / 0.3))
-  // Phase 2 (0.3 to 0.75): Cards spread out
-  const spreadProgress = Math.min(1, Math.max(0, (progress - 0.3) / 0.45))
 
   return (
     <section
@@ -191,11 +263,8 @@ export default function ExpertiseSection() {
         <div className="relative flex h-full w-full max-w-[1500px] flex-col items-center md:justify-center">
           {/* Section Header (Centered, fades out as cards enter) */}
           <div
+            ref={headerRef}
             className="relative mb-12 flex w-full max-w-3xl flex-col items-center px-6 text-center max-md:!pointer-events-auto max-md:!opacity-100 md:absolute md:top-1/2 md:left-1/2 md:mb-0 md:-translate-x-1/2 md:-translate-y-1/2"
-            style={{
-              opacity: isMobile ? 1 : Math.max(0, 1 - entryProgress * 1), // Fades out completely by entryProgress=0.5
-              pointerEvents: !isMobile && entryProgress > 0.1 ? 'none' : 'auto',
-            }}
           >
             <div className="mb-6 flex items-center gap-4">
               <div className="h-[1px] w-12 bg-white/20 md:w-24" />
@@ -214,12 +283,8 @@ export default function ExpertiseSection() {
 
           {/* 3x2 Grid Container (Slides up, then cards spread) */}
           <div
+            ref={gridContainerRef}
             className="relative grid w-full grid-cols-1 gap-6 will-change-transform max-md:!transform-none md:grid-cols-2 md:gap-8 lg:grid-cols-3"
-            style={{
-              transform: isMobile
-                ? 'none'
-                : `translateY(${(1 - entryProgress) * 100}vh)`,
-            }}
           >
             {expertiseData.map((item, index) => (
               <ExpertiseCard
@@ -227,9 +292,9 @@ export default function ExpertiseSection() {
                 item={item}
                 index={index}
                 styleConfig={cardStyles[index]}
-                spreadProgress={spreadProgress}
-                isMobile={isMobile}
-                isTablet={isTablet}
+                cardRef={(el) => {
+                  cardsRef.current[index] = el
+                }}
               />
             ))}
           </div>
@@ -243,66 +308,24 @@ function ExpertiseCard({
   item,
   index,
   styleConfig,
-  spreadProgress,
-  isMobile,
-  isTablet,
+  cardRef,
 }: {
   item: (typeof expertiseData)[0] & { details?: string }
   index: number
   styleConfig: (typeof cardStyles)[0]
-  spreadProgress: number
-  isMobile: boolean
-  isTablet: boolean
+  cardRef: (el: HTMLDivElement | null) => void
 }) {
   const [isFlipped, setIsFlipped] = useState(false)
-
-  // Use a smooth easing for the spread out (e.g. cubic ease-out)
-  const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
-  const spread = easeOut(spreadProgress)
-
-  // 1 = perfectly stacked in center, 0 = in grid positions
-  const stackAmount = 1 - spread
-
-  // Base initial rotation for the "card hand" effect
-  const initialRotations = [-20, -12, -4, 4, 12, 20]
-  let currentRotation = initialRotations[index] * stackAmount
-
-  let xCalc = '0px'
-  let yCalc = '0px'
-
-  if (isMobile) {
-    xCalc = '0px'
-    yCalc = '0px'
-    currentRotation = 0
-  } else if (isTablet) {
-    const col = index % 2
-    const row = Math.floor(index / 2)
-
-    const colOffset = col === 0 ? 0.5 : -0.5
-    xCalc = `calc((${colOffset} * 100% + ${colOffset} * 32px) * ${stackAmount})`
-
-    const rowOffset = 1 - row
-    yCalc = `calc((${rowOffset} * 100% + ${rowOffset} * 32px) * ${stackAmount})`
-  } else {
-    const col = index % 3
-    const row = Math.floor(index / 3)
-
-    const colOffset = col === 0 ? 1 : col === 2 ? -1 : 0
-    xCalc = `calc((${colOffset} * 100% + ${colOffset} * 32px) * ${stackAmount})`
-
-    const rowOffset = row === 0 ? 0.5 : -0.5
-    yCalc = `calc((${rowOffset} * 100% + ${rowOffset} * 32px) * ${stackAmount})`
-  }
 
   const zIndex = 10 - index
 
   return (
     <div
+      ref={cardRef}
       className="group relative aspect-square w-full cursor-pointer will-change-transform max-md:!transform-none lg:aspect-[4/3]"
       onClick={() => setIsFlipped(!isFlipped)}
       style={{
         perspective: '1500px',
-        transform: `translate(${xCalc}, ${yCalc}) rotate(${currentRotation}deg)`,
         zIndex,
       }}
     >
