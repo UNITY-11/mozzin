@@ -47,7 +47,11 @@ const renderWords = (words: (string | { text: string; bold: boolean })[]) => {
     const isBold = typeof w === 'object' && w.bold
     const text = typeof w === 'object' ? w.text : w
     return (
-      <span key={i} className="inline-block" style={{ perspective: '800px' }}>
+      <span
+        key={i}
+        className="mr-[0.25em] inline-block"
+        style={{ perspective: '800px' }}
+      >
         <span
           className={`word-span inline-block ${isBold ? 'font-semibold uppercase' : ''}`}
           style={{
@@ -60,7 +64,6 @@ const renderWords = (words: (string | { text: string; bold: boolean })[]) => {
         >
           {text}
         </span>
-        {i < words.length - 1 && ' '}
       </span>
     )
   })
@@ -77,8 +80,6 @@ export default function AboutSection() {
   const p2Ref = useRef<HTMLDivElement>(null)
   const p3Ref = useRef<HTMLDivElement>(null)
 
-  const extraOffsetTop = useRef(0)
-  const extraOffsetBottom = useRef(0)
   const smoothVelocity = useRef(0)
   const lastScrollY = useRef(0)
 
@@ -118,16 +119,6 @@ export default function AboutSection() {
       if (Math.abs(delta) < 0.1 && Math.abs(smoothVelocity.current) < 0.1) {
         isRunning = false
         return
-      }
-
-      extraOffsetTop.current -= smoothVelocity.current * 0.8
-      extraOffsetBottom.current += smoothVelocity.current * 0.4
-
-      if (topMarqueeRef.current) {
-        topMarqueeRef.current.style.transform = `translateX(${extraOffsetTop.current}px)`
-      }
-      if (bottomMarqueeRef.current) {
-        bottomMarqueeRef.current.style.transform = `translateX(${extraOffsetBottom.current}px)`
       }
 
       // Paragraph animation logic
@@ -323,7 +314,7 @@ export default function AboutSection() {
                 {/* Paragraph 1 */}
                 <p
                   ref={p1Ref}
-                  className="w-full text-xl leading-relaxed font-light capitalize opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:col-start-1 lg:row-start-1 lg:text-3xl lg:leading-[1.4]"
+                  className="w-full text-xl leading-relaxed font-light tracking-wide opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:col-start-1 lg:row-start-1 lg:text-3xl"
                 >
                   {renderWords(P1_WORDS)}
                 </p>
@@ -331,7 +322,7 @@ export default function AboutSection() {
                 {/* Paragraph 2 */}
                 <p
                   ref={p2Ref}
-                  className="w-full text-xl leading-relaxed font-light capitalize opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:col-start-1 lg:row-start-1 lg:text-3xl lg:leading-[1.4]"
+                  className="w-full text-xl leading-relaxed font-light tracking-wide opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:col-start-1 lg:row-start-1 lg:text-3xl"
                 >
                   {renderWords(P2_WORDS)}
                 </p>
@@ -339,7 +330,7 @@ export default function AboutSection() {
                 {/* Paragraph 3 */}
                 <p
                   ref={p3Ref}
-                  className="w-full text-xl leading-relaxed font-light capitalize opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:col-start-1 lg:row-start-1 lg:text-3xl lg:leading-[1.4]"
+                  className="w-full text-xl leading-relaxed font-light tracking-wide opacity-0 transition-[opacity,transform] duration-500 ease-out md:text-2xl lg:col-start-1 lg:row-start-1 lg:text-3xl"
                 >
                   {renderWords(P3_WORDS)}
                 </p>
