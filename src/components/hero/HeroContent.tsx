@@ -89,11 +89,11 @@ export default function HeroContent() {
           {/* Right Text */}
           <div className="pointer-events-auto hidden md:block md:text-right">
             <h2 className="font-syncopate text-2xl leading-[1.1] font-bold tracking-wide text-white md:text-4xl lg:text-3xl">
-              CREATIVE
+              MARKETING
               <br />
-              BRANDING
+              STRATEGY
               <br />
-              STUDIO
+              GROWTH
             </h2>
           </div>
         </div>

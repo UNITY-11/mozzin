@@ -58,7 +58,7 @@ export default function HeroBoxes() {
           <div className="mt-8 flex w-full items-end justify-start gap-12 border-b-[1.5px] border-cyan-500/40 pb-3">
             <div className="flex flex-col">
               <span className="font-syncopate text-3xl font-black tracking-tighter text-white">
-                475+
+                45+
               </span>
               <span className="mt-1 text-[7px] font-bold tracking-widest text-cyan-400 uppercase">
                 - BUSINESS EXPERTS
@@ -67,7 +67,7 @@ export default function HeroBoxes() {
 
             <div className="flex flex-col">
               <span className="font-syncopate text-3xl font-black tracking-tighter text-white">
-                200+
+                120+
               </span>
               <span className="mt-1 text-[7px] font-bold tracking-widest text-cyan-400 uppercase">
                 - PROJECT DONE
@@ -83,21 +83,28 @@ export default function HeroBoxes() {
       <div className="hidden w-full justify-between md:flex md:flex-row md:items-end">
         {/* Bottom Left Box */}
         <div className="pointer-events-auto self-start md:self-end">
-          <div className="drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">
+          <div className="drop-shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
             <div
-              className="flex h-[120px] w-[240px] flex-col justify-between bg-white/[0.03] px-6 py-4 text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.3),0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-2xl md:h-[140px] md:w-[280px] md:px-8 md:py-5 lg:h-[160px] lg:w-[320px] lg:px-10 lg:py-6"
+              className="relative flex h-[120px] w-[220px] flex-col items-center justify-between overflow-hidden bg-white/5 px-6 py-4 text-center backdrop-blur-3xl backdrop-brightness-110 backdrop-saturate-150 md:h-[140px] md:w-[250px] md:px-8 md:py-5 lg:h-[160px] lg:w-[280px] lg:px-10 lg:py-6"
               style={{
                 clipPath:
-                  'polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)',
+                  'polygon(0 10%, 5% 0, 72% 0, 76% 4%, 100% 4%, 100% 90%, 92% 100%, 0 100%, 0 65%, 5% 60%, 5% 35%, 0 30%)',
+                transform: 'translateZ(0)',
+                boxShadow:
+                  'inset 0 2px 6px rgba(255,255,255,0.6), inset 0 -2px 6px rgba(255,255,255,0.1)',
               }}
             >
-              <div className="font-syncopate text-[9px] font-bold tracking-[0.3em] text-white/70 md:text-[10px]">
+              {/* Liquid Glass Reflections */}
+              <div className="pointer-events-none absolute top-0 left-0 h-1/2 w-full bg-gradient-to-b from-white/30 to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-white/40" />
+
+              <div className="font-syncopate relative z-10 text-[9px] font-bold tracking-[0.3em] text-white md:text-[10px]">
                 MAZZIN.IN
               </div>
-              <div className="font-syncopate text-4xl font-black tracking-tighter text-white md:text-5xl lg:text-6xl">
-                475+
+              <div className="font-syncopate relative z-10 text-center text-4xl font-black tracking-tighter text-white drop-shadow-md md:text-5xl lg:text-6xl">
+                45+
               </div>
-              <div className="font-sans text-[9px] font-semibold tracking-widest text-white/70 md:text-[10px]">
+              <div className="relative z-10 font-sans text-[9px] font-semibold tracking-widest text-white md:text-[10px]">
                 BUSINESS EXPERTS
               </div>
             </div>
@@ -106,43 +113,48 @@ export default function HeroBoxes() {
 
         {/* Bottom Right Box */}
         <div className="pointer-events-auto relative self-end">
-          <div className="drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">
+          <div className="drop-shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
             <div
-              className="relative z-10 flex h-[120px] w-[240px] flex-col justify-between bg-white/[0.03] px-6 py-4 text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.3),0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-2xl md:h-[140px] md:w-[280px] md:px-8 md:py-5 lg:h-[160px] lg:w-[320px] lg:px-10 lg:py-6"
+              className="relative flex h-[120px] w-[220px] flex-col items-center justify-between overflow-hidden bg-white/5 px-6 py-4 text-center backdrop-blur-3xl backdrop-brightness-110 backdrop-saturate-150 md:h-[140px] md:w-[250px] md:px-8 md:py-5 lg:h-[160px] lg:w-[280px] lg:px-10 lg:py-6"
               style={{
                 clipPath:
-                  'polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)',
+                  'polygon(0 10%, 5% 0, 72% 0, 76% 4%, 100% 4%, 100% 90%, 92% 100%, 0 100%, 0 65%, 5% 60%, 5% 35%, 0 30%)',
+                transform: 'translateZ(0)',
+                boxShadow:
+                  'inset 0 2px 6px rgba(255,255,255,0.6), inset 0 -2px 6px rgba(255,255,255,0.1)',
               }}
             >
-              <div className="relative z-10 flex items-start justify-between">
-                <span className="font-syncopate text-xl font-bold tracking-wider text-white md:text-2xl lg:text-3xl">
-                  200+
-                </span>
-                <div className="flex -space-x-2 md:-space-x-3">
-                  <Image
-                    src="https://i.pravatar.cc/150?img=11"
-                    width={40}
-                    height={40}
-                    className="h-6 w-6 rounded-full border-2 border-white/10 shadow-sm grayscale md:h-8 md:w-8 lg:h-10 lg:w-10"
-                    alt="avatar"
-                  />
-                  <Image
-                    src="https://i.pravatar.cc/150?img=33"
-                    width={40}
-                    height={40}
-                    className="h-6 w-6 rounded-full border-2 border-white/10 shadow-sm grayscale md:h-8 md:w-8 lg:h-10 lg:w-10"
-                    alt="avatar"
-                  />
-                  <Image
-                    src="https://i.pravatar.cc/150?img=47"
-                    width={40}
-                    height={40}
-                    className="h-6 w-6 rounded-full border-2 border-white/10 shadow-sm grayscale md:h-8 md:w-8 lg:h-10 lg:w-10"
-                    alt="avatar"
-                  />
-                </div>
+              {/* Liquid Glass Reflections */}
+              <div className="pointer-events-none absolute top-0 left-0 h-1/2 w-full bg-gradient-to-b from-white/30 to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-white/40" />
+
+              <span className="font-syncopate relative z-10 text-xl font-bold tracking-wider text-white drop-shadow-md md:text-2xl lg:text-3xl">
+                120+
+              </span>
+              <div className="relative z-10 flex -space-x-2 md:-space-x-3">
+                <Image
+                  src="https://i.pravatar.cc/150?img=11"
+                  width={40}
+                  height={40}
+                  className="h-6 w-6 rounded-full border border-white/50 shadow-sm md:h-8 md:w-8 lg:h-10 lg:w-10"
+                  alt="avatar"
+                />
+                <Image
+                  src="https://i.pravatar.cc/150?img=33"
+                  width={40}
+                  height={40}
+                  className="h-6 w-6 rounded-full border border-white/50 shadow-sm md:h-8 md:w-8 lg:h-10 lg:w-10"
+                  alt="avatar"
+                />
+                <Image
+                  src="https://i.pravatar.cc/150?img=47"
+                  width={40}
+                  height={40}
+                  className="h-6 w-6 rounded-full border border-white/50 shadow-sm md:h-8 md:w-8 lg:h-10 lg:w-10"
+                  alt="avatar"
+                />
               </div>
-              <div className="relative z-10 font-sans text-[8px] leading-relaxed font-bold tracking-[0.2em] text-white/70 uppercase md:text-[10px] lg:text-[11px]">
+              <div className="relative z-10 font-sans text-[8px] leading-relaxed font-bold tracking-[0.2em] text-white uppercase md:text-[10px] lg:text-[11px]">
                 YOUR PARTNER IN
                 <br />
                 BUSINESS GROWTH
