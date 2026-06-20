@@ -84,28 +84,80 @@ export default function HeroBoxes() {
         {/* Bottom Left Box */}
         <div className="pointer-events-auto self-start md:self-end">
           <div className="drop-shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
-            <div
-              className="relative flex h-[120px] w-[220px] flex-col items-center justify-between overflow-hidden bg-white/5 px-6 py-4 text-center backdrop-blur-3xl backdrop-brightness-110 backdrop-saturate-150 md:h-[140px] md:w-[250px] md:px-8 md:py-5 lg:h-[160px] lg:w-[280px] lg:px-10 lg:py-6"
-              style={{
-                clipPath:
-                  'polygon(0 10%, 5% 0, 72% 0, 76% 4%, 100% 4%, 100% 90%, 92% 100%, 0 100%, 0 65%, 5% 60%, 5% 35%, 0 30%)',
-                transform: 'translateZ(0)',
-                boxShadow:
-                  'inset 0 2px 6px rgba(255,255,255,0.6), inset 0 -2px 6px rgba(255,255,255,0.1)',
-              }}
-            >
-              {/* Liquid Glass Reflections */}
-              <div className="pointer-events-none absolute top-0 left-0 h-1/2 w-full bg-gradient-to-b from-white/30 to-transparent" />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-white/40" />
+            <div className="relative z-10 h-[120px] w-[220px] md:h-[140px] md:w-[250px] lg:h-[160px] lg:w-[280px]">
+              {/* Glass Blur (Clipped with rough CSS polygon) */}
+              <div
+                className="absolute inset-0 backdrop-blur-3xl backdrop-brightness-110 backdrop-saturate-[1.2]"
+                style={{
+                  clipPath:
+                    'polygon(6% 0, 80% 0, 100% 20%, 100% 94%, 94% 100%, 20% 100%, 0 80%, 0 6%)',
+                  transform: 'translateZ(0)',
+                }}
+              >
+                {/* SVG Filter for Liquid Effect */}
+                <div
+                  className="absolute inset-0 z-0 bg-white/5 mix-blend-overlay"
+                  style={{ filter: 'url(#glass-blur)' }}
+                />
+              </div>
 
-              <div className="font-syncopate relative z-10 text-[9px] font-bold tracking-[0.3em] text-white md:text-[10px]">
-                MAZZIN.IN
-              </div>
-              <div className="font-syncopate relative z-10 text-center text-4xl font-black tracking-tighter text-white drop-shadow-md md:text-5xl lg:text-6xl">
-                45+
-              </div>
-              <div className="relative z-10 font-sans text-[9px] font-semibold tracking-widest text-white md:text-[10px]">
-                BUSINESS EXPERTS
+              {/* Glowing SVG Background, Gradients & Border */}
+              <svg
+                className="pointer-events-none absolute inset-0 z-20 h-full w-full drop-shadow-sm"
+                viewBox="0 0 400 400"
+                preserveAspectRatio="none"
+              >
+                <defs>
+                  <linearGradient
+                    id="left-glass-top"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
+                    <stop offset="0%" stopColor="rgba(255,255,255,0.3)" />
+                    <stop offset="40%" stopColor="rgba(255,255,255,0)" />
+                  </linearGradient>
+                  <linearGradient
+                    id="left-glass-tr"
+                    x1="0"
+                    y1="1"
+                    x2="1"
+                    y2="0"
+                  >
+                    <stop offset="0%" stopColor="rgba(255,255,255,0.05)" />
+                    <stop offset="50%" stopColor="rgba(255,255,255,0)" />
+                    <stop offset="100%" stopColor="rgba(255,255,255,0.1)" />
+                  </linearGradient>
+                </defs>
+                <path
+                  d="M 0 24 Q 0 0 24 0 L 320 0 Q 335 0 345 10 L 390 55 Q 400 65 400 80 L 400 376 Q 400 400 376 400 L 80 400 Q 65 400 55 390 L 10 345 Q 0 335 0 320 Z"
+                  fill="rgba(255, 255, 255, 0.05)"
+                />
+                <path
+                  d="M 0 24 Q 0 0 24 0 L 320 0 Q 335 0 345 10 L 390 55 Q 400 65 400 80 L 400 376 Q 400 400 376 400 L 80 400 Q 65 400 55 390 L 10 345 Q 0 335 0 320 Z"
+                  fill="url(#left-glass-top)"
+                />
+                <path
+                  d="M 0 24 Q 0 0 24 0 L 320 0 Q 335 0 345 10 L 390 55 Q 400 65 400 80 L 400 376 Q 400 400 376 400 L 80 400 Q 65 400 55 390 L 10 345 Q 0 335 0 320 Z"
+                  fill="url(#left-glass-tr)"
+                  stroke="rgba(255, 255, 255, 0.5)"
+                  strokeWidth="2"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </svg>
+
+              {/* Content Container */}
+              <div className="relative z-30 flex h-full w-full flex-col items-center justify-between p-4 text-center md:p-5 lg:p-6">
+                <div className="font-syncopate text-[9px] font-bold tracking-[0.3em] text-white md:text-[10px]">
+                  MAZZIN.IN
+                </div>
+                <div className="font-syncopate text-4xl font-black tracking-tighter text-white drop-shadow-md md:text-5xl lg:text-6xl">
+                  45+
+                </div>
+                <div className="font-sans text-[9px] font-semibold tracking-widest text-white md:text-[10px]">
+                  BUSINESS EXPERTS
+                </div>
               </div>
             </div>
           </div>
@@ -114,50 +166,109 @@ export default function HeroBoxes() {
         {/* Bottom Right Box */}
         <div className="pointer-events-auto relative self-end">
           <div className="drop-shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
-            <div
-              className="relative flex h-[120px] w-[220px] flex-col items-center justify-between overflow-hidden bg-white/5 px-6 py-4 text-center backdrop-blur-3xl backdrop-brightness-110 backdrop-saturate-150 md:h-[140px] md:w-[250px] md:px-8 md:py-5 lg:h-[160px] lg:w-[280px] lg:px-10 lg:py-6"
-              style={{
-                clipPath:
-                  'polygon(0 10%, 5% 0, 72% 0, 76% 4%, 100% 4%, 100% 90%, 92% 100%, 0 100%, 0 65%, 5% 60%, 5% 35%, 0 30%)',
-                transform: 'translateZ(0)',
-                boxShadow:
-                  'inset 0 2px 6px rgba(255,255,255,0.6), inset 0 -2px 6px rgba(255,255,255,0.1)',
-              }}
-            >
-              {/* Liquid Glass Reflections */}
-              <div className="pointer-events-none absolute top-0 left-0 h-1/2 w-full bg-gradient-to-b from-white/30 to-transparent" />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-white/40" />
-
-              <span className="font-syncopate relative z-10 text-xl font-bold tracking-wider text-white drop-shadow-md md:text-2xl lg:text-3xl">
-                120+
-              </span>
-              <div className="relative z-10 flex -space-x-2 md:-space-x-3">
-                <Image
-                  src="https://i.pravatar.cc/150?img=11"
-                  width={40}
-                  height={40}
-                  className="h-6 w-6 rounded-full border border-white/50 shadow-sm md:h-8 md:w-8 lg:h-10 lg:w-10"
-                  alt="avatar"
-                />
-                <Image
-                  src="https://i.pravatar.cc/150?img=33"
-                  width={40}
-                  height={40}
-                  className="h-6 w-6 rounded-full border border-white/50 shadow-sm md:h-8 md:w-8 lg:h-10 lg:w-10"
-                  alt="avatar"
-                />
-                <Image
-                  src="https://i.pravatar.cc/150?img=47"
-                  width={40}
-                  height={40}
-                  className="h-6 w-6 rounded-full border border-white/50 shadow-sm md:h-8 md:w-8 lg:h-10 lg:w-10"
-                  alt="avatar"
+            <div className="relative z-10 h-[120px] w-[220px] md:h-[140px] md:w-[250px] lg:h-[160px] lg:w-[280px]">
+              {/* Glass Blur (Clipped with rough CSS polygon) */}
+              <div
+                className="absolute inset-0 backdrop-blur-3xl backdrop-brightness-110 backdrop-saturate-[1.2]"
+                style={{
+                  clipPath:
+                    'polygon(30% 0, 100% 0, 100% 100%, 0 100%, 0 53%, 23% 41%, 30% 0)',
+                  transform: 'translateZ(0)',
+                }}
+              >
+                {/* SVG Filter for Liquid Effect */}
+                <div
+                  className="absolute inset-0 z-0 bg-white/5 mix-blend-overlay"
+                  style={{ filter: 'url(#glass-blur)' }}
                 />
               </div>
-              <div className="relative z-10 font-sans text-[8px] leading-relaxed font-bold tracking-[0.2em] text-white uppercase md:text-[10px] lg:text-[11px]">
-                YOUR PARTNER IN
-                <br />
-                BUSINESS GROWTH
+
+              {/* Glowing SVG Background, Gradients & Border */}
+              <svg
+                className="pointer-events-none absolute inset-0 z-20 h-full w-full drop-shadow-sm"
+                viewBox="0 0 280 160"
+                preserveAspectRatio="none"
+              >
+                <defs>
+                  <linearGradient
+                    id="right-glass-top"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
+                    <stop offset="0%" stopColor="rgba(255,255,255,0.3)" />
+                    <stop offset="40%" stopColor="rgba(255,255,255,0)" />
+                  </linearGradient>
+                  <linearGradient
+                    id="right-glass-tr"
+                    x1="0"
+                    y1="1"
+                    x2="1"
+                    y2="0"
+                  >
+                    <stop offset="0%" stopColor="rgba(255,255,255,0.05)" />
+                    <stop offset="50%" stopColor="rgba(255,255,255,0)" />
+                    <stop offset="100%" stopColor="rgba(255,255,255,0.1)" />
+                  </linearGradient>
+                </defs>
+                <path
+                  d="M 85 0 L 260 0 C 271 0, 280 9, 280 20 L 280 140 C 280 151, 271 160, 260 160 L 20 160 C 9 160, 0 151, 0 140 L 0 85 C 0 74, 9 65, 20 65 L 45 65 Q 65 65, 65 45 L 65 20 C 65 9, 74 0, 85 0 Z"
+                  fill="rgba(255, 255, 255, 0.05)"
+                />
+                <path
+                  d="M 85 0 L 260 0 C 271 0, 280 9, 280 20 L 280 140 C 280 151, 271 160, 260 160 L 20 160 C 9 160, 0 151, 0 140 L 0 85 C 0 74, 9 65, 20 65 L 45 65 Q 65 65, 65 45 L 65 20 C 65 9, 74 0, 85 0 Z"
+                  fill="url(#right-glass-top)"
+                />
+                <path
+                  d="M 85 0 L 260 0 C 271 0, 280 9, 280 20 L 280 140 C 280 151, 271 160, 260 160 L 20 160 C 9 160, 0 151, 0 140 L 0 85 C 0 74, 9 65, 20 65 L 45 65 Q 65 65, 65 45 L 65 20 C 65 9, 74 0, 85 0 Z"
+                  fill="url(#right-glass-tr)"
+                  stroke="rgba(255, 255, 255, 0.5)"
+                  strokeWidth="2"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </svg>
+
+              {/* Content Container */}
+              <div className="relative z-30 flex h-full w-full flex-col justify-between p-4 text-left md:p-5 lg:p-6">
+                {/* Top Row: Constrained to the right side (75% width for the narrower cutout) */}
+                <div className="flex w-full justify-end">
+                  <div className="flex w-[75%] items-center justify-between pl-2 lg:pr-2">
+                    <span className="font-syncopate text-lg font-bold tracking-wider text-white drop-shadow-md md:text-xl lg:text-2xl">
+                      200+
+                    </span>
+                    <div className="flex -space-x-2 md:-space-x-3">
+                      <Image
+                        src="https://i.pravatar.cc/150?img=11"
+                        width={40}
+                        height={40}
+                        className="h-5 w-5 rounded-full border border-white/50 shadow-sm md:h-7 md:w-7 lg:h-9 lg:w-9"
+                        alt="avatar"
+                      />
+                      <Image
+                        src="https://i.pravatar.cc/150?img=33"
+                        width={40}
+                        height={40}
+                        className="h-5 w-5 rounded-full border border-white/50 shadow-sm md:h-7 md:w-7 lg:h-9 lg:w-9"
+                        alt="avatar"
+                      />
+                      <Image
+                        src="https://i.pravatar.cc/150?img=47"
+                        width={40}
+                        height={40}
+                        className="h-5 w-5 rounded-full border border-white/50 shadow-sm md:h-7 md:w-7 lg:h-9 lg:w-9"
+                        alt="avatar"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom Row */}
+                <div className="font-syncopate mt-auto text-[8px] leading-[1.4] font-bold tracking-widest text-white uppercase drop-shadow-sm md:text-[9px] lg:text-[10px]">
+                  YOUR PARTNER IN
+                  <br />
+                  BUSINESS GROWTH
+                </div>
               </div>
             </div>
           </div>
