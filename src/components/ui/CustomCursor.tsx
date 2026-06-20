@@ -68,14 +68,17 @@ export default function CustomCursor() {
       }
 
       if (ringRef.current) {
-        ringRef.current.style.transform = `translate(${ring.current.x}px, ${ring.current.y}px) scale(${hoverRef.current ? 1.5 : 1})`
+        ringRef.current.style.transform = `translate(${ring.current.x}px, ${ring.current.y}px) scale(${hoverRef.current ? 0.5 : 1})`
         ringRef.current.style.backgroundColor = hoverRef.current
-          ? 'rgba(255, 255, 255, 0.1)'
+          ? 'rgba(255, 255, 255, 0.2)'
           : 'transparent'
+        ringRef.current.style.borderColor = hoverRef.current
+          ? 'rgba(255, 255, 255, 0.5)'
+          : 'rgba(255, 255, 255, 0.8)'
       }
       if (dotRef.current) {
         dotRef.current.style.transform = `translate(${dotX}px, ${dotY}px)`
-        dotRef.current.style.opacity = hoverRef.current ? '0' : '1'
+        dotRef.current.style.backgroundColor = 'white'
       }
 
       if (isRunning) {
@@ -119,12 +122,12 @@ export default function CustomCursor() {
     <>
       <div
         ref={ringRef}
-        className="pointer-events-none fixed top-0 left-0 z-[9999] hidden h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/80 transition-[scale,background-color] duration-300 ease-out md:block"
+        className="pointer-events-none fixed top-0 left-0 z-[9999] hidden h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/80 transition-[scale,background-color,border-color] duration-300 ease-out md:block"
         style={{ transform: 'translate(-100px, -100px)' }}
       />
       <div
         ref={dotRef}
-        className="pointer-events-none fixed top-0 left-0 z-[10000] hidden h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white transition-opacity duration-150 md:block"
+        className="pointer-events-none fixed top-0 left-0 z-[10000] hidden h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white transition-colors duration-150 md:block"
         style={{ transform: 'translate(-100px, -100px)' }}
       />
     </>

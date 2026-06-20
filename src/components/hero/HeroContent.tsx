@@ -23,9 +23,9 @@ export default function HeroContent() {
 
         <div className="flex flex-1 items-center justify-end">
           <div className="hidden items-center gap-4 md:flex md:gap-6">
-            <div className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/50 transition-all hover:border-blue-500 hover:bg-transparent">
+            <div className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/50 transition-all hover:border-white hover:bg-white">
               <svg
-                className="h-4 w-4 text-white transition-colors group-hover:text-blue-500 md:h-5 md:w-5"
+                className="h-4 w-4 text-white transition-colors group-hover:text-[#0a0a0a] md:h-5 md:w-5"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -38,9 +38,9 @@ export default function HeroContent() {
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
               </svg>
             </div>
-            <div className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/50 transition-all hover:border-blue-500 hover:bg-transparent">
+            <div className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/50 transition-all hover:border-white hover:bg-white">
               <svg
-                className="h-4 w-4 text-white transition-colors group-hover:text-blue-500 md:h-5 md:w-5"
+                className="h-4 w-4 text-white transition-colors group-hover:text-[#0a0a0a] md:h-5 md:w-5"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -51,9 +51,9 @@ export default function HeroContent() {
                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
               </svg>
             </div>
-            <div className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/50 transition-all hover:border-blue-500 hover:bg-transparent">
+            <div className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/50 transition-all hover:border-white hover:bg-white">
               <svg
-                className="h-4 w-4 text-white transition-colors group-hover:text-blue-500 md:h-5 md:w-5"
+                className="h-4 w-4 text-white transition-colors group-hover:text-[#0a0a0a] md:h-5 md:w-5"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
