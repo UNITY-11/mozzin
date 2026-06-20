@@ -70,25 +70,23 @@ export default function HeroContent() {
       </header>
 
       {/* Main Content Areas that space themselves out vertically */}
-      <div className="mt-0 flex flex-1 flex-col justify-between gap-6 md:mt-16 md:gap-0">
+      <div className="mt-0 flex flex-1 flex-col justify-between gap-6 md:mt-6 md:gap-0">
         {/* Top Row: Headings */}
         <div className="order-2 flex w-full flex-col justify-between gap-8 md:order-1 md:flex-row md:items-start lg:px-4">
           {/* Left Text */}
           <div className="pointer-events-auto w-full max-w-[300px] md:max-w-md">
-            <h1 className="mb-2 font-sans text-xl leading-[1.15] font-semibold tracking-wide text-white md:mb-6 md:text-4xl lg:text-3xl">
-              <span className="font-syncopate font-bold text-white drop-shadow-md">
-                I&apos;m helping
-                <br />
-                Brands To Grow
-                <br />
-                In The Digital Era
-              </span>
+            <h1 className="font-syncopate mb-2 text-2xl leading-[1.05] font-bold tracking-tight text-white uppercase drop-shadow-md md:mb-6 md:text-3xl lg:text-4xl">
+              CRAFTING
+              <br />
+              DIGITAL
+              <br />
+              EXPERIENCES
             </h1>
           </div>
 
           {/* Right Text */}
           <div className="pointer-events-auto hidden md:block md:text-right">
-            <h2 className="font-syncopate text-2xl leading-[1.1] font-bold tracking-wide text-white md:text-4xl lg:text-3xl">
+            <h2 className="font-syncopate text-2xl leading-[1.05] font-bold tracking-tight text-white uppercase drop-shadow-md md:text-3xl lg:text-4xl">
               MARKETING
               <br />
               STRATEGY
