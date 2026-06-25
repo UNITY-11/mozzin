@@ -80,6 +80,8 @@ export default function AboutSection() {
   const p2Ref = useRef<HTMLDivElement>(null)
   const p3Ref = useRef<HTMLDivElement>(null)
 
+  const topX = useRef(0)
+  const bottomX = useRef(0)
   const smoothVelocity = useRef(0)
   const lastScrollY = useRef(0)
 
@@ -106,7 +108,7 @@ export default function AboutSection() {
   useEffect(() => {
     lastScrollY.current = window.scrollY
     let animationFrameId: number
-    let isRunning = false
+    const isRunning = false
 
     const handleScrollUpdate = () => {
       const currentScroll = window.scrollY
@@ -115,10 +117,37 @@ export default function AboutSection() {
 
       smoothVelocity.current += (delta - smoothVelocity.current) * 0.1
 
-      // Pause loop if no scrolling is happening and velocity is near zero
-      if (Math.abs(delta) < 0.1 && Math.abs(smoothVelocity.current) < 0.1) {
-        isRunning = false
-        return
+      const velocitySpeed = Math.abs(smoothVelocity.current) * 0.002
+
+      let directionTop = -1
+      let directionBottom = 1
+
+      if (smoothVelocity.current > 1) {
+        directionTop = -1
+        directionBottom = 1
+      } else if (smoothVelocity.current < -1) {
+        directionTop = 1
+        directionBottom = -1
+      }
+
+      const baseSpeedTop = 0.02
+      const baseSpeedBottom = 0.015
+
+      topX.current += (baseSpeedTop + velocitySpeed) * directionTop
+      bottomX.current += (baseSpeedBottom + velocitySpeed) * directionBottom
+
+      if (topX.current <= -25) topX.current += 25
+      else if (topX.current > 0) topX.current -= 25
+
+      if (bottomX.current <= -25) bottomX.current += 25
+      else if (bottomX.current > 0) bottomX.current -= 25
+
+      if (topMarqueeRef.current) {
+        topMarqueeRef.current.style.transform = `translate3d(${topX.current}%, 0, 0)`
+      }
+
+      if (bottomMarqueeRef.current) {
+        bottomMarqueeRef.current.style.transform = `translate3d(${bottomX.current}%, 0, 0)`
       }
 
       // Paragraph animation logic
@@ -230,18 +259,10 @@ export default function AboutSection() {
       animationFrameId = requestAnimationFrame(handleScrollUpdate)
     }
 
-    const onScroll = () => {
-      if (!isRunning) {
-        isRunning = true
-        animationFrameId = requestAnimationFrame(handleScrollUpdate)
-      }
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
+    // Let it run immediately and continuously
+    handleScrollUpdate()
 
     return () => {
-      window.removeEventListener('scroll', onScroll)
       cancelAnimationFrame(animationFrameId)
     }
   }, [])
@@ -251,10 +272,7 @@ export default function AboutSection() {
       {/* Top Marquee */}
       <div className="mb-8 hidden w-full overflow-hidden border-b border-white/5 bg-white/[0.02] py-6 backdrop-blur-md md:mb-0 md:flex">
         <div ref={topMarqueeRef} className="flex w-max">
-          <div
-            className="animate-marquee flex w-max whitespace-nowrap"
-            style={{ animationDuration: '50s' }}
-          >
+          <div className="flex w-max whitespace-nowrap">
             {[...Array(4)].map((_, i) => (
               <div key={i} className="flex items-center">
                 <span className="font-syncopate mx-8 text-xl font-bold tracking-wider text-white md:text-2xl">
@@ -382,10 +400,7 @@ export default function AboutSection() {
       {/* Bottom Marquee */}
       <div className="flex w-full overflow-hidden border-t border-white/5 bg-[#01030a] py-6">
         <div ref={bottomMarqueeRef} className="flex w-max">
-          <div
-            className="animate-marquee flex w-max whitespace-nowrap"
-            style={{ animationDuration: '40s', animationDirection: 'reverse' }}
-          >
+          <div className="flex w-max whitespace-nowrap">
             {[...Array(4)].map((_, i) => (
               <div key={i} className="flex items-center">
                 <span className="font-syncopate mx-8 text-xl font-bold tracking-wider text-white/50 md:text-2xl">
